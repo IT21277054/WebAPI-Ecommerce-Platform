@@ -52,4 +52,4 @@ Configure your NoSQL database (e.g., MongoDB, Firebase, etc.) and update the con
 - **Shiraz M.S** it21277054 - `shamryshiraz@gmail.com`
 - **Umaira M.M** it21258312 - `mumaira0625@gmail.com`
 - **Mallawaarachchi T.D.R** it21282836 - `thejani.mallawaarachchi@gmail.com`
-- **Peiris A.R.D** It21249266
+- **Peiris A.R.D** It21249266 - `ardpeiris@gmail.com`
