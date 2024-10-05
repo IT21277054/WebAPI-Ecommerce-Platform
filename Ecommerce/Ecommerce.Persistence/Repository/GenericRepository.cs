@@ -2,17 +2,11 @@
 using Ecommerce.Domain.Common;
 using Ecommerce.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+public class GenericRepository<T> : IGenericRepository<T> where T : IBaseEntity
 {
-
     protected EcommerceDBContext _context;
 
     public GenericRepository(EcommerceDBContext context)

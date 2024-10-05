@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\OrderCancelation\**" />
+    <Compile Remove="Features\Orders\**" />
+    <EmbeddedResource Remove="Features\OrderCancelation\**" />
+    <EmbeddedResource Remove="Features\Orders\**" />
+    <None Remove="Features\OrderCancelation\**" />
+    <None Remove="Features\Orders\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation" Version="11.10.0" />
@@ -19,46 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Inventory\Commands\CreateInventory\" />
-    <Folder Include="Features\Inventory\Commands\DeleteInventory\" />
-    <Folder Include="Features\Inventory\Commands\UpdateInventory\" />
-    <Folder Include="Features\Inventory\Queries\GetAllInventory\" />
-    <Folder Include="Features\Inventory\Queries\GetInventoryDetails\" />
-    <Folder Include="Features\OrderCancelation\Commands\CreateOrderCancellation\" />
-    <Folder Include="Features\OrderCancelation\Commands\DeleteOrderCancellation\" />
-    <Folder Include="Features\OrderCancelation\Commands\UpdateOrderCancellation\" />
-    <Folder Include="Features\OrderCancelation\Queries\GetAllOrderCancellation\" />
-    <Folder Include="Features\OrderCancelation\Queries\GetOrderCancellationDetails\" />
-    <Folder Include="Features\Orders\Commands\CreateOrder\" />
-    <Folder Include="Features\Orders\Commands\DeleteOrder\" />
-    <Folder Include="Features\Orders\Commands\UpdateOrder\" />
-    <Folder Include="Features\Orders\Queries\GetAllOrders\" />
-    <Folder Include="Features\Orders\Queries\GetOrderDetails\" />
-    <Folder Include="Features\Product\Commands\CreateProduct\" />
-    <Folder Include="Features\Product\Commands\DeleteProduct\" />
-    <Folder Include="Features\Product\Commands\UpdateProduct\" />
-    <Folder Include="Features\Product\Queries\GetAllProduct\" />
-    <Folder Include="Features\Product\Queries\GetProductDetails\" />
-    <Folder Include="Features\UserRoles\Commands\CreateUserRoles\" />
-    <Folder Include="Features\UserRoles\Commands\DeleteUserRoles\" />
-    <Folder Include="Features\UserRoles\Commands\UpdateUserRoles\" />
-    <Folder Include="Features\UserRoles\Queries\GetAllUserRoles\" />
-    <Folder Include="Features\UserRoles\Queries\GetUserRolesDetails\" />
-    <Folder Include="Features\User\Commands\CreateUser\" />
-    <Folder Include="Features\User\Commands\DeleteUser\" />
-    <Folder Include="Features\User\Commands\UpdateUser\" />
-    <Folder Include="Features\User\Queries\GetAllUser\" />
-    <Folder Include="Features\User\Queries\GetUserDetails\" />
-    <Folder Include="Features\VendorFeedback\Commands\CreateVendorFeedback\" />
-    <Folder Include="Features\VendorFeedback\Commands\DeleteVendorFeedback\" />
-    <Folder Include="Features\VendorFeedback\Commands\UpdateVendorFeedback\" />
-    <Folder Include="Features\VendorFeedback\Queries\GetAllVendorFeedback\" />
-    <Folder Include="Features\VendorFeedback\Queries\GetVendorFeedbackDetails\" />
-    <Folder Include="Features\Vendor\Commands\CreateVendor\" />
-    <Folder Include="Features\Vendor\Commands\DeleteVendor\" />
-    <Folder Include="Features\Vendor\Commands\UpdateVendor\" />
-    <Folder Include="Features\Vendor\Queries\GetAllVendor\" />
-    <Folder Include="Features\Vendor\Queries\GetVendorDetails\" />
+    <Folder Include="Contracts\Persistence\" />
   </ItemGroup>
 
 </Project>

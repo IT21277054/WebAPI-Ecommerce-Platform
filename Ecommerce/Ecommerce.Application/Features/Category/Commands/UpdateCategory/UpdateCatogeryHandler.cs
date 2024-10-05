@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory;
 
-public class UpdateCatogeryHandler : IRequestHandler<UpdateCategoryCommand, Unit>
+public class UpdateCatogeryHandler : IRequestHandler<UpdateCategoryCommand, int>
 {
     private readonly IMapper _mapper;
     private readonly ICategoryRepository _categoryRepository;
@@ -20,17 +15,17 @@ public class UpdateCatogeryHandler : IRequestHandler<UpdateCategoryCommand, Unit
         this._categoryRepository = categoryRepository;
 
     }
-    public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 
         //convert domain entity object
-        var categoryToUpdate = _mapper.Map<Domain.Category>(request);
+        var categoryToUpdate = _mapper.Map<Domain.Category>(request.dto);
 
         //add to database
         await _categoryRepository.UpdateAsync(categoryToUpdate);
 
         //return record id
-        return Unit.Value;
+        return categoryToUpdate.Id;
     }
 }

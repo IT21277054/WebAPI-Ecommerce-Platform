@@ -1,13 +1,6 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
+using MediatR;
 
 namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory;
 
-public class UpdateCategoryCommand : IRequest<Unit>
-{
-    public string Name { get; set; } = string.Empty;
-}
+public record UpdateCategoryCommand(CategoryDto dto) : IRequest<int>;
