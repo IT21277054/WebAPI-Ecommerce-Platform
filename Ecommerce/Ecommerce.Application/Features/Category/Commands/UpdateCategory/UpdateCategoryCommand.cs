@@ -9,6 +9,6 @@ namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory
 {
     public class UpdateCategoryCommand : IRequest<Unit>
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

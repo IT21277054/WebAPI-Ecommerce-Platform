@@ -15,6 +15,6 @@ public class User : BaseEntity
     public string City { get; set; } = string.Empty;
     public string Region { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public UserRoles UserRole { get; set; }
+    public UserRoles? UserRole { get; set; }
 
 }
