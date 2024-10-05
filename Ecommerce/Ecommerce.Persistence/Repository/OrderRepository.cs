@@ -2,13 +2,11 @@
 using Ecommerce.Domain;
 using Ecommerce.Persistence.DatabaseContext;
 
-namespace Ecommerce.Persistence.Repository
+namespace Ecommerce.Persistence.Repository;
+
+public class OrderRepository : GenericRepository<Order>, IOrderRepository
 {
-    public class OrderRepository : GenericRepository<Order>, IOrderRepository
+    public OrderRepository(EcommerceDBContext context) : base(context)
     {
-        public OrderRepository(EcommerceDBContext context) : base(context)
-        {
-        }
     }
 }
- 

@@ -7,31 +7,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory
+namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory;
+
+public class UpdateCatogeryHandler : IRequestHandler<UpdateCategoryCommand, Unit>
 {
-    public class UpdateCatogeryHandler : IRequestHandler<UpdateCategoryCommand, Unit>
+    private readonly IMapper _mapper;
+    private readonly ICategoryRepository _categoryRepository;
+
+    public UpdateCatogeryHandler(IMapper mapper, ICategoryRepository categoryRepository)
     {
-        private readonly IMapper _mapper;
-        private readonly ICategoryRepository _categoryRepository;
+        this._mapper = mapper;
+        this._categoryRepository = categoryRepository;
 
-        public UpdateCatogeryHandler(IMapper mapper, ICategoryRepository categoryRepository)
-        {
-            this._mapper = mapper;
-            this._categoryRepository = categoryRepository;
+    }
+    public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    {
+        //Validate incoming data
 
-        }
-        public async Task<Unit> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
-        {
-            //Validate incoming data
+        //convert domain entity object
+        var categoryToUpdate = _mapper.Map<Domain.Category>(request);
 
-            //convert domain entity object
-            var categoryToUpdate = _mapper.Map<Domain.Category>(request);
+        //add to database
+        await _categoryRepository.UpdateAsync(categoryToUpdate);
 
-            //add to database
-            await _categoryRepository.UpdateAsync(categoryToUpdate);
-
-            //return record id
-            return Unit.Value;
-        }
+        //return record id
+        return Unit.Value;
     }
 }

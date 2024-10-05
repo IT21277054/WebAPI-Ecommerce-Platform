@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Persistence.Repository
+namespace Ecommerce.Persistence.Repository;
+
+public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
 {
-    public class CategoryRepository : GenericRepository<Category>, ICategoryRepository
+    public CategoryRepository(EcommerceDBContext context) : base(context)
     {
-        public CategoryRepository(EcommerceDBContext context) : base(context)
-        {
-        }
     }
 }
- 

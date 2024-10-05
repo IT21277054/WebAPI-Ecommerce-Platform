@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory
+namespace Ecommerce.Application.Features.Category.Commands.UpdateCategory;
+
+public class UpdateCategoryCommand : IRequest<Unit>
 {
-    public class UpdateCategoryCommand : IRequest<Unit>
-    {
-        public string Name { get; set; } = string.Empty;
-    }
+    public string Name { get; set; } = string.Empty;
 }

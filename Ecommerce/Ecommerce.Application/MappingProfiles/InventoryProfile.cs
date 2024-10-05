@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Application.MappingProfiles
+namespace Ecommerce.Application.MappingProfiles;
+
+internal class InventoryProfile
 {
-    internal class InventoryProfile
-    {
-    }
 }

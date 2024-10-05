@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Application.Features.Category.Commands.DeleteCategory
+namespace Ecommerce.Application.Features.Category.Commands.DeleteCategory;
+
+public class DeleteCategoryCommand : IRequest<Unit>
 {
-    public class DeleteCategoryCommand : IRequest<Unit>
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }
