@@ -12,5 +12,6 @@ public class OrderCancelation : BaseEntity
     public string Topic { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string Date { get; set; } = string.Empty;
+    public int OrderId { get; set; }
 
 }

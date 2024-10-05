@@ -1,8 +1,7 @@
 ﻿using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+public interface IVendorFeedbackRepository : IGenericRepository<VendorFeedback>
 {
-    public interface IVendorFeedbackRepository : IGenericRepository<VendorFeedback>
-    {
-    }
 }

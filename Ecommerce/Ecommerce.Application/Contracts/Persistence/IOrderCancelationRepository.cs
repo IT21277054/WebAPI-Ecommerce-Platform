@@ -1,8 +1,7 @@
 ﻿using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+public interface IOrderCancelationRepository : IGenericRepository<OrderCancelation>
 {
-    public interface IOrderCancelationRepository : IGenericRepository<OrderCancelation>
-    {
-    }
 }

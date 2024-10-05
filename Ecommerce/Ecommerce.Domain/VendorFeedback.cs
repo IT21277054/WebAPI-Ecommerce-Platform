@@ -11,5 +11,6 @@ public class VendorFeedback : BaseEntity
 {
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public int Rate { get; set; }
     public int VendorId { get; set; }
 }
