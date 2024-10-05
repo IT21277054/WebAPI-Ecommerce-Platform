@@ -1,17 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ecommerce.Persistence.DatabaseContext;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Persistence.Repository;
 
 namespace Ecommerce.Persistence;
 
 public static class PersistenceServiceRegistration
 {
-    public static IServiceCollection AddPersistenceServices(this IServiceCollection services)
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDbContext<EcommerceDBContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("EcommerceDBConnectionString"));
+        });
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
         return services;
     }
 }
