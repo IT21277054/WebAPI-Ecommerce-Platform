@@ -1,6 +1,7 @@
 ﻿using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
+using Ecommerce.Application.Features.User.Commands.DeleteUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +32,7 @@ public class OrderController : ControllerBase
     {
         var result = await _sender.Send(new CreateOrderCommand(OrderDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
     [HttpPut(Name = "UpdateOrder")]
@@ -44,8 +45,8 @@ public class OrderController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteOrder")]
-    public async Task<List<OrderDto>> DeleteOrder()
+    public async Task<Unit> DeleteOrder()
     {
-        return await _sender.Send(new GetOrderQuery());
+        return await _sender.Send(new DeleteUserCommand());
     }
 }

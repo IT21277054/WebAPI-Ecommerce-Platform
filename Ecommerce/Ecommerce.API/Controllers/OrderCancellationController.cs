@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+using Ecommerce.Application.Features.OrderCancellation.Commands.DeleteOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Commands.UpdateOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
 using MediatR;
@@ -31,7 +32,7 @@ public class OrderCancellationController : ControllerBase
     {
         var result = await _sender.Send(new CreateOrderCancellationCommand(orderCancellationDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
     [HttpPut(Name = "UpdateOrderCancellation")]
@@ -44,8 +45,8 @@ public class OrderCancellationController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteOrderCancellation")]
-    public async Task<List<OrderCancelationDto>> DeleteOrderCancellation()
+    public async Task<Unit> DeleteOrderCancellation()
     {
-        return await _sender.Send(new GetOrderCancelationQuery());
+        return await _sender.Send(new DeleteOrderCancellationCommand());
     }
 }

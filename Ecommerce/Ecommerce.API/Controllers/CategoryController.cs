@@ -1,4 +1,5 @@
 using Ecommerce.Application.Features.Category.Commands.CreateCategory;
+using Ecommerce.Application.Features.Category.Commands.DeleteCategory;
 using Ecommerce.Application.Features.Category.Commands.UpdateCategory;
 using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
 using MediatR;
@@ -31,7 +32,7 @@ public class CategoryController : ControllerBase
     {
         var result = await _sender.Send(new CreateCategoryCommand(categoryDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
     [HttpPut(Name = "api/UpdateCategory")]
@@ -44,8 +45,8 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete(Name = "api/DeleteCategory")]
-    public async Task<List<CategoryDto>> DeleteCategory()
+    public async Task<Unit> DeleteCategory()
     {
-        return await _sender.Send(new GetCategoriesQuery());
+        return await _sender.Send(new DeleteCategoryCommand());
     }
 }

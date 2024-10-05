@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
+using Ecommerce.Application.Features.Vendor.Commands.DeleteVendor;
 using Ecommerce.Application.Features.Vendor.Commands.UpdateVendor;
 using Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
 using MediatR;
@@ -32,7 +33,7 @@ public class VendorController : ControllerBase
     {
         var result = await _sender.Send(new CreateVendorCommand(vendorDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
     [HttpPut(Name = "UpdateVendor")]
@@ -45,8 +46,8 @@ public class VendorController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteVendor")]
-    public async Task<List<VendorDto>> DeleteVendor()
+    public async Task<Unit> DeleteVendor()
     {
-        return await _sender.Send(new GetVendorQuery());
+        return await _sender.Send(new DeleteVendorCommand());
     }
 }

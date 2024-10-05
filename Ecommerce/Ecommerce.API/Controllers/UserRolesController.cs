@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.UserRoles.Commands.CreateUserRole;
+using Ecommerce.Application.Features.UserRoles.Commands.DeleteUserRole;
 using Ecommerce.Application.Features.UserRoles.Commands.UpdateUserRole;
 using Ecommerce.Application.Features.UserRoles.Queries.GetAllUserRole;
 using MediatR;
@@ -31,7 +32,7 @@ public class UserRolesController : ControllerBase
     {
         var result = await _sender.Send(new CreateUserRoleCommand(userRolesDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
 
@@ -45,8 +46,8 @@ public class UserRolesController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteUserRoles")]
-    public async Task<List<UserRoleDto>> DeleteUserRoles()
+    public async Task<Unit> DeleteUserRoles()
     {
-        return await _sender.Send(new GetUserRolesQuery());
+        return await _sender.Send(new DeleteUserRoleCommand());
     }
 }

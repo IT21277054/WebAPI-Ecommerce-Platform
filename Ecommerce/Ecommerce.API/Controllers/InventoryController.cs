@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
+using Ecommerce.Application.Features.Inventory.Commands.DeleteInventory;
 using Ecommerce.Application.Features.Inventory.Commands.UpdateInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 using MediatR;
@@ -31,7 +32,7 @@ public class InventoryController : ControllerBase
     {
         var result = await _sender.Send(new CreateInventoryCommand(inventoryDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
 
@@ -45,8 +46,8 @@ public class InventoryController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteInventory")]
-    public async Task<List<InventoryDto>> DeleteInventory()
+    public async Task<Unit> DeleteInventory()
     {
-        return await _sender.Send(new GetInventoryQuery());
+        return await _sender.Send(new DeleteInventoryCommand());
     }
 }

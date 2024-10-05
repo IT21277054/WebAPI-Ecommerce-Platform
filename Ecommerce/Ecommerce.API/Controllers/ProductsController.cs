@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+using Ecommerce.Application.Features.Product.Commands.DeleteProduct;
 using Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 using MediatR;
@@ -32,7 +33,7 @@ public class ProductsController : ControllerBase
     {
         var result = await _sender.Send(new CreateProductCommand(ProductsDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
     [HttpPut(Name = "UpdateProducts")]
@@ -45,8 +46,8 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteProducts")]
-    public async Task<List<ProductDto>> DeleteProducts()
+    public async Task<Unit> DeleteProducts()
     {
-        return await _sender.Send(new GetProductQuery());
+        return await _sender.Send(new DeleteProductCommand());
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+using Ecommerce.Application.Features.User.Commands.DeleteUser;
 using Ecommerce.Application.Features.User.Commands.UpdateUser;
 using Ecommerce.Application.Features.User.Queries.GetAllUsers;
 using MediatR;
@@ -31,7 +32,7 @@ public class UserController : ControllerBase
     {
         var result = await _sender.Send(new CreateUserCommand(userDto));
 
-        return Ok(new { Response = result });
+        return Ok(result);
     }
 
     [HttpPut(Name = "UpdateUser")]
@@ -44,8 +45,8 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteUser")]
-    public async Task<List<UserDto>> DeleteUser()
+    public async Task<Unit> DeleteUser()
     {
-        return await _sender.Send(new GetUserQuery());
+        return await _sender.Send(new DeleteUserCommand());
     }
 }
