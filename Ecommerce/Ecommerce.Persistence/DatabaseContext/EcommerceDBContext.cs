@@ -1,11 +1,10 @@
 ﻿using Ecommerce.Domain;
 using Ecommerce.Domain.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using Microsoft.Extensions.Configuration;
+using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace Ecommerce.Persistence.DatabaseContext;
 
@@ -25,6 +24,13 @@ public class EcommerceDBContext : DbContext
     public DbSet<UserRoles> UserRoles { get; set; }
     public DbSet<Vendor> Vendor { get; set; }
     public DbSet<VendorFeedback> VendorFeedback { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Category>().ToCollection("customers");
+    }
+
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
