@@ -1,7 +1,9 @@
-﻿using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
+﻿using Ecommerce.Application.Features.Vendor.Queries.GetVendorDetails;
+using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Commands.DeleteVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Commands.UpdateAddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
+using Ecommerce.Application.Features.VendorFeedback.Queries.GetVendorFeedbackDetail;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +32,13 @@ public class VendorFeedbackController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("{id}", Name = "api/GetByVendorFeedbackId")]
+    [ProducesResponseType(typeof(List<VendorFeedbackDetailDto>), 200)]
+    public async Task<VendorFeedbackDetailDto> GetByVendorFeedbackId(int id)
+    {
+        return await _sender.Send(new GetVendorFeedbackDetailQuery(id));
+    }
+
     [HttpPost(Name = "CreateVendorFeedback")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateVendorFeedback(VendorFeedbackDto vendorFeedbackDto)
@@ -49,10 +58,10 @@ public class VendorFeedbackController : ControllerBase
 
     }
 
-    [HttpDelete(Name = "DeleteVendorFeedback")]
+    [HttpDelete("{id}", Name = "DeleteVendorFeedback")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteVendorFeedback()
+    public async Task<Unit> DeleteVendorFeedback(int id)
     {
-        return await _sender.Send(new DeleteVendorFeedbackCommand());
+        return await _sender.Send(new DeleteVendorFeedbackCommand(id));
     }
 }

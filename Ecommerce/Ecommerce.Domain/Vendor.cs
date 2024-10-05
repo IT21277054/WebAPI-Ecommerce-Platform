@@ -1,8 +1,11 @@
-﻿namespace Ecommerce.Domain;
+﻿using Ecommerce.Domain.Common;
 
-public class Vendor : User
+namespace Ecommerce.Domain;
+
+public class Vendor : IBaseEntity
 {
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
+    public string UserId { get; set; } = string.Empty;
 
 }

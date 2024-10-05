@@ -1,7 +1,10 @@
-﻿using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
+﻿using Ecommerce.Application.Features.Category.Queries.GetCategoryDetails;
+using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 using Ecommerce.Application.Features.Inventory.Commands.DeleteInventory;
 using Ecommerce.Application.Features.Inventory.Commands.UpdateInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
+using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
+using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +25,22 @@ public class InventoryController : ControllerBase
     }
 
     [HttpGet(Name = "GetAllInventories")]
+    [ProducesResponseType(typeof(List<InventoryDto>), 200)]
     public async Task<List<InventoryDto>> GetAllInventories()
     {
         return await _sender.Send(new GetInventoryQuery());
     }
 
+    [HttpGet("{id}", Name = "api/GetByInventorId")]
+    [ProducesResponseType(typeof(InventoryDetailDto), 200)]
+    public async Task<InventoryDetailDto> GetByInventorId(int id)
+    {
+        return await _sender.Send(new GetInventoryDetailQuery(id));
+    }
+
+
     [HttpPost(Name = "CreateInventory")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateInventory(InventoryDto inventoryDto)
     {
         var result = await _sender.Send(new CreateInventoryCommand(inventoryDto));
@@ -37,6 +50,7 @@ public class InventoryController : ControllerBase
 
 
     [HttpPut(Name = "UpdateInventory")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateInventory(InventoryDto inventoryDto)
     {
         var result = await _sender.Send(new UpdateInventoryCommand(inventoryDto));
@@ -45,9 +59,10 @@ public class InventoryController : ControllerBase
 
     }
 
-    [HttpDelete(Name = "DeleteInventory")]
-    public async Task<Unit> DeleteInventory()
+    [HttpDelete("{id}", Name = "DeleteInventory")]
+    [ProducesResponseType(typeof(Unit), 200)]
+    public async Task<Unit> DeleteInventory(int id)
     {
-        return await _sender.Send(new DeleteInventoryCommand());
+        return await _sender.Send(new DeleteInventoryCommand(id));
     }
 }

@@ -13,14 +13,30 @@ public class EcommerceDBContext : DbContext
     }
 
     public DbSet<Category> Category {  get; set; }
+    public DbSet<Inventory> Inventory { get; set; }
+    public DbSet<Order> Order { get; set; }
+    public DbSet<OrderCancelation> OrderCancelation { get; set; }
+    public DbSet<Product> Product { get; set; }
+    public DbSet<User> User { get; set; }
+    public DbSet<UserRoles> UserRoles { get; set; }
+    public DbSet<Vendor> Vendor { get; set; }
+    public DbSet<VendorFeedback> VendorFeedback { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Ignore<IBaseEntity>();
 
-
-        modelBuilder.Entity<Category>().ToCollection("categories");
+        modelBuilder.Entity<Category>().ToCollection(nameof(Category));
+        modelBuilder.Entity<Inventory>().ToCollection(nameof(Inventory));
+        modelBuilder.Entity<Order>().ToCollection(nameof(Order));
+        modelBuilder.Entity<OrderCancelation>().ToCollection(nameof(OrderCancelation));
+        modelBuilder.Entity<Product>().ToCollection(nameof(Product));
+        modelBuilder.Entity<User>().ToCollection(nameof(User));
+        modelBuilder.Entity<UserRoles>().ToCollection(nameof(UserRoles));
+        modelBuilder.Entity<Vendor>().ToCollection(nameof(Vendor));
+        modelBuilder.Entity<VendorFeedback>().ToCollection(nameof(VendorFeedback));
     }
 
 

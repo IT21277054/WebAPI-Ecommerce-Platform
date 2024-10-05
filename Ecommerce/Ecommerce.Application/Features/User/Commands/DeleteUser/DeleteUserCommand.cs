@@ -2,7 +2,4 @@
 
 namespace Ecommerce.Application.Features.User.Commands.DeleteUser;
 
-public class DeleteUserCommand : IRequest<Unit>
-{
-    public int Id { get; set; }
-}
+public record DeleteUserCommand(int Id) : IRequest<Unit>;

@@ -1,7 +1,9 @@
 ﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using Ecommerce.Application.Features.User.Commands.DeleteUser;
 using Ecommerce.Application.Features.User.Commands.UpdateUser;
 using Ecommerce.Application.Features.User.Queries.GetAllUsers;
+using Ecommerce.Application.Features.User.Queries.GetUserDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +24,21 @@ public class UserController : ControllerBase
     }
 
     [HttpGet(Name = "GetAllUserProfile")]
+    [ProducesResponseType(typeof(List<UserDto>), 200)]
     public async Task<List<UserDto>> GetAllUserProfile()
     {
         return await _sender.Send(new GetUserQuery());
     }
 
+    [HttpGet("{id}", Name = "api/GetByUserId")]
+    [ProducesResponseType(typeof(UserDetailDto), 200)]
+    public async Task<UserDetailDto> GetByUserId(int id)
+    {
+        return await _sender.Send(new GetUserDetailQuery(id));
+    }
+
     [HttpPost(Name = "CreateUser")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateUser(UserDto userDto)
     {
         var result = await _sender.Send(new CreateUserCommand(userDto));
@@ -36,6 +47,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut(Name = "UpdateUser")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateUser(UserDto userDto)
     {
         var result = await _sender.Send(new UpdateUserCommmand(userDto));
@@ -44,9 +56,10 @@ public class UserController : ControllerBase
 
     }
 
-    [HttpDelete(Name = "DeleteUser")]
-    public async Task<Unit> DeleteUser()
+    [HttpDelete("{id}", Name = "DeleteUser")]
+    [ProducesResponseType(typeof(Unit), 200)]
+    public async Task<Unit> DeleteUser(int id)
     {
-        return await _sender.Send(new DeleteUserCommand());
+        return await _sender.Send(new DeleteUserCommand(id));
     }
 }

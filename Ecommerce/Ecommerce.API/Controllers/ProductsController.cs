@@ -1,7 +1,9 @@
-﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+﻿using Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
+using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 using Ecommerce.Application.Features.Product.Commands.DeleteProduct;
 using Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
+using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +25,21 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet(Name = "GetAllProducts")]
+    [ProducesResponseType(typeof(List<ProductDto>), 200)]
     public async Task<List<ProductDto>> GetAllProducts()
     {
         return await _sender.Send(new GetProductQuery());
     }
 
+    [HttpGet("{id}", Name = "api/GetByProductId")]
+    [ProducesResponseType(typeof(ProductDetailDto), 200)]
+    public async Task<ProductDetailDto> GetByProductId(int id)
+    {
+        return await _sender.Send(new GetProductDetailQuery(id));
+    }
+
     [HttpPost(Name = "CreateProducts")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateProducts(ProductDto ProductsDto)
     {
         var result = await _sender.Send(new CreateProductCommand(ProductsDto));
@@ -37,6 +48,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut(Name = "UpdateProducts")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateProducts(ProductDto ProductsDto)
     {
         var result = await _sender.Send(new UpdateProductCommand(ProductsDto));
@@ -45,9 +57,10 @@ public class ProductsController : ControllerBase
 
     }
 
-    [HttpDelete(Name = "DeleteProducts")]
-    public async Task<Unit> DeleteProducts()
+    [HttpDelete("{id}", Name = "DeleteProducts")]
+    [ProducesResponseType(typeof(Unit), 200)]
+    public async Task<Unit> DeleteProducts(int id)
     {
-        return await _sender.Send(new DeleteProductCommand());
+        return await _sender.Send(new DeleteProductCommand(id));
     }
 }

@@ -1,7 +1,9 @@
-﻿using Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
+﻿using Ecommerce.Application.Features.UserRoles.Queries.GetUserDetails;
+using Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
 using Ecommerce.Application.Features.Vendor.Commands.DeleteVendor;
 using Ecommerce.Application.Features.Vendor.Commands.UpdateVendor;
 using Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
+using Ecommerce.Application.Features.Vendor.Queries.GetVendorDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,12 +25,21 @@ public class VendorController : ControllerBase
     }
 
     [HttpGet(Name = "GetAllVendor")]
+    [ProducesResponseType(typeof(List<VendorDto>), 200)]
     public async Task<List<VendorDto>> GetAllVendor()
     {
         return await _sender.Send(new GetVendorQuery());
     }
 
+    [HttpGet("{id}", Name = "api/GetByVendorId")]
+    [ProducesResponseType(typeof(VendorDetailDto), 200)]
+    public async Task<VendorDetailDto> GetByVendorId(int id)
+    {
+        return await _sender.Send(new GetVendorDetailQuery(id));
+    }
+
     [HttpPost(Name = "CreateVendor")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateVendor(VendorDto vendorDto)
     {
         var result = await _sender.Send(new CreateVendorCommand(vendorDto));
@@ -36,7 +47,8 @@ public class VendorController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut(Name = "UpdateVendor")]
+    [HttpPut("{id}", Name = "UpdateVendor")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateVendor(VendorDto vendorDto)
     {
         var result = await _sender.Send(new UpdateVendorCommand(vendorDto));
@@ -46,8 +58,9 @@ public class VendorController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteVendor")]
-    public async Task<Unit> DeleteVendor()
+    [ProducesResponseType(typeof(Unit), 200)]
+    public async Task<Unit> DeleteVendor(int id)
     {
-        return await _sender.Send(new DeleteVendorCommand());
+        return await _sender.Send(new DeleteVendorCommand(id));
     }
 }

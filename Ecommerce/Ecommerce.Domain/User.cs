@@ -10,6 +10,6 @@ public class User : IBaseEntity
     public string City { get; set; } = string.Empty;
     public string Region { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public UserRoles? UserRole { get; set; }
+    public string UserRole { get; set; } = string.Empty;
 
 }

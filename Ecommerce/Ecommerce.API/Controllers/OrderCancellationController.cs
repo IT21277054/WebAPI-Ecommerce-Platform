@@ -1,7 +1,10 @@
-﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+﻿using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
+using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Commands.DeleteOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Commands.UpdateOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
+using Ecommerce.Application.Features.OrderCancellation.Queries.GetOrderCancellationDetails;
+using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +25,21 @@ public class OrderCancellationController : ControllerBase
     }
 
     [HttpGet(Name = "GetAllOrderCancellation")]
+    [ProducesResponseType(typeof(List<OrderCancelationDto>), 200)]
     public async Task<List<OrderCancelationDto>> GetAllOrderCancellation()
     {
         return await _sender.Send(new GetOrderCancelationQuery());
     }
 
+    [HttpGet("{id}", Name = "api/GetByOrderCancellationId")]
+    [ProducesResponseType(typeof(OrderCancelationDetailDto), 200)]
+    public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(int id)
+    {
+        return await _sender.Send(new GetOrderCancelationDetailsQuery(id));
+    }
+
     [HttpPost(Name = "CreateOrderCancellation")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateOrderCancellation(OrderCancelationDto orderCancellationDto)
     {
         var result = await _sender.Send(new CreateOrderCancellationCommand(orderCancellationDto));
@@ -35,7 +47,8 @@ public class OrderCancellationController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut(Name = "UpdateOrderCancellation")]
+    [HttpPut("{id}", Name = "UpdateOrderCancellation")]
+    [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateOrderCancellation(OrderCancelationDto orderCancellationDto)
     {
         var result = await _sender.Send(new UpdateOrderCancellationCommand(orderCancellationDto));
@@ -45,8 +58,9 @@ public class OrderCancellationController : ControllerBase
     }
 
     [HttpDelete(Name = "DeleteOrderCancellation")]
-    public async Task<Unit> DeleteOrderCancellation()
+    [ProducesResponseType(typeof(Unit), 200)]
+    public async Task<Unit> DeleteOrderCancellation(int id)
     {
-        return await _sender.Send(new DeleteOrderCancellationCommand());
+        return await _sender.Send(new DeleteOrderCancellationCommand(id));
     }
 }
