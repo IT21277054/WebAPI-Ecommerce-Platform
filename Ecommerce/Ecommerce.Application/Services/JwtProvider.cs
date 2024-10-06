@@ -12,7 +12,13 @@ public sealed class JwtProvider : IJwtProvider
 {
     public string Generate(User user)
     {
-        var claims = new Claim[] { };
+        var claims = new List<Claim>
+    {
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), 
+        new Claim(JwtRegisteredClaimNames.Name, user.Name),
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim("role", user.UserRole)
+    };
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
