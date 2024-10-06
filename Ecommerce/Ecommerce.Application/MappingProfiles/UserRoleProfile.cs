@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
 using Ecommerce.Application.Features.UserRoles.Queries.GetAllUserRole;
 using Ecommerce.Domain;
 

@@ -1,5 +1,5 @@
-﻿using Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
-using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+using Ecommerce.Application.Features.Product.Commands.CreateProduct;
 using Ecommerce.Application.Features.Product.Commands.DeleteProduct;
 using Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
@@ -40,9 +40,9 @@ public class ProductsController : ControllerBase
 
     [HttpPost(Name = "CreateProducts")]
     [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateProducts(ProductDto ProductsDto)
+    public async Task<IActionResult> CreateProducts(CreateProductDto productsDto)
     {
-        var result = await _sender.Send(new CreateProductCommand(ProductsDto));
+        var result = await _sender.Send(new CreateProductCommand(productsDto));
 
         return Ok(result);
     }

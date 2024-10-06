@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Exceptions;
 using MediatR;
 
 namespace Ecommerce.Application.Features.VendorFeedback.Commands.DeleteVendorFeedback;

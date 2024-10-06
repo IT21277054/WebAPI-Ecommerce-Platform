@@ -21,6 +21,7 @@ public class EcommerceDBContext : DbContext
     public DbSet<UserRoles> UserRoles { get; set; }
     public DbSet<Vendor> Vendor { get; set; }
     public DbSet<VendorFeedback> VendorFeedback { get; set; }
+    public DbSet<Cart> Cart { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -37,6 +38,7 @@ public class EcommerceDBContext : DbContext
         modelBuilder.Entity<UserRoles>().ToCollection(nameof(UserRoles));
         modelBuilder.Entity<Vendor>().ToCollection(nameof(Vendor));
         modelBuilder.Entity<VendorFeedback>().ToCollection(nameof(VendorFeedback));
+        modelBuilder.Entity<Cart>().ToCollection(nameof(Cart));
     }
 
 

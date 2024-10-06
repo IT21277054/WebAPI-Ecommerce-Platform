@@ -1,10 +1,8 @@
-﻿using Ecommerce.Application.Features.Category.Queries.GetCategoryDetails;
-using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
+﻿using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 using Ecommerce.Application.Features.Inventory.Commands.DeleteInventory;
 using Ecommerce.Application.Features.Inventory.Commands.UpdateInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
-using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

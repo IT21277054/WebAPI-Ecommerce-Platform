@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.User.Queries.GetUserDetails;
-using Ecommerce.Application.Features.UserRoles.Commands.CreateUserRole;
+﻿using Ecommerce.Application.Features.UserRoles.Commands.CreateUserRole;
 using Ecommerce.Application.Features.UserRoles.Commands.DeleteUserRole;
 using Ecommerce.Application.Features.UserRoles.Commands.UpdateUserRole;
 using Ecommerce.Application.Features.UserRoles.Queries.GetAllUserRole;

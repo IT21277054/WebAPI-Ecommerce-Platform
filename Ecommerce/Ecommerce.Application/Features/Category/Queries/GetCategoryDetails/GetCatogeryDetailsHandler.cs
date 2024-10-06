@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Exceptions;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Category.Queries.GetCategoryDetails;
@@ -24,10 +23,10 @@ public class GetCatogeryDetailsHandler : IRequestHandler<GetCategoryDetailsQuery
         var categoriesDetails = await _categoryRepository.GetByIdAsync(request.Id);
 
         //Validate incoming data
-        if (categoriesDetails == null)
-        {
-            throw new NotFoundException(nameof(Category), request.Id);
-        }
+        //if (categoriesDetails == null)
+        //{
+        //    throw new NotFoundException(nameof(Category), request.Id);
+        //}
 
         //convert data object to DTO objects
         var data = _mapper.Map<CatgoryDetailsDto>(categoriesDetails);

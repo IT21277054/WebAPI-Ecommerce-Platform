@@ -1,10 +1,8 @@
-﻿using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
-using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Commands.DeleteOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Commands.UpdateOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetOrderCancellationDetails;
-using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

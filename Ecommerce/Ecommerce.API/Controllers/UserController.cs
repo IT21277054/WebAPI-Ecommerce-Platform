@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
-using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using Ecommerce.Application.Features.User.Commands.DeleteUser;
 using Ecommerce.Application.Features.User.Commands.UpdateUser;
+using Ecommerce.Application.Features.User.LoginUser;
 using Ecommerce.Application.Features.User.Queries.GetAllUsers;
 using Ecommerce.Application.Features.User.Queries.GetUserDetails;
 using MediatR;
@@ -23,7 +23,7 @@ public class UserController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "GetAllUserProfile")]
+    [HttpGet("GetAllUserProfile")]
     [ProducesResponseType(typeof(List<UserDto>), 200)]
     public async Task<List<UserDto>> GetAllUserProfile()
     {
@@ -37,11 +37,20 @@ public class UserController : ControllerBase
         return await _sender.Send(new GetUserDetailQuery(id));
     }
 
-    [HttpPost(Name = "CreateUser")]
+    [HttpPost("CreateUser")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateUser(UserDto userDto)
     {
         var result = await _sender.Send(new CreateUserCommand(userDto));
+
+        return Ok(result);
+    }
+
+    [HttpPost("LoginUser")]
+    [ProducesResponseType(typeof(string), 200)]
+    public async Task<IActionResult> LoginUser(LoginUserDto userDto)
+    {
+        var result = await _sender.Send(new LoginUserCommand(userDto));
 
         return Ok(result);
     }

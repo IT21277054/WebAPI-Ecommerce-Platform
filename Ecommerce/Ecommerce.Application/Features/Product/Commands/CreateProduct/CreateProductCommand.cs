@@ -1,6 +1,6 @@
-﻿using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
+﻿using Ecommerce.Application.Features.Product.Commands.CreateProduct;
 using MediatR;
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 
-public record CreateProductCommand(ProductDto dto) : IRequest<int>;
+public record CreateProductCommand(CreateProductDto dto) : IRequest<int>;

@@ -2,7 +2,6 @@
 using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
 using Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
-using Ecommerce.Application.Features.OrderCancellation.Queries.GetOrderCancellationDetails;
 using Ecommerce.Application.Features.User.Commands.DeleteUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

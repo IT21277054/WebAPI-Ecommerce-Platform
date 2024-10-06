@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.Vendor.Queries.GetVendorDetails;
-using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
+﻿using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Commands.DeleteVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Commands.UpdateAddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;

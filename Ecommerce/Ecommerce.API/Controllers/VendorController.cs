@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.UserRoles.Queries.GetUserDetails;
-using Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
+﻿using Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
 using Ecommerce.Application.Features.Vendor.Commands.DeleteVendor;
 using Ecommerce.Application.Features.Vendor.Commands.UpdateVendor;
 using Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;

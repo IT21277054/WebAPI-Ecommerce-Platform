@@ -9,6 +9,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
 
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
@@ -38,3 +39,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
