@@ -1,5 +1,16 @@
-﻿namespace Ecommerce.Application.MappingProfiles;
+﻿using AutoMapper;
+using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
+using Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
+using Ecommerce.Domain;
 
-internal class VendorProfile
+namespace Ecommerce.Application.MappingProfiles;
+
+public class VendorProfile : Profile
 {
+    public VendorProfile()
+    {
+        CreateMap<VendorDto, Vendor>().ReverseMap();
+        CreateMap<Vendor, VendorDto>();
+    }
 }
+

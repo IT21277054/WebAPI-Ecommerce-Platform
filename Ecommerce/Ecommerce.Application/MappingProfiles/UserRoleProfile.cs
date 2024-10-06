@@ -1,5 +1,15 @@
-﻿namespace Ecommerce.Application.MappingProfiles;
+﻿using AutoMapper;
+using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
+using Ecommerce.Application.Features.UserRoles.Queries.GetAllUserRole;
+using Ecommerce.Domain;
 
-internal class UserRoleProfile
+namespace Ecommerce.Application.MappingProfiles;
+
+public class UserRoleProfile : Profile
 {
+    public UserRoleProfile()
+    {
+        CreateMap<UserRoleDto, UserRoles>().ReverseMap();
+        CreateMap<UserRoles, UserRoleDto>();
+    }
 }
