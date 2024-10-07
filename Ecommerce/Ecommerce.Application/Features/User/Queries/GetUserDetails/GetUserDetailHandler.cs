@@ -22,16 +22,13 @@ public class GetUserDetailHandler : IRequestHandler<GetUserDetailQuery, UserDeta
     public async Task<UserDetailDto> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
     {
         //Query the database
-        var categoriesDetails = await _userRepository.GetByIdAsync(request.Id);
+        var userDetail = await _userRepository.GetByIdAsync(request.Id);
 
         //Validate incoming data
-        if (categoriesDetails == null)
-        {
-            throw new NotFoundException(nameof(Category), request.Id);
-        }
+
 
         //convert data object to DTO objects
-        var data = _mapper.Map<UserDetailDto>(categoriesDetails);
+        var data = _mapper.Map<UserDetailDto>(userDetail);
 
         //return list of Dto objects
         return data;

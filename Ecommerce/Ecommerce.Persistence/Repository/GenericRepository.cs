@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class GenericRepository<T, Y> : IGenericRepository<T, Y> where T : BaseEntity<Y>
+public class GenericRepository<T, Y> : IGenericRepository<T, Y> where T : BaseEntity<Y> where Y : struct
 {
     protected EcommerceDBContext _context;
 
@@ -36,7 +36,7 @@ public class GenericRepository<T, Y> : IGenericRepository<T, Y> where T : BaseEn
     {
         return await _context.Set<T>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(q => EqualityComparer<Y>.Default.Equals(q.Id, Id));
+            .FirstOrDefaultAsync(q => q.Id.Equals(Id));
     }
 
     public async Task UpdateAsync(T entity)
