@@ -12,6 +12,4 @@ public class ProductDto
     public string ImageUrl { get; set; } = string.Empty;
     public string VendorId { get; set; } = string.Empty;
     public bool? IsActivated { get; set; }
-    public List<VendorFeedbackDetailDto>? Feedback { get; set; } = new List<VendorFeedbackDetailDto>();
-
 }
