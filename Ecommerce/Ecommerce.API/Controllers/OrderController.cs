@@ -32,17 +32,17 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByOrderId/{id:int}")]
+    [Route("GetByOrderId/{id:Guid}")]
     [ProducesResponseType(typeof(OrderDetailDto), 200)]
-    public async Task<OrderDetailDto> GetByOrderId(int id)
+    public async Task<OrderDetailDto> GetByOrderId(Guid id)
     {
         return await _sender.Send(new GetOrderDetailQuery(id));
     }
 
     [HttpPost]
     [Route("CreateOrder")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateOrder(OrderDto orderDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateOrder(CreateOrderDto orderDto)
     {
         var result = await _sender.Send(new CreateOrderCommand(orderDto));
 
@@ -51,7 +51,7 @@ public class OrderController : ControllerBase
 
     [HttpPut]
     [Route("UpdateOrder")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateOrder(OrderDto orderDto)
     {
         var result = await _sender.Send(new UpdateOrderCommand(orderDto));
@@ -60,9 +60,9 @@ public class OrderController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteOrder/{id:int}")]
+    [Route("DeleteOrder/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteOrder(int id)
+    public async Task<Unit> DeleteOrder(Guid id)
     {
         return await _sender.Send(new DeleteOrderCommand(id));
     }

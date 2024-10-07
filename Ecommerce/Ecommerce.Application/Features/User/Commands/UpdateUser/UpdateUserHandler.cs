@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.User.Commands.UpdateUser;
 
-public class UpdateUserHandler : IRequestHandler<UpdateUserCommmand, int>
+public class UpdateUserHandler : IRequestHandler<UpdateUserCommmand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
@@ -15,7 +15,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommmand, int>
         this._userRepository = userRepository;
 
     }
-    public async Task<int> Handle(UpdateUserCommmand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateUserCommmand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

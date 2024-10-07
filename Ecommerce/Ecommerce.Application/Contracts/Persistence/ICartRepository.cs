@@ -2,6 +2,6 @@
 
 namespace Ecommerce.Application.Contracts.Persistence;
 
-public interface ICartRepository : IGenericRepository<Cart>
+public interface ICartRepository : IGenericRepository<Cart, Guid>
 {
 }

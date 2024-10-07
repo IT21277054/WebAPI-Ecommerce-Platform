@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class UserRepository : GenericRepository<User>, IUserRepository
+public class UserRepository : GenericRepository<User, Guid>, IUserRepository
 {
     private readonly EcommerceDBContext _context;
 

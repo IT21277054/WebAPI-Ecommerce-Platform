@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Exceptions;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
@@ -19,8 +20,7 @@ public class GetCartHandler : IRequestHandler<GetCartDetailsQuery, CartDetailDto
 
     public async Task<CartDetailDto> Handle(GetCartDetailsQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
-        var categoriesDetails = await _categoryRepository.GetByIdAsync(request.Id);
+        throw new NotFoundException(nameof(Cart), request.Id);
 
         //Validate incoming data
         //if (categoriesDetails == null)
@@ -29,9 +29,7 @@ public class GetCartHandler : IRequestHandler<GetCartDetailsQuery, CartDetailDto
         //}
 
         //convert data object to DTO objects
-        var data = _mapper.Map<CartDetailDto>(categoriesDetails);
 
         //return list of Dto objects
-        return data;
     }
 }

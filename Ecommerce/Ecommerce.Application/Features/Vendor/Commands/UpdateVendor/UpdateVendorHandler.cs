@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Vendor.Commands.UpdateVendor;
 
-public class UpdateVendorHandler : IRequestHandler<UpdateVendorCommand, int>
+public class UpdateVendorHandler : IRequestHandler<UpdateVendorCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IVendorRepository _vendorRepository;
@@ -15,7 +15,7 @@ public class UpdateVendorHandler : IRequestHandler<UpdateVendorCommand, int>
         this._vendorRepository = vendorRepository;
 
     }
-    public async Task<int> Handle(UpdateVendorCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateVendorCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

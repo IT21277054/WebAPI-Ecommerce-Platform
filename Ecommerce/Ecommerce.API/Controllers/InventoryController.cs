@@ -31,17 +31,17 @@ public class InventoryController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByInventorId/{id:int}")]
+    [Route("GetByInventorId/{id:Guid}")]
     [ProducesResponseType(typeof(InventoryDetailDto), 200)]
-    public async Task<InventoryDetailDto> GetByInventorId(int id)
+    public async Task<InventoryDetailDto> GetByInventorId(Guid id)
     {
         return await _sender.Send(new GetInventoryDetailQuery(id));
     }
 
     [HttpPost]
     [Route("CreateInventory")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateInventory(InventoryDto inventoryDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateInventory(CreateInventoryDto inventoryDto)
     {
         var result = await _sender.Send(new CreateInventoryCommand(inventoryDto));
 
@@ -52,7 +52,7 @@ public class InventoryController : ControllerBase
     [HttpPut]
     [Route("UpdateInventory")]
     [HttpPut(Name = "UpdateInventory")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateInventory(InventoryDto inventoryDto)
     {
         var result = await _sender.Send(new UpdateInventoryCommand(inventoryDto));
@@ -62,9 +62,9 @@ public class InventoryController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteInventory/{id:int}")]
+    [Route("DeleteInventory/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteInventory(int id)
+    public async Task<Unit> DeleteInventory(Guid id)
     {
         return await _sender.Send(new DeleteInventoryCommand(id));
     }

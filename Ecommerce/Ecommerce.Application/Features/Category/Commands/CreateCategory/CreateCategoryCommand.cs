@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Category.Commands.CreateCategory;
 
-public record CreateCategoryCommand(CategoryDto dto) : IRequest<int>;
+public record CreateCategoryCommand(CreateCategoryDto dto) : IRequest<int>;

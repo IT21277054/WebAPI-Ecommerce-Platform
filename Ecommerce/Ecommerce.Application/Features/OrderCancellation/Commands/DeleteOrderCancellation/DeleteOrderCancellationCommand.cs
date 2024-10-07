@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.DeleteOrderCancellation;
 
-public record DeleteOrderCancellationCommand(int Id) : IRequest<Unit>;
+public record DeleteOrderCancellationCommand(Guid Id) : IRequest<Unit>;

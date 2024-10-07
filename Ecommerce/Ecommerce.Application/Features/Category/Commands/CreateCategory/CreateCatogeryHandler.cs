@@ -17,13 +17,17 @@ public class CreateCatogeryHandler : IRequestHandler<CreateCategoryCommand, int>
     }
     public async Task<int> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        //convert domain entity object
+        // Convert domain entity object
         var categoryToCreate = _mapper.Map<Domain.Category>(request.dto);
 
-        //add to database
+        // Get the last ID from the database
+        var lastCategory = await _categoryRepository.GetLastCategoryAsync();
+        categoryToCreate.Id = (lastCategory != null) ? lastCategory.Id + 1 : 1;
+
+        // Add to database
         await _categoryRepository.CreateAsync(categoryToCreate);
 
-        //return record id
+        // Return record id
         return categoryToCreate.Id;
     }
 }

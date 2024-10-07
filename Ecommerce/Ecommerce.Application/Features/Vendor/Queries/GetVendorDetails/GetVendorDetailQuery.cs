@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Features.Vendor.Queries.GetVendorDetails;
 
-public record GetVendorDetailQuery(int Id) : IRequest<VendorDetailDto>;
+public record GetVendorDetailQuery(Guid Id) : IRequest<VendorDetailDto>;

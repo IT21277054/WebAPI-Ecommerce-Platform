@@ -4,7 +4,7 @@ using Ecommerce.Persistence.DatabaseContext;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class UserRolesRepository : GenericRepository<UserRoles>, IUserRolesRepository
+public class UserRolesRepository : GenericRepository<UserRoles, Guid>, IUserRolesRepository
 {
     public UserRolesRepository(EcommerceDBContext context) : base(context)
     {

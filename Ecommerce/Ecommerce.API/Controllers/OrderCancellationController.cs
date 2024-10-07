@@ -31,17 +31,17 @@ public class OrderCancellationController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByOrderCancellationId/{id:int}")]
+    [Route("GetByOrderCancellationId/{id:Guid}")]
     [ProducesResponseType(typeof(OrderCancelationDetailDto), 200)]
-    public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(int id)
+    public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(Guid id)
     {
         return await _sender.Send(new GetOrderCancelationDetailsQuery(id));
     }
 
     [HttpPost]
     [Route("CreateOrderCancellation")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateOrderCancellation(OrderCancelationDto orderCancellationDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateOrderCancellation(CreateOrderCancellationDto orderCancellationDto)
     {
         var result = await _sender.Send(new CreateOrderCancellationCommand(orderCancellationDto));
 
@@ -50,7 +50,7 @@ public class OrderCancellationController : ControllerBase
 
     [HttpPut]
     [Route("UpdateOrderCancellation")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateOrderCancellation(OrderCancelationDto orderCancellationDto)
     {
         var result = await _sender.Send(new UpdateOrderCancellationCommand(orderCancellationDto));
@@ -59,9 +59,9 @@ public class OrderCancellationController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteOrderCancellation/{id:int}")]
+    [Route("DeleteOrderCancellation/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteOrderCancellation(int id)
+    public async Task<Unit> DeleteOrderCancellation(Guid id)
     {
         return await _sender.Send(new DeleteOrderCancellationCommand(id));
     }

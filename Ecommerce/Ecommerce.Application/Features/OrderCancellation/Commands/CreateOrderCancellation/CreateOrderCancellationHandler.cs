@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 
-public class CreateProductCancellationHandler : IRequestHandler<CreateOrderCancellationCommand, int>
+public class CreateProductCancellationHandler : IRequestHandler<CreateOrderCancellationCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IOrderCancelationRepository _orderCancellationRepository;
@@ -15,10 +15,12 @@ public class CreateProductCancellationHandler : IRequestHandler<CreateOrderCance
         this._orderCancellationRepository = orderCancellationRepository;
 
     }
-    public async Task<int> Handle(CreateOrderCancellationCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateOrderCancellationCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var OrderCancellationToCreate = _mapper.Map<Domain.OrderCancelation>(request.dto);
+
+        OrderCancellationToCreate.Id = Guid.NewGuid();
 
         //add to database
         await _orderCancellationRepository.CreateAsync(OrderCancellationToCreate);

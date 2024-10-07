@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Inventory.Commands.UpdateInventory;
 
-public record UpdateInventoryCommand(InventoryDto dto) : IRequest<int>;
+public record UpdateInventoryCommand(InventoryDto dto) : IRequest<Guid>;

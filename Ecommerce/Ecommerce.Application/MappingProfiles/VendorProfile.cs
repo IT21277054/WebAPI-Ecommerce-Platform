@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
 using Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
 using Ecommerce.Domain;
 
@@ -9,7 +10,7 @@ public class VendorProfile : Profile
     public VendorProfile()
     {
         CreateMap<VendorDto, Vendor>().ReverseMap();
-        CreateMap<Vendor, VendorDto>();
+        CreateMap<CreateVendorDto, Vendor>();
     }
 }
 

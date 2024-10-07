@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Inventory.Commands.UpdateInventory;
 
-public class UpdateInventoryHandler : IRequestHandler<UpdateInventoryCommand, int>
+public class UpdateInventoryHandler : IRequestHandler<UpdateInventoryCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IInventoryRepository _InventoryRepository;
@@ -15,7 +15,7 @@ public class UpdateInventoryHandler : IRequestHandler<UpdateInventoryCommand, in
         this._InventoryRepository = InventoryRepository;
 
     }
-    public async Task<int> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

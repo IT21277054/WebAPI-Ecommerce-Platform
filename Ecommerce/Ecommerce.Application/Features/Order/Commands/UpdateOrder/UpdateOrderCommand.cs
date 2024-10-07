@@ -2,4 +2,4 @@
 using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Commands.UpdateOrder;
-public record UpdateOrderCommand(OrderDto dto) : IRequest<int>;
+public record UpdateOrderCommand(OrderDto dto) : IRequest<Guid>;

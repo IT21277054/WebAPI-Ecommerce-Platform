@@ -4,7 +4,7 @@ using Ecommerce.Persistence.DatabaseContext;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class CartRepository : GenericRepository<Cart>, ICartRepository
+public class CartRepository : GenericRepository<Cart, Guid>, ICartRepository
 {
     public CartRepository(EcommerceDBContext context) : base(context)
     {

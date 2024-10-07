@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Domain;
 
-public class Product : IBaseEntity
+public class Product : BaseEntity<Guid>
 {
     public string Name { get; set; } = string.Empty;
     public string Price { get; set; } = string.Empty;

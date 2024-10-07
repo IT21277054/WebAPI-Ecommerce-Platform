@@ -4,7 +4,7 @@ using Ecommerce.Persistence.DatabaseContext;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class InventoryRepository : GenericRepository<Inventory>, IInventoryRepository
+public class InventoryRepository : GenericRepository<Inventory, Guid>, IInventoryRepository
 {
     public InventoryRepository(EcommerceDBContext context) : base(context)
     {

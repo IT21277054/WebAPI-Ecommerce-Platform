@@ -20,7 +20,7 @@ public static class PersistenceServiceRegistration
         });
 
         // Register repositories
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IInventoryRepository, InventoryRepository>();
         services.AddScoped<IOrderCancelationRepository, OrderCancelationRepository>();

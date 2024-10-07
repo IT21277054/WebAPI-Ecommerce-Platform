@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Commands.UpdateCart;
 
-public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, int>
+public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly ICartRepository _cartRepository;
@@ -15,7 +15,7 @@ public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, int>
         this._cartRepository = cartRepository;
 
     }
-    public async Task<int> Handle(UpdateCartCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateCartCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

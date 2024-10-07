@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.VendorFeedback.Commands.UpdateAddVendorFeedback;
 
-public record UpdateVendorFeedbackCommand(VendorFeedbackDto dto) : IRequest<int>;
+public record UpdateVendorFeedbackCommand(VendorFeedbackDto dto) : IRequest<Guid>;

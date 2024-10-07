@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 
-public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, int>
+public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IOrderRepository _orderRepository;
@@ -15,7 +15,7 @@ public class UpdateOrderHandler : IRequestHandler<UpdateOrderCommand, int>
         this._orderRepository = orderRepository;
 
     }
-    public async Task<int> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

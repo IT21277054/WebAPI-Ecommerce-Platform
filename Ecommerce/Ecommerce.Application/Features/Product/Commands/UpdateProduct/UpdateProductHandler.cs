@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 
-public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, int>
+public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IProductRepository _productRepository;
@@ -15,7 +15,7 @@ public class UpdateProductHandler : IRequestHandler<UpdateProductCommand, int>
         this._productRepository = productRepository;
 
     }
-    public async Task<int> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

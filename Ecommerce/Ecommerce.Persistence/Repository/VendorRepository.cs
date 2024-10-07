@@ -4,7 +4,7 @@ using Ecommerce.Persistence.DatabaseContext;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class VendorRepository : GenericRepository<Vendor>, IVendorRepository
+public class VendorRepository : GenericRepository<Vendor, Guid>, IVendorRepository
 {
     public VendorRepository(EcommerceDBContext context) : base(context)
     {

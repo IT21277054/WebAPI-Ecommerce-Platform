@@ -4,7 +4,7 @@ using Ecommerce.Persistence.DatabaseContext;
 
 namespace Ecommerce.Persistence.Repository;
 
-public class OrderRepository : GenericRepository<Order>, IOrderRepository
+public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
 {
     public OrderRepository(EcommerceDBContext context) : base(context)
     {

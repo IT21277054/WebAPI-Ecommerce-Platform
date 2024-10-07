@@ -2,6 +2,6 @@
 
 namespace Ecommerce.Application.Contracts.Persistence;
 
-public interface IOrderRepository : IGenericRepository<Order>
+public interface IOrderRepository : IGenericRepository<Order, Guid>
 {
 }

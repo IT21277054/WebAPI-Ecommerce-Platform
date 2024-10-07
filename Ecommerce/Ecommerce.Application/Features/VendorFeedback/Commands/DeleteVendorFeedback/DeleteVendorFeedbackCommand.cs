@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Features.VendorFeedback.Commands.DeleteVendorFeedback;
 
-public record DeleteVendorFeedbackCommand(int Id) : IRequest<Unit>;
+public record DeleteVendorFeedbackCommand(Guid Id) : IRequest<Unit>;

@@ -2,10 +2,10 @@
 
 public class VendorFeedbackDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public int ProductId { get; set; }
-    public int Rate { get; set; }
-    public int VendorId { get; set; }
+    public Guid ProductId { get; set; }
+    public Guid Rate { get; set; }
+    public Guid VendorId { get; set; }
 }

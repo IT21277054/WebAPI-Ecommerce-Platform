@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 using Ecommerce.Domain;
 
@@ -9,7 +10,7 @@ public class InventoryProfile : Profile
     public InventoryProfile()
     {
         CreateMap<InventoryDto, Inventory>().ReverseMap();
-        CreateMap<Inventory, InventoryDto>();
+        CreateMap<CreateInventoryDto, Inventory>();
     }
 }
 

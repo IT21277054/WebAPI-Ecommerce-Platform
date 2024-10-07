@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
 using Ecommerce.Domain;
 
@@ -9,7 +10,7 @@ public class VendorFeedbackProfile : Profile
     public VendorFeedbackProfile()
     {
         CreateMap<VendorFeedbackDto, VendorFeedback>().ReverseMap();
-        CreateMap<VendorFeedback, VendorFeedbackDto>();
+        CreateMap<CreateVendorFeedbackDto, VendorFeedback>();
     }
 }
 

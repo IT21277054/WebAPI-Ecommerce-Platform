@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 
-public record UpdateProductCommand(ProductDto dto) : IRequest<int>;
+public record UpdateProductCommand(ProductDto dto) : IRequest<Guid>;

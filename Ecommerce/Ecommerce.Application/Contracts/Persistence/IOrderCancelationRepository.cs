@@ -2,6 +2,6 @@
 
 namespace Ecommerce.Application.Contracts.Persistence;
 
-public interface IOrderCancelationRepository : IGenericRepository<OrderCancelation>
+public interface IOrderCancelationRepository : IGenericRepository<OrderCancelation, Guid>
 {
 }

@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Domain;
 
-public class Order : IBaseEntity
+public class Order : BaseEntity<Guid>
 {
     public int Status { get; set; }
     public int[]? Items { get; set; }

@@ -31,9 +31,9 @@ public class CartController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByCartId/{id:int}")]
+    [Route("GetByCartId/{id:Guid}")]
     [ProducesResponseType(typeof(CartDetailDto), 200)]
-    public async Task<CartDetailDto> GetByCartId(int id)
+    public async Task<CartDetailDto> GetByCartId(Guid id)
     {
         return await _sender.Send(new GetCartDetailsQuery(id));
     }
@@ -41,8 +41,8 @@ public class CartController : ControllerBase
 
     [HttpPost]
     [Route("CreateCart")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateCart(CartDto CartDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateCart(CreateCartDto CartDto)
     {
         var result = await _sender.Send(new CreateCartCommand(CartDto));
 
@@ -51,7 +51,7 @@ public class CartController : ControllerBase
 
     [HttpPut]
     [Route("UpdateCart")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateCart(CartDto cartDto)
     {
         var result = await _sender.Send(new UpdateCartCommand(cartDto));
@@ -61,8 +61,8 @@ public class CartController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteCart/{id:int}")]
-    public async Task<Unit> DeleteCart(int id)
+    [Route("DeleteCart/{id:Guid}")]
+    public async Task<Unit> DeleteCart(Guid id)
     {
         return await _sender.Send(new DeleteCartCommand(id));
     }

@@ -2,13 +2,21 @@
 
 namespace Ecommerce.Domain.Common;
 
-public abstract class IBaseEntity 
+public abstract class BaseEntity<T> : IEntity
 {
     [Key]
-    public int Id { get; set; }
+    public T Id { get; set; }
     public bool? IsDeleted { get; set; }
-    public int? CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
     public DateTime? CreatedOn { get; set; }
-    public int? ModifiedBy { get; set; }
+    public Guid? ModifiedBy { get; set; }
+    public DateTime? ModifiedOn { get; set; }
+}
+
+public interface IEntity
+{
+    public Guid? CreatedBy { get; set; }
+    public DateTime? CreatedOn { get; set; }
+    public Guid? ModifiedBy { get; set; }
     public DateTime? ModifiedOn { get; set; }
 }

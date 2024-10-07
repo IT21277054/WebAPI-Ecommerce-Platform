@@ -2,7 +2,7 @@
 
 public class VendorDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string email { get; set; } = string.Empty;
     public string productId { get; set; } = string.Empty;
     public string comment { get; set; } = string.Empty;

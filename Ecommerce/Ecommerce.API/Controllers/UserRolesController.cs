@@ -31,17 +31,17 @@ public class UserRolesController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByUserRolesId/{id:int}")]
+    [Route("GetByUserRolesId/{id:Guid}")]
     [ProducesResponseType(typeof(UserRoleDetailDto), 200)]
-    public async Task<UserRoleDetailDto> GetByUserRolesId(int id)
+    public async Task<UserRoleDetailDto> GetByUserRolesId(Guid id)
     {
         return await _sender.Send(new GetUserRoleDetailQuery(id));
     }
 
     [HttpPost]
     [Route("CreateUserRoles")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateUserRoles(UserRoleDto userRolesDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateUserRoles(CreateUserRoleDto userRolesDto)
     {
         var result = await _sender.Send(new CreateUserRoleCommand(userRolesDto));
 
@@ -50,7 +50,7 @@ public class UserRolesController : ControllerBase
 
     [HttpPut]
     [Route("UpdateUserRoles")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateUserRoles(UserRoleDto userRolesDto)
     {
         var result = await _sender.Send(new UpdateUserRoleCommand(userRolesDto));
@@ -59,9 +59,9 @@ public class UserRolesController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteUserRoles/{id:int}")]
+    [Route("DeleteUserRoles/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteUserRoles(int id)
+    public async Task<Unit> DeleteUserRoles(Guid id)
     {
         return await _sender.Send(new DeleteUserRoleCommand(id));
     }

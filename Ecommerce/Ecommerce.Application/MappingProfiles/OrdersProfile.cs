@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
 using Ecommerce.Domain;
 
@@ -9,7 +10,7 @@ public class OrdersProfile : Profile
     public OrdersProfile()
     {
         CreateMap<OrderDto, Order>().ReverseMap();
-        CreateMap<Order, OrderDto>();
+        CreateMap<CreateOrderDto, Order>();
     }
 }
 

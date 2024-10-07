@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Commands.CreateOrder;
 
-public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, int>
+public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IOrderRepository _orderRepository;
@@ -15,10 +15,12 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, int>
         this._orderRepository = orderRepository;
 
     }
-    public async Task<int> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var OrderToCreate = _mapper.Map<Domain.Order>(request.dto);
+
+        OrderToCreate.Id = Guid.NewGuid();
 
         //add to database
         await _orderRepository.CreateAsync(OrderToCreate);

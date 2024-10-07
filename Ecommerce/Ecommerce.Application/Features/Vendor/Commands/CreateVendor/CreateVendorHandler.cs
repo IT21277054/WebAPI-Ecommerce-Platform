@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
 
-public class CreateVendorHandler : IRequestHandler<CreateVendorCommand, int>
+public class CreateVendorHandler : IRequestHandler<CreateVendorCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IVendorRepository _vendorRepository;
@@ -15,10 +15,12 @@ public class CreateVendorHandler : IRequestHandler<CreateVendorCommand, int>
         this._vendorRepository = vendorRepository;
 
     }
-    public async Task<int> Handle(CreateVendorCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateVendorCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var VendorToCreate = _mapper.Map<Domain.Vendor>(request.dto);
+
+        VendorToCreate.Id = Guid.NewGuid();
 
         //add to database
         await _vendorRepository.CreateAsync(VendorToCreate);

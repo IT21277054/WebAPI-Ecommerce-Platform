@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 
-public class CreateInventoryHandler : IRequestHandler<CreateInventoryCommand, int>
+public class CreateInventoryHandler : IRequestHandler<CreateInventoryCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IInventoryRepository _inventoryRepository;
@@ -15,10 +15,12 @@ public class CreateInventoryHandler : IRequestHandler<CreateInventoryCommand, in
         this._inventoryRepository = inventoryRepository;
 
     }
-    public async Task<int> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var InventoryToCreate = _mapper.Map<Domain.Inventory>(request.dto);
+
+        InventoryToCreate.Id = Guid.NewGuid();
 
         //add to database
         await _inventoryRepository.CreateAsync(InventoryToCreate);

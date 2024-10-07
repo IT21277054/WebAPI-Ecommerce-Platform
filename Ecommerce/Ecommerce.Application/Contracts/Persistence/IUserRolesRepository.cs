@@ -2,6 +2,6 @@
 
 namespace Ecommerce.Application.Contracts.Persistence;
 
-public interface IUserRolesRepository : IGenericRepository<UserRoles>
+public interface IUserRolesRepository : IGenericRepository<UserRoles, Guid>
 {
 }

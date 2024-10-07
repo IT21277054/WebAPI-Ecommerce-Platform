@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.UserRoles.Commands.UpdateUserRole;
 
-public record UpdateUserRoleCommand(UserRoleDto dto) : IRequest<int>;
+public record UpdateUserRoleCommand(UserRoleDto dto) : IRequest<Guid>;

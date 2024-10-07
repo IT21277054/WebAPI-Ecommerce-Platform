@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.UserRoles.Commands.CreateUserRole;
 
-public record CreateUserRoleCommand(UserRoleDto dto) : IRequest<int>;
+public record CreateUserRoleCommand(CreateUserRoleDto dto) : IRequest<Guid>;

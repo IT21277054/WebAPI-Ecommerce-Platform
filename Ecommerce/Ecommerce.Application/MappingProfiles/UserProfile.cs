@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ecommerce.Application.Features.User.Commands.CreateUser;
 using Ecommerce.Application.Features.User.Queries.GetAllUsers;
 using Ecommerce.Domain;
 
@@ -9,7 +10,7 @@ public class UserProfile : Profile
     public UserProfile()
     {
         CreateMap<UserDto, User>().ReverseMap();
-        CreateMap<User, UserDto>();
+        CreateMap<CreateUserDto, User>();
     }
 }
 

@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Features.Inventory.Commands.DeleteInventory;
 
-public record DeleteInventoryCommand(int Id) : IRequest<Unit>;
+public record DeleteInventoryCommand(Guid Id) : IRequest<Unit>;

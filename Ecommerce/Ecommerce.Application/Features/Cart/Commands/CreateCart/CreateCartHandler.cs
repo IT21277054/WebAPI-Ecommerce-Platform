@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
 
-public class CreateCartHandler : IRequestHandler<CreateCartCommand, int>
+public class CreateCartHandler : IRequestHandler<CreateCartCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly ICartRepository _cartRepository;
@@ -15,10 +15,12 @@ public class CreateCartHandler : IRequestHandler<CreateCartCommand, int>
         this._cartRepository = cartRepository;
 
     }
-    public async Task<int> Handle(CreateCartCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateCartCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var cartToCreate = _mapper.Map<Domain.Cart>(request.dto);
+
+        cartToCreate.Id = Guid.NewGuid();
 
         //add to database
         await _cartRepository.CreateAsync(cartToCreate);

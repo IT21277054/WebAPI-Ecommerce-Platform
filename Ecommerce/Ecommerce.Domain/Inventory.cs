@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Domain;
 
-public class Inventory : IBaseEntity
+public class Inventory : BaseEntity<Guid>
 {
     public int Amount { get; set; }
     public string Level { get; set; } = string.Empty;

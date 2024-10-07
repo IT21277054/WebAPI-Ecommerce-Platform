@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 
-public class CreateVendorFeedbackHandler : IRequestHandler<CreateVendorFeedbackCommand, int>
+public class CreateVendorFeedbackHandler : IRequestHandler<CreateVendorFeedbackCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IVendorFeedbackRepository _vendorFeedbackRepository;
@@ -15,10 +15,12 @@ public class CreateVendorFeedbackHandler : IRequestHandler<CreateVendorFeedbackC
         this._vendorFeedbackRepository = vendorFeedbackRepository;
 
     }
-    public async Task<int> Handle(CreateVendorFeedbackCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateVendorFeedbackCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var VendorFeedbackToCreate = _mapper.Map<Domain.VendorFeedback>(request.dto);
+
+        VendorFeedbackToCreate.Id = Guid.NewGuid();
 
         //add to database
         await _vendorFeedbackRepository.CreateAsync(VendorFeedbackToCreate);

@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 
-public record CreateProductCommand(CreateProductDto dto) : IRequest<int>;
+public record CreateProductCommand(CreateProductDto dto) : IRequest<Guid>;

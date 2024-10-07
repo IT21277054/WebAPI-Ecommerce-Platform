@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.UserRoles.Commands.UpdateUserRole;
 
-public class UpdateUserRoleHandler : IRequestHandler<UpdateUserRoleCommand, int>
+public class UpdateUserRoleHandler : IRequestHandler<UpdateUserRoleCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IUserRolesRepository _userRoleRepository;
@@ -15,7 +15,7 @@ public class UpdateUserRoleHandler : IRequestHandler<UpdateUserRoleCommand, int>
         this._userRoleRepository = userRoleRepository;
 
     }
-    public async Task<int> Handle(UpdateUserRoleCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateUserRoleCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

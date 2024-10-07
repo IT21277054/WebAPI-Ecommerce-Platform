@@ -40,8 +40,8 @@ public class CategoryController : ControllerBase
 
     [HttpPost]
     [Route("CreateCategory")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateCategory(CategoryDto categoryDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateCategory(CreateCategoryDto categoryDto)
     {
         var result = await _sender.Send(new CreateCategoryCommand(categoryDto));
 
@@ -50,7 +50,7 @@ public class CategoryController : ControllerBase
 
     [HttpPut]
     [Route("UpdateCategory")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateCategory(CategoryDto categoryDto)
     {
         var result = await _sender.Send(new UpdateCategoryCommand(categoryDto));
@@ -60,7 +60,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteCategory/{id:int}")]
+    [Route("DeleteCategory/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteCategory(int id)
     {

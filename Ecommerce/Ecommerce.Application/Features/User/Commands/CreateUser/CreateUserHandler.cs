@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 
-public class CreateUserHandler : IRequestHandler<CreateUserCommand, int>
+public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
@@ -18,10 +18,12 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, int>
         this._passwordHasher = passwordHasher;
 
     }
-    public async Task<int> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         //convert domain entity object
         var userToCreate = _mapper.Map<Domain.User>(request.dto);
+
+        userToCreate.Id = Guid.NewGuid();
 
         userToCreate.Password = _passwordHasher.HashPassword(userToCreate, request.dto.Password);
 

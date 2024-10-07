@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.UpdateOrderCancellation;
 
-public class UpdateOrderCancellationHandler : IRequestHandler<UpdateOrderCancellationCommand, int>
+public class UpdateOrderCancellationHandler : IRequestHandler<UpdateOrderCancellationCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IOrderCancelationRepository _OrderCancellationRepository;
@@ -15,7 +15,7 @@ public class UpdateOrderCancellationHandler : IRequestHandler<UpdateOrderCancell
         this._OrderCancellationRepository = OrderCancellationRepository;
 
     }
-    public async Task<int> Handle(UpdateOrderCancellationCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateOrderCancellationCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

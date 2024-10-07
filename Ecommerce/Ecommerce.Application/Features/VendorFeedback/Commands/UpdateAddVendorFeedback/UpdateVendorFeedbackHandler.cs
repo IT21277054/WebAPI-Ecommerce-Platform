@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.VendorFeedback.Commands.UpdateAddVendorFeedback;
 
-public class UpdateVendorFeedbackHandler : IRequestHandler<UpdateVendorFeedbackCommand, int>
+public class UpdateVendorFeedbackHandler : IRequestHandler<UpdateVendorFeedbackCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IVendorFeedbackRepository _vendorFeedbackRepository;
@@ -15,7 +15,7 @@ public class UpdateVendorFeedbackHandler : IRequestHandler<UpdateVendorFeedbackC
         this._vendorFeedbackRepository = vendorFeedbackRepository;
 
     }
-    public async Task<int> Handle(UpdateVendorFeedbackCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(UpdateVendorFeedbackCommand request, CancellationToken cancellationToken)
     {
         //Validate incoming data
 

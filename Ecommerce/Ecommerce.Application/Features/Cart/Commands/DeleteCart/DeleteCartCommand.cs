@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Features.Cart.Commands.DeleteCart;
 
-public record DeleteCartCommand(int Id) : IRequest<Unit>;
+public record DeleteCartCommand(Guid Id) : IRequest<Unit>;

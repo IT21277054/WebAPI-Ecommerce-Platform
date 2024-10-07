@@ -33,16 +33,16 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByProductId/{id:int}")]
+    [Route("GetByProductId/{id:Guid}")]
     [ProducesResponseType(typeof(ProductDetailDto), 200)]
-    public async Task<ProductDetailDto> GetByProductId(int id)
+    public async Task<ProductDetailDto> GetByProductId(Guid id)
     {
         return await _sender.Send(new GetProductDetailQuery(id));
     }
 
     [HttpPost]
     [Route("CreateProducts")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> CreateProducts(CreateProductDto productsDto)
     {
         var result = await _sender.Send(new CreateProductCommand(productsDto));
@@ -52,7 +52,7 @@ public class ProductsController : ControllerBase
 
     [HttpPut]
     [Route("UpdateProducts")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateProducts(ProductDto productsDto)
     {
         var result = await _sender.Send(new UpdateProductCommand(productsDto));
@@ -61,9 +61,9 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteProducts/{id:int}")]
+    [Route("DeleteProducts/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteProducts(int id)
+    public async Task<Unit> DeleteProducts(Guid id)
     {
         return await _sender.Send(new DeleteProductCommand(id));
     }

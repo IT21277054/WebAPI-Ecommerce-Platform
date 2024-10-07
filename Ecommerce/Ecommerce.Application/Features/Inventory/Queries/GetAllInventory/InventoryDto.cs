@@ -2,7 +2,7 @@
 
 public class InventoryDto
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public int Amount { get; set; }
     public string Level { get; set; } = string.Empty;
     public string Catogery { get; set; } = string.Empty;

@@ -2,4 +2,4 @@
 
 namespace Ecommerce.Application.Features.UserRoles.Queries.GetUserDetails;
 
-public record GetUserRoleDetailQuery(int Id) : IRequest<UserRoleDetailDto>;
+public record GetUserRoleDetailQuery(Guid Id) : IRequest<UserRoleDetailDto>;

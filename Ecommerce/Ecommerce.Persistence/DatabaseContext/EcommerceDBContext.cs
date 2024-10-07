@@ -27,7 +27,7 @@ public class EcommerceDBContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Ignore<IBaseEntity>();
+        //modelBuilder.Ignore<IBaseEntity>();
 
         modelBuilder.Entity<Category>().ToCollection(nameof(Category));
         modelBuilder.Entity<Inventory>().ToCollection(nameof(Inventory));
@@ -44,7 +44,7 @@ public class EcommerceDBContext : DbContext
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        foreach (var entry in base.ChangeTracker.Entries<IBaseEntity>()
+        foreach (var entry in base.ChangeTracker.Entries<IEntity>()
             .Where(q => q.State == EntityState.Added || q.State == EntityState.Modified))
         {
             entry.Entity.ModifiedOn = DateTime.Now;

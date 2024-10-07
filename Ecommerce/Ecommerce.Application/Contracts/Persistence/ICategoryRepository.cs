@@ -2,6 +2,7 @@
 
 namespace Ecommerce.Application.Contracts.Persistence;
 
-public interface ICategoryRepository : IGenericRepository<Category>
+public interface ICategoryRepository : IGenericRepository<Category, int>
 {
+    public Task<Category> GetLastCategoryAsync();
 }

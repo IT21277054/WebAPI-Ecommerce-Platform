@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
+using Ecommerce.Application.Features.User.Commands.CreateUser;
 using Ecommerce.Application.Features.User.Commands.DeleteUser;
 using Ecommerce.Application.Features.User.Commands.UpdateUser;
 using Ecommerce.Application.Features.User.LoginUser;
@@ -32,17 +33,17 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Route("GetByUserId/{id:int}")]
+    [Route("GetByUserId/{id:Guid}")]
     [ProducesResponseType(typeof(UserDetailDto), 200)]
-    public async Task<UserDetailDto> GetByUserId(int id)
+    public async Task<UserDetailDto> GetByUserId(Guid id)
     {
         return await _sender.Send(new GetUserDetailQuery(id));
     }
 
     [HttpPost]
     [Route("CreateUser")]
-    [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> CreateUser(UserDto userDto)
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateUser(CreateUserDto userDto)
     {
         var result = await _sender.Send(new CreateUserCommand(userDto));
 
@@ -61,7 +62,7 @@ public class UserController : ControllerBase
 
     [HttpPut]
     [Route("UpdateUser")]
-    [ProducesResponseType(typeof(int), 200)]
+    [ProducesResponseType(typeof(Guid), 200)]
     public async Task<IActionResult> UpdateUser(UserDto userDto)
     {
         var result = await _sender.Send(new UpdateUserCommmand(userDto));
@@ -71,9 +72,9 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete]
-    [Route("DeleteUser/{id:int}")]
+    [Route("DeleteUser/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteUser(int id)
+    public async Task<Unit> DeleteUser(Guid id)
     {
         return await _sender.Send(new DeleteUserCommand(id));
     }
