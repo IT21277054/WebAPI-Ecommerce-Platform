@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.Category.Commands.CreateCategory;
 

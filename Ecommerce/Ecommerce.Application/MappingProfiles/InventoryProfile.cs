@@ -2,7 +2,6 @@
 using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
-using Ecommerce.Application.Features.User.Queries.GetUserDetails;
 using Ecommerce.Domain;
 
 namespace Ecommerce.Application.MappingProfiles;

@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
 

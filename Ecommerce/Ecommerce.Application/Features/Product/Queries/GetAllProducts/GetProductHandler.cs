@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
-using Ecommerce.Application.Features.VendorFeedback.Queries.GetVendorFeedbackDetail;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Product.Queries.GetAllProducts;

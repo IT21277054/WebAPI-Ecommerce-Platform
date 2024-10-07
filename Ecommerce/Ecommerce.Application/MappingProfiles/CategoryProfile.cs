@@ -2,7 +2,6 @@
 using Ecommerce.Application.Features.Category.Commands.CreateCategory;
 using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
 using Ecommerce.Application.Features.Category.Queries.GetCategoryDetails;
-using Ecommerce.Application.Features.User.Queries.GetUserDetails;
 using Ecommerce.Domain;
 
 namespace Ecommerce.Application.MappingProfiles;

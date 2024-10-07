@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetOrderCancellationDetails;

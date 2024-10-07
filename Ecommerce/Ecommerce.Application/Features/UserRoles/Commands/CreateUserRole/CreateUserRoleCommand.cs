@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.UserRoles.Queries.GetAllUserRole;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.UserRoles.Commands.CreateUserRole;
 

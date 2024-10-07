@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 

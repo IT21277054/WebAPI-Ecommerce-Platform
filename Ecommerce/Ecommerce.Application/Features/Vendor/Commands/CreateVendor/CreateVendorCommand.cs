@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.Vendor.Commands.CreateVendor;
 

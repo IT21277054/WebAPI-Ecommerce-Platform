@@ -3,6 +3,7 @@ using Ecommerce.Application.Features.Product.Commands.CreateProduct;
 using Ecommerce.Application.Features.Product.Commands.DeleteProduct;
 using Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
+using Ecommerce.Application.Features.Product.Queries.GetByVendorId;
 using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +40,15 @@ public class ProductsController : ControllerBase
     {
         return await _sender.Send(new GetProductDetailQuery(id));
     }
+
+    [HttpGet]
+    [Route("GetByVendorId/{id:Guid}")]
+    [ProducesResponseType(typeof(ProductDetailDto), 200)]
+    public async Task<ProductDetailDto> GetByVendorId(Guid id)
+    {
+        return await _sender.Send(new GetByVendorIdQuery(id));
+    }
+
 
     [HttpPost]
     [Route("CreateProducts")]

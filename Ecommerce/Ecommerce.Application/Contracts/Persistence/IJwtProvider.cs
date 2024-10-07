@@ -1,5 +1,4 @@
-﻿using AutoMapper.Execution;
-using Ecommerce.Domain;
+﻿using Ecommerce.Domain;
 
 namespace Ecommerce.Application.Contracts.Persistence;
 

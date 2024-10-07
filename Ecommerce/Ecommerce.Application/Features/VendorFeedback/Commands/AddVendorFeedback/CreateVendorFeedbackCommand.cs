@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
-using MediatR;
+﻿using MediatR;
 
 namespace Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 
