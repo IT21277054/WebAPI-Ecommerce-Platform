@@ -24,21 +24,24 @@ public class ProductsController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "GetAllProducts")]
+    [HttpGet]
+    [Route("GetAllProducts")]
     [ProducesResponseType(typeof(List<ProductDto>), 200)]
     public async Task<List<ProductDto>> GetAllProducts()
     {
         return await _sender.Send(new GetProductQuery());
     }
 
-    [HttpGet("{id}", Name = "api/GetByProductId")]
+    [HttpGet]
+    [Route("GetByProductId/{id:int}")]
     [ProducesResponseType(typeof(ProductDetailDto), 200)]
     public async Task<ProductDetailDto> GetByProductId(int id)
     {
         return await _sender.Send(new GetProductDetailQuery(id));
     }
 
-    [HttpPost(Name = "CreateProducts")]
+    [HttpPost]
+    [Route("CreateProducts")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateProducts(CreateProductDto productsDto)
     {
@@ -47,17 +50,18 @@ public class ProductsController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut(Name = "UpdateProducts")]
+    [HttpPut]
+    [Route("UpdateProducts")]
     [ProducesResponseType(typeof(int), 200)]
-    public async Task<IActionResult> UpdateProducts(ProductDto ProductsDto)
+    public async Task<IActionResult> UpdateProducts(ProductDto productsDto)
     {
-        var result = await _sender.Send(new UpdateProductCommand(ProductsDto));
+        var result = await _sender.Send(new UpdateProductCommand(productsDto));
 
         return Ok(result);
-
     }
 
-    [HttpDelete("{id}", Name = "DeleteProducts")]
+    [HttpDelete]
+    [Route("DeleteProducts/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteProducts(int id)
     {

@@ -22,21 +22,24 @@ public class OrderCancellationController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "GetAllOrderCancellation")]
+    [HttpGet]
+    [Route("GetAllOrderCancellations")]
     [ProducesResponseType(typeof(List<OrderCancelationDto>), 200)]
-    public async Task<List<OrderCancelationDto>> GetAllOrderCancellation()
+    public async Task<List<OrderCancelationDto>> GetAllOrderCancellations()
     {
         return await _sender.Send(new GetOrderCancelationQuery());
     }
 
-    [HttpGet("{id}", Name = "api/GetByOrderCancellationId")]
+    [HttpGet]
+    [Route("GetByOrderCancellationId/{id:int}")]
     [ProducesResponseType(typeof(OrderCancelationDetailDto), 200)]
     public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(int id)
     {
         return await _sender.Send(new GetOrderCancelationDetailsQuery(id));
     }
 
-    [HttpPost(Name = "CreateOrderCancellation")]
+    [HttpPost]
+    [Route("CreateOrderCancellation")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateOrderCancellation(OrderCancelationDto orderCancellationDto)
     {
@@ -45,20 +48,22 @@ public class OrderCancellationController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id}", Name = "UpdateOrderCancellation")]
+    [HttpPut]
+    [Route("UpdateOrderCancellation")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateOrderCancellation(OrderCancelationDto orderCancellationDto)
     {
         var result = await _sender.Send(new UpdateOrderCancellationCommand(orderCancellationDto));
 
         return Ok(result);
-
     }
 
-    [HttpDelete(Name = "DeleteOrderCancellation")]
+    [HttpDelete]
+    [Route("DeleteOrderCancellation/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteOrderCancellation(int id)
     {
         return await _sender.Send(new DeleteOrderCancellationCommand(id));
     }
 }
+

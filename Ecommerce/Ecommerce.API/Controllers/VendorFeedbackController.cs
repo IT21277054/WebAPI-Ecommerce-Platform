@@ -22,7 +22,8 @@ public class VendorFeedbackController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "GetAllVendorFeedback")]
+    [HttpGet]
+    [Route("GetAllVendorFeedback")]
     [ProducesResponseType(typeof(List<VendorFeedbackDto>), 200)]
     public async Task<IActionResult> GetAllVendorFeedback()
     {
@@ -31,14 +32,16 @@ public class VendorFeedbackController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id}", Name = "api/GetByVendorFeedbackId")]
-    [ProducesResponseType(typeof(List<VendorFeedbackDetailDto>), 200)]
+    [HttpGet]
+    [Route("GetByVendorFeedbackId/{id:int}")]
+    [ProducesResponseType(typeof(VendorFeedbackDetailDto), 200)]
     public async Task<VendorFeedbackDetailDto> GetByVendorFeedbackId(int id)
     {
         return await _sender.Send(new GetVendorFeedbackDetailQuery(id));
     }
 
-    [HttpPost(Name = "CreateVendorFeedback")]
+    [HttpPost]
+    [Route("CreateVendorFeedback")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateVendorFeedback(VendorFeedbackDto vendorFeedbackDto)
     {
@@ -47,20 +50,22 @@ public class VendorFeedbackController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut(Name = "UpdateVendorFeedback")]
+    [HttpPut]
+    [Route("UpdateVendorFeedback")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateVendorFeedback(VendorFeedbackDto vendorFeedbackDto)
     {
         var result = await _sender.Send(new UpdateVendorFeedbackCommand(vendorFeedbackDto));
 
         return Ok(result);
-
     }
 
-    [HttpDelete("{id}", Name = "DeleteVendorFeedback")]
+    [HttpDelete]
+    [Route("DeleteVendorFeedback/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteVendorFeedback(int id)
     {
         return await _sender.Send(new DeleteVendorFeedbackCommand(id));
     }
 }
+

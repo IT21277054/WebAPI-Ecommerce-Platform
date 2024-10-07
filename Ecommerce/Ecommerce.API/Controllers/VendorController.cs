@@ -23,21 +23,24 @@ public class VendorController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "GetAllVendor")]
+    [HttpGet]
+    [Route("GetAllVendor")]
     [ProducesResponseType(typeof(List<VendorDto>), 200)]
     public async Task<List<VendorDto>> GetAllVendor()
     {
         return await _sender.Send(new GetVendorQuery());
     }
 
-    [HttpGet("{id}", Name = "api/GetByVendorId")]
+    [HttpGet]
+    [Route("GetByVendorId/{id:int}")]
     [ProducesResponseType(typeof(VendorDetailDto), 200)]
     public async Task<VendorDetailDto> GetByVendorId(int id)
     {
         return await _sender.Send(new GetVendorDetailQuery(id));
     }
 
-    [HttpPost(Name = "CreateVendor")]
+    [HttpPost]
+    [Route("CreateVendor")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateVendor(VendorDto vendorDto)
     {
@@ -46,17 +49,18 @@ public class VendorController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id}", Name = "UpdateVendor")]
+    [HttpPut]
+    [Route("UpdateVendor")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateVendor(VendorDto vendorDto)
     {
         var result = await _sender.Send(new UpdateVendorCommand(vendorDto));
 
         return Ok(result);
-
     }
 
-    [HttpDelete(Name = "DeleteVendor")]
+    [HttpDelete]
+    [Route("DeleteVendor/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteVendor(int id)
     {

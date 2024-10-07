@@ -22,21 +22,24 @@ public class UserRolesController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "GetAllUserRoles")]
+    [HttpGet]
+    [Route("GetAllUserRoles")]
     [ProducesResponseType(typeof(List<UserRoleDto>), 200)]
     public async Task<List<UserRoleDto>> GetAllUserRoles()
     {
         return await _sender.Send(new GetUserRolesQuery());
     }
 
-    [HttpGet("{id}", Name = "api/GetByUserRolesId")]
+    [HttpGet]
+    [Route("GetByUserRolesId/{id:int}")]
     [ProducesResponseType(typeof(UserRoleDetailDto), 200)]
     public async Task<UserRoleDetailDto> GetByUserRolesId(int id)
     {
         return await _sender.Send(new GetUserRoleDetailQuery(id));
     }
 
-    [HttpPost(Name = "CreateUserRoles")]
+    [HttpPost]
+    [Route("CreateUserRoles")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateUserRoles(UserRoleDto userRolesDto)
     {
@@ -45,18 +48,18 @@ public class UserRolesController : ControllerBase
         return Ok(result);
     }
 
-
-    [HttpPut(Name = "UpdateUserRoles")]
+    [HttpPut]
+    [Route("UpdateUserRoles")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateUserRoles(UserRoleDto userRolesDto)
     {
         var result = await _sender.Send(new UpdateUserRoleCommand(userRolesDto));
 
         return Ok(result);
-
     }
 
-    [HttpDelete("{id}", Name = "DeleteUserRoles")]
+    [HttpDelete]
+    [Route("DeleteUserRoles/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteUserRoles(int id)
     {

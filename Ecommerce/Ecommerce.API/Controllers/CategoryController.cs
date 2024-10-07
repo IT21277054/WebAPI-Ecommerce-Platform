@@ -22,22 +22,24 @@ public class CategoryController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet(Name = "api/GetAllCategories")]
+    [HttpGet]
+    [Route("GetAllCategories")]
     [ProducesResponseType(typeof(List<CategoryDto>), 200)]
     public async Task<List<CategoryDto>> GetAllCategories()
     {
         return await _sender.Send(new GetCategoriesQuery());
     }
 
-    [HttpGet("{id}", Name = "api/GetByCategoryId")]
+    [HttpGet]
+    [Route("GetByCategoryId/{id:int}")]
     [ProducesResponseType(typeof(CatgoryDetailsDto), 200)]
     public async Task<CatgoryDetailsDto> GetByCategoryId(int id)
     {
         return await _sender.Send(new GetCategoryDetailsQuery(id));
     }
 
-
-    [HttpPost(Name = "api/CreateCategory")]
+    [HttpPost]
+    [Route("CreateCategory")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateCategory(CategoryDto categoryDto)
     {
@@ -46,7 +48,8 @@ public class CategoryController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut(Name = "api/UpdateCategory")]
+    [HttpPut]
+    [Route("UpdateCategory")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateCategory(CategoryDto categoryDto)
     {
@@ -56,7 +59,8 @@ public class CategoryController : ControllerBase
 
     }
 
-    [HttpDelete("{id}", Name = "api/DeleteCategory")]
+    [HttpDelete]
+    [Route("DeleteCategory/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteCategory(int id)
     {

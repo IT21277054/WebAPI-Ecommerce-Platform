@@ -23,21 +23,24 @@ public class UserController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet("GetAllUserProfile")]
+    [HttpGet]
+    [Route("GetAllUserProfile")]
     [ProducesResponseType(typeof(List<UserDto>), 200)]
     public async Task<List<UserDto>> GetAllUserProfile()
     {
         return await _sender.Send(new GetUserQuery());
     }
 
-    [HttpGet("{id}", Name = "api/GetByUserId")]
+    [HttpGet]
+    [Route("GetByUserId/{id:int}")]
     [ProducesResponseType(typeof(UserDetailDto), 200)]
     public async Task<UserDetailDto> GetByUserId(int id)
     {
         return await _sender.Send(new GetUserDetailQuery(id));
     }
 
-    [HttpPost("CreateUser")]
+    [HttpPost]
+    [Route("CreateUser")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> CreateUser(UserDto userDto)
     {
@@ -46,7 +49,8 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("LoginUser")]
+    [HttpPost]
+    [Route("LoginUser")]
     [ProducesResponseType(typeof(string), 200)]
     public async Task<IActionResult> LoginUser(LoginUserDto userDto)
     {
@@ -55,7 +59,8 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut(Name = "UpdateUser")]
+    [HttpPut]
+    [Route("UpdateUser")]
     [ProducesResponseType(typeof(int), 200)]
     public async Task<IActionResult> UpdateUser(UserDto userDto)
     {
@@ -65,7 +70,8 @@ public class UserController : ControllerBase
 
     }
 
-    [HttpDelete("{id}", Name = "DeleteUser")]
+    [HttpDelete]
+    [Route("DeleteUser/{id:int}")]
     [ProducesResponseType(typeof(Unit), 200)]
     public async Task<Unit> DeleteUser(int id)
     {
