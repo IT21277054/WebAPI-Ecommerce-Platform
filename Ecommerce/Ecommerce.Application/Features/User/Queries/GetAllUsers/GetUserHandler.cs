@@ -20,10 +20,10 @@ public class GetUserHandler : IRequestHandler<GetUserQuery, List<UserDto>>
     public async Task<List<UserDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
         //Query the database
-        var categories = await _userRepository.GetAsync();
+        var users = await _userRepository.GetAsync();
 
         //convert data object to DTO objects
-        var data = _mapper.Map<List<UserDto>>(categories);
+        var data = _mapper.Map<List<UserDto>>(users);
 
         //return list of Dto objects
         return data;
