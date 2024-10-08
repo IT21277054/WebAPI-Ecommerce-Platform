@@ -60,7 +60,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> CreateUser(CreateUserDto userDto)
     {
         var result = await _sender.Send(new CreateUserCommand(userDto));
-        return Ok(result);
+        return Ok(new { userId = result });
     }
 
     // POST: api/UserProfile/LoginUser
