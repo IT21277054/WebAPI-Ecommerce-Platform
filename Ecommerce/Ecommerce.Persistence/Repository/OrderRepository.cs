@@ -130,6 +130,37 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
             .FirstOrDefaultAsync(o => o.CustomerEmail == email);
     }
 
+    public async Task<Items> CancelItem(Guid itemId)
+    {
+        // Retrieve all orders from the database
+        var allOrders = await _context.Set<Order>()
+            .Include(o => o.Items) 
+            .AsNoTracking()        
+            .ToListAsync();
 
+        // Find the specific item in all orders
+        var orderWithItem = allOrders.FirstOrDefault(order =>
+            order.Items.Any(item => item.Id == itemId));
+
+        if (orderWithItem == null)
+        {
+            throw new Exception("Item not found in any order");
+        }
+
+        // Get the item to cancel
+        var itemToCancel = orderWithItem.Items.First(item => item.Id == itemId);
+
+        // Update the status of the item
+        itemToCancel.Status = "cancellation requested";
+
+        // Re-attach the order to the context for updating
+        _context.Set<Order>().Update(orderWithItem);
+
+        // Save the changes
+        await _context.SaveChangesAsync();
+
+        // Return the updated item
+        return itemToCancel;
+    }
 
 }

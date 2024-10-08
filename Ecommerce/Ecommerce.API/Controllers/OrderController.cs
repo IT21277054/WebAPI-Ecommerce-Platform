@@ -6,6 +6,7 @@
 // Date: 2024-10-07
 // ====================================================
 
+using Ecommerce.Application.Features.Order.Commands.CancelItem;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.Order.Commands.DeleteOrder;
 using Ecommerce.Application.Features.Order.Commands.GenerateOrder;
@@ -86,6 +87,17 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> GetOrderByEmail(string email)
     {
         var result = await _sender.Send(new GetOrderByEmailQuery(email));
+        return Ok(new { data = result });
+    }
+
+    // PUT: api/Order/CancelItem/{VendorId}
+    // Request to cancel item.
+    [HttpPut]
+    [Route("CancelItem/{itemId:Guid}")]
+    [ProducesResponseType(typeof(ItemsDto), 200)]
+    public async Task<IActionResult> CancelItem(Guid itemId)
+    {
+        var result = await _sender.Send(new CancelItemCommand(itemId));
         return Ok(new { data = result });
     }
 
