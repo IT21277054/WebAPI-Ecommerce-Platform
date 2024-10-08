@@ -3,10 +3,11 @@ using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
 using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
+using System.Collections.Generic;
 
 namespace Ecommerce.Application.Features.Product.Queries.GetByVendorId;
 
-public class GetByVendorIdHandler : IRequestHandler<GetByVendorIdQuery, ProductDetailDto>
+public class GetByVendorIdHandler : IRequestHandler<GetByVendorIdQuery, List<ProductDetailDto>>
 {
     private readonly IMapper _mapper;
     private readonly IProductRepository _productRepository;
@@ -19,7 +20,7 @@ public class GetByVendorIdHandler : IRequestHandler<GetByVendorIdQuery, ProductD
     }
 
 
-    public async Task<ProductDetailDto> Handle(GetByVendorIdQuery request, CancellationToken cancellationToken)
+    public async Task<List<ProductDetailDto>> Handle(GetByVendorIdQuery request, CancellationToken cancellationToken)
     {
         //Query the database
         var categoriesDetails = await _productRepository.GetByVendorId(request.Id);
@@ -27,8 +28,8 @@ public class GetByVendorIdHandler : IRequestHandler<GetByVendorIdQuery, ProductD
         //Validate incoming data
 
         //convert data object to DTO objects
-        var data = _mapper.Map<ProductDetailDto>(categoriesDetails);
-
+        var data = _mapper.Map<List<ProductDetailDto>>(categoriesDetails);
+        
         //return list of Dto objects
         return data;
     }

@@ -43,8 +43,8 @@ public class ProductsController : ControllerBase
 
     [HttpGet]
     [Route("GetByVendorId/{id:Guid}")]
-    [ProducesResponseType(typeof(ProductDetailDto), 200)]
-    public async Task<ProductDetailDto> GetByVendorId(Guid id)
+    [ProducesResponseType(typeof(List<ProductDetailDto>), 200)]
+    public async Task<List<ProductDetailDto>> GetByVendorId(Guid id)
     {
         return await _sender.Send(new GetByVendorIdQuery(id));
     }

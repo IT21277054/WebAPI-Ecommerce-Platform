@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Product.Queries.GetByVendorId;
 
-public record GetByVendorIdQuery(Guid Id) : IRequest<ProductDetailDto>;
+public record GetByVendorIdQuery(Guid Id) : IRequest<List<ProductDetailDto>>;
