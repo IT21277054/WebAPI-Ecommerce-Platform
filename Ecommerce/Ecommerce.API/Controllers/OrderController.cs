@@ -8,6 +8,7 @@
 
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.Order.Commands.DeleteOrder;
+using Ecommerce.Application.Features.Order.Commands.UpdateItemWithItemId;
 using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
 using Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
@@ -80,6 +81,17 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> UpdateOrder(OrderDto orderDto)
     {
         var result = await _sender.Send(new UpdateOrderCommand(orderDto));
+        return Ok(result);
+    }
+
+    // PUT: api/Order/UpdateItem
+    // Updates an existing item.
+    [HttpPut]
+    [Route("UpdateItem")]
+    [ProducesResponseType(typeof(GetVendorItemDto), 200)]
+    public async Task<IActionResult> UpdateItem(GetVendorItemDto itemDto)
+    {
+        var result = await _sender.Send(new UpdateItemCommand(itemDto));
         return Ok(result);
     }
 

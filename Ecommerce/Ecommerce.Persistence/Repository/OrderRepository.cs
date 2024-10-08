@@ -34,5 +34,43 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
         return vendorItems;
     }
 
+    public async Task<Items> UpdateItemsByItemId(Items updatedItemData)
+    {
+        // Retrieve all orders from the database
+        var orders = await _context.Set<Order>()
+            .Include(o => o.Items) // Make sure to include the items in the orders
+            .AsNoTracking()
+            .ToListAsync();
+
+        // Find the relevant item in the orders
+        foreach (var order in orders)
+        {
+            var item = order.Items.FirstOrDefault(i => i.Id == updatedItemData.Id);
+
+            if (item != null)
+            {
+                // Update the item's properties with the values from updatedItemData
+                item.Amount = updatedItemData.Amount;
+                item.Quantity = updatedItemData.Quantity;
+                item.Status = updatedItemData.Status;
+                item.VendorId = updatedItemData.VendorId;
+                
+
+                // Mark the order as modified
+                _context.Update(order);
+                await _context.SaveChangesAsync();
+
+                // Return the updated item
+                return item;
+            }
+        }
+
+        // If no item was found, you might want to handle this case (e.g., throw an exception)
+        throw new Exception("Item not found.");
+    }
+
+
+
+
 
 }

@@ -7,6 +7,7 @@
 
 using AutoMapper;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
+using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
 using Ecommerce.Application.Features.OrderCancellation.Queries.GetOrderCancellationDetails;
 using Ecommerce.Domain;
@@ -20,6 +21,5 @@ public class OrderCancelationProfile : Profile
         CreateMap<OrderCancelationDto, OrderCancelation>().ReverseMap();
         CreateMap<OrderCancelationDetailDto, OrderCancelation>().ReverseMap();
         CreateMap<CreateOrderDto, OrderCancelation>();
-        CreateMap<ItemsDto, Items>().ReverseMap();
     }
 }
