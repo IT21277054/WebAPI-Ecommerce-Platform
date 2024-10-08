@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: CreateVendorFeedbackHandler.cs
+// Description: Handler for the CreateVendorFeedbackCommand. Creates a new vendor feedback and returns its ID.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -11,21 +18,22 @@ public class CreateVendorFeedbackHandler : IRequestHandler<CreateVendorFeedbackC
 
     public CreateVendorFeedbackHandler(IMapper mapper, IVendorFeedbackRepository vendorFeedbackRepository)
     {
-        this._mapper = mapper;
-        this._vendorFeedbackRepository = vendorFeedbackRepository;
-
+        _mapper = mapper;
+        _vendorFeedbackRepository = vendorFeedbackRepository;
     }
+
     public async Task<Guid> Handle(CreateVendorFeedbackCommand request, CancellationToken cancellationToken)
     {
-        //convert domain entity object
-        var VendorFeedbackToCreate = _mapper.Map<Domain.VendorFeedback>(request.dto);
+        // Map CreateVendorFeedbackDto to a Domain.VendorFeedback entity
+        var vendorFeedbackToCreate = _mapper.Map<Domain.VendorFeedback>(request.dto);
 
-        VendorFeedbackToCreate.Id = Guid.NewGuid();
+        // Generate a new GUID for the vendor feedback
+        vendorFeedbackToCreate.Id = Guid.NewGuid();
 
-        //add to database
-        await _vendorFeedbackRepository.CreateAsync(VendorFeedbackToCreate);
+        // Add the new vendor feedback to the database
+        await _vendorFeedbackRepository.CreateAsync(vendorFeedbackToCreate);
 
-        //return record id
-        return VendorFeedbackToCreate.Id;
+        // Return the newly created vendor feedback ID
+        return vendorFeedbackToCreate.Id;
     }
 }

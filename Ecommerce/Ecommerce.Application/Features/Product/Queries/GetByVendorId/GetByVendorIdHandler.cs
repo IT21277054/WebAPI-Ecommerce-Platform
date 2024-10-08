@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: GetByVendorIdHandler.cs
+// Description: Handler for retrieving products by vendor ID using MediatR.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
 using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
@@ -16,21 +23,19 @@ public class GetByVendorIdHandler : IRequestHandler<GetByVendorIdQuery, List<Pro
     {
         this._mapper = mapper;
         this._productRepository = productRepository;
-
     }
-
 
     public async Task<List<ProductDetailDto>> Handle(GetByVendorIdQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
+        // Query the database
         var categoriesDetails = await _productRepository.GetByVendorId(request.Id);
 
-        //Validate incoming data
+        // Validate incoming data
 
-        //convert data object to DTO objects
+        // Convert data object to DTO objects
         var data = _mapper.Map<List<ProductDetailDto>>(categoriesDetails);
-        
-        //return list of Dto objects
+
+        // Return list of DTO objects
         return data;
     }
 }

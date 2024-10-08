@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: DeleteUserHandler.cs
+// Description: Handler for processing user deletion requests.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -13,22 +20,19 @@ public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, Unit>
     {
         this._mapper = mapper;
         this._userRepository = userRepository;
-
     }
 
     public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        //retieve domain entity object
-        var UserToDelete = await _userRepository.GetByIdAsync(request.Id);
+        // Retrieve the user entity to delete
+        var userToDelete = await _userRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+        // Validate incoming data (optional validation logic can be added here)
 
+        // Delete the user from the database
+        await _userRepository.DeleteAsync(userToDelete);
 
-        //add to database
-        await _userRepository.DeleteAsync(UserToDelete);
-
-        //return record id
+        // Return an empty response indicating the operation was successful
         return Unit.Value;
     }
 }
-

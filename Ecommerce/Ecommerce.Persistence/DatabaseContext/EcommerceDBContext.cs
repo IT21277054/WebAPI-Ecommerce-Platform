@@ -1,4 +1,11 @@
-﻿using Ecommerce.Domain;
+﻿// ====================================================
+// File: EcommerceDBContext.cs
+// Description: Database context for the Ecommerce application, managing entity sets.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using Ecommerce.Domain;
 using Ecommerce.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.EntityFrameworkCore.Extensions;
@@ -7,12 +14,11 @@ namespace Ecommerce.Persistence.DatabaseContext;
 
 public class EcommerceDBContext : DbContext
 {
-    public EcommerceDBContext(DbContextOptions<EcommerceDBContext> options): base(options) 
+    public EcommerceDBContext(DbContextOptions<EcommerceDBContext> options) : base(options)
     {
-
     }
 
-    public DbSet<Category> Category {  get; set; }
+    public DbSet<Category> Category { get; set; }
     public DbSet<Inventory> Inventory { get; set; }
     public DbSet<Order> Order { get; set; }
     public DbSet<OrderCancelation> OrderCancelation { get; set; }
@@ -27,7 +33,7 @@ public class EcommerceDBContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        //modelBuilder.Ignore<IBaseEntity>();
+        // modelBuilder.Ignore<IBaseEntity>();
 
         modelBuilder.Entity<Category>().ToCollection(nameof(Category));
         modelBuilder.Entity<Inventory>().ToCollection(nameof(Inventory));
@@ -41,7 +47,6 @@ public class EcommerceDBContext : DbContext
         modelBuilder.Entity<Cart>().ToCollection(nameof(Cart));
     }
 
-
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         foreach (var entry in base.ChangeTracker.Entries<IEntity>()
@@ -53,7 +58,6 @@ public class EcommerceDBContext : DbContext
             {
                 entry.Entity.CreatedOn = DateTime.Now;
             }
-
         }
 
         return base.SaveChangesAsync(cancellationToken);

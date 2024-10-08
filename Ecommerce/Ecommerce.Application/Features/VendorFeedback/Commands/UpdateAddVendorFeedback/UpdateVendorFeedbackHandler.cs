@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: UpdateVendorFeedbackHandler.cs
+// Description: Handler for the UpdateVendorFeedbackCommand. Updates a vendor feedback using the provided DTO.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -13,19 +20,19 @@ public class UpdateVendorFeedbackHandler : IRequestHandler<UpdateVendorFeedbackC
     {
         this._mapper = mapper;
         this._vendorFeedbackRepository = vendorFeedbackRepository;
-
     }
+
     public async Task<Guid> Handle(UpdateVendorFeedbackCommand request, CancellationToken cancellationToken)
     {
-        //Validate incoming data
+        // Validate incoming data (add validation logic here)
 
-        //convert domain entity object
-        var VendorFeedbackToUpdate = _mapper.Map<Domain.VendorFeedback>(request.dto);
+        // Convert the DTO (Data Transfer Object) to the domain entity object
+        var vendorFeedbackToUpdate = _mapper.Map<Domain.VendorFeedback>(request.dto);
 
-        //add to database
-        await _vendorFeedbackRepository.UpdateAsync(VendorFeedbackToUpdate);
+        // Update the vendor feedback in the database
+        await _vendorFeedbackRepository.UpdateAsync(vendorFeedbackToUpdate);
 
-        //return record id
-        return VendorFeedbackToUpdate.Id;
+        // Return the ID of the updated vendor feedback record
+        return vendorFeedbackToUpdate.Id;
     }
 }

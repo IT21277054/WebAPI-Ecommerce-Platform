@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: DeleteProductHandler.cs
+// Description: Handler for deleting a product based on the provided command.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -11,23 +18,21 @@ public class DeleteProductHandler : IRequestHandler<DeleteProductCommand, Unit>
 
     public DeleteProductHandler(IMapper mapper, IProductRepository productRepository)
     {
-        this._mapper = mapper;
+        this._mapper = mapper; 
         this._productRepository = productRepository;
-
     }
 
     public async Task<Unit> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        //retieve domain entity object
+        // Retrieve the product to delete using the repository
         var ProductToDelete = await _productRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+        // Validate incoming data 
 
-        //add to database
+        // Delete the product from the database
         await _productRepository.DeleteAsync(ProductToDelete);
 
-        //return record id
+        // Return confirmation of the delete operation
         return Unit.Value;
     }
 }
-

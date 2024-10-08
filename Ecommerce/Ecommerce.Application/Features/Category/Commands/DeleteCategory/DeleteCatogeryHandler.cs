@@ -1,32 +1,39 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: DeleteCategoryHandler.cs
+// Description: Handler for deleting a category by its ID.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Category.Commands.DeleteCategory;
 
-public class DeleteCatogeryHandler : IRequestHandler<DeleteCategoryCommand, Unit>
+// Handler for deleting a category
+public class DeleteCategoryHandler : IRequestHandler<DeleteCategoryCommand, Unit>
 {
-    private readonly IMapper _mapper;
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IMapper _mapper; // AutoMapper for mapping objects
+    private readonly ICategoryRepository _categoryRepository; // Repository for category operations
 
-    public DeleteCatogeryHandler(IMapper mapper, ICategoryRepository categoryRepository)
+    public DeleteCategoryHandler(IMapper mapper, ICategoryRepository categoryRepository)
     {
         this._mapper = mapper;
         this._categoryRepository = categoryRepository;
-
     }
 
     public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {
-        //retieve domain entity object
+        // Retrieve the category entity to delete
         var categoryToDelete = await _categoryRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+        // Validate if the category exists (optional)
 
-        //add to database
+        // Delete the category from the database
         await _categoryRepository.DeleteAsync(categoryToDelete);
 
-        //return record id
+        // Return a success response
         return Unit.Value;
     }
 }

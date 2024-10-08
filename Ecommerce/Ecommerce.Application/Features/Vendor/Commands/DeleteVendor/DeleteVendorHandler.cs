@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: DeleteVendorHandler.cs
+// Description: Handler for the DeleteVendorCommand. Deletes a vendor by its ID.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -6,28 +13,28 @@ namespace Ecommerce.Application.Features.Vendor.Commands.DeleteVendor;
 
 public class DeleteVendorHandler : IRequestHandler<DeleteVendorCommand, Unit>
 {
-    private readonly IMapper _mapper;
+    private readonly IMapper _mapper; // Not used in this handler, but kept for consistency
     private readonly IVendorRepository _vendorRepository;
 
     public DeleteVendorHandler(IMapper mapper, IVendorRepository vendorRepository)
     {
-        this._mapper = mapper;
-        this._vendorRepository = vendorRepository;
-
+        _mapper = mapper;
+        _vendorRepository = vendorRepository;
     }
 
     public async Task<Unit> Handle(DeleteVendorCommand request, CancellationToken cancellationToken)
     {
-        //retieve domain entity object
-        var VendorToDelete = await _vendorRepository.GetByIdAsync(request.Id);
+        // Fetch the vendor to delete by ID
+        var vendorToDelete = await _vendorRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+        // (Optional) Add validation for incoming data (e.g., ensure a valid ID is provided)
+        // If the vendor is not found, consider throwing a specific exception to indicate this error.
 
-        //add to database
-        await _vendorRepository.DeleteAsync(VendorToDelete);
+        // Delete the vendor from the database
+        await _vendorRepository.DeleteAsync(vendorToDelete);
 
-        //return record id
+        // Since the return type is `Unit`, no specific value is returned to indicate success.
+
         return Unit.Value;
     }
 }
-

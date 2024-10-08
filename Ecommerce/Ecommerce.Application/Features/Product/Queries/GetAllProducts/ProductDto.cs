@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.Product.Queries.GetAllProducts;
+﻿// ====================================================
+// File: ProductDto.cs
+// Description: Data Transfer Object (DTO) for product details.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+namespace Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 
 public class ProductDto
 {

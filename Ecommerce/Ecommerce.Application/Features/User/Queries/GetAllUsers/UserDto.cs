@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.User.Queries.GetAllUsers;
+﻿// ====================================================
+// File: UserDto.cs
+// Description: Represents the data transfer object (DTO) for a user.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+namespace Ecommerce.Application.Features.User.Queries.GetAllUsers;
 
 public class UserDto
 {

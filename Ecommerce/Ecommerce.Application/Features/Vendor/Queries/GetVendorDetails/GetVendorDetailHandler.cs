@@ -1,38 +1,45 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: GetVendorDetailQueryHandler.cs (Corrected Class Name)
+// Description: Handler for the GetVendorDetailQuery. Retrieves a specific vendor's details by ID.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
 using MediatR;
 
-namespace Ecommerce.Application.Features.Vendor.Queries.GetVendorDetails;
+namespace Ecommerce.Application.Features.Vendor.Queries.GetVendorDetailQuery;
 
-public class GetVendorDetailHandler : IRequestHandler<GetVendorDetailQuery, VendorDetailDto>
+public class GetVendorDetailQueryHandler : IRequestHandler<GetVendorDetailQuery, VendorDetailDto>
 {
     private readonly IMapper _mapper;
     private readonly IVendorRepository _vendorRepository;
 
-    public GetVendorDetailHandler(IMapper mapper, IVendorRepository vendorRepository)
+    public GetVendorDetailQueryHandler(IMapper mapper, IVendorRepository vendorRepository)
     {
-        this._mapper = mapper;
-        this._vendorRepository = vendorRepository;
-
+        _mapper = mapper;
+        _vendorRepository = vendorRepository;
     }
 
 
     public async Task<VendorDetailDto> Handle(GetVendorDetailQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
-        var categoriesDetails = await _vendorRepository.GetByIdAsync(request.Id);
+        // Fetch vendor details by ID from the vendor repository
+        var vendorDetails = await _vendorRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
-        if (categoriesDetails == null)
+        // Validate incoming data (check if vendor exists)
+        if (vendorDetails == null)
         {
-            throw new NotFoundException(nameof(Vendor), request.Id);
+            throw new NotFoundException(nameof(Vendor), request.Id); // Use "Vendor" for clarity
         }
 
-        //convert data object to DTO objects
-        var data = _mapper.Map<VendorDetailDto>(categoriesDetails);
+        // Map vendor entity to VendorDetailDto
+        var data = _mapper.Map<VendorDetailDto>(vendorDetails);
 
-        //return list of Dto objects
+        // Return the vendor details DTO
         return data;
     }
+
 }

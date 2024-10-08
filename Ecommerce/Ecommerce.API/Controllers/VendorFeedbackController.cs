@@ -1,4 +1,12 @@
-﻿using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
+﻿// ====================================================
+// File: VendorFeedbackController.cs
+// Description: API controller for managing vendor feedback operations 
+//              such as retrieving, creating, updating, and deleting vendor feedback.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Commands.DeleteVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Commands.UpdateAddVendorFeedback;
 using Ecommerce.Application.Features.VendorFeedback.Queries.GetAllAddVendorFeedback;
@@ -6,66 +14,73 @@ using Ecommerce.Application.Features.VendorFeedback.Queries.GetVendorFeedbackDet
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ecommerce.API.Controllers;
-
-[ApiController]
-[Route("api/vendorFeedback")]
-public class VendorFeedbackController : ControllerBase
+namespace Ecommerce.API.Controllers
 {
-
-    private readonly ILogger<VendorFeedbackController> _logger;
-    private readonly ISender _sender;
-
-    public VendorFeedbackController(ILogger<VendorFeedbackController> logger, ISender sender)
+    [ApiController]
+    [Route("api/vendorFeedback")]
+    public class VendorFeedbackController : ControllerBase
     {
-        _logger = logger;
-        _sender = sender;
-    }
+        private readonly ILogger<VendorFeedbackController> _logger;
+        private readonly ISender _sender;
 
-    [HttpGet]
-    [Route("GetAllVendorFeedback")]
-    [ProducesResponseType(typeof(List<VendorFeedbackDto>), 200)]
-    public async Task<IActionResult> GetAllVendorFeedback()
-    {
-        var result = await _sender.Send(new GetVendorFeedbackQuery());
+        // Constructor - Initializes the logger and sender
+        public VendorFeedbackController(ILogger<VendorFeedbackController> logger, ISender sender)
+        {
+            _logger = logger;
+            _sender = sender;
+        }
 
-        return Ok(result);
-    }
+        // GET: api/vendorFeedback/GetAllVendorFeedback
+        // Retrieves all vendor feedback.
+        [HttpGet]
+        [Route("GetAllVendorFeedback")]
+        [ProducesResponseType(typeof(List<VendorFeedbackDto>), 200)]
+        public async Task<IActionResult> GetAllVendorFeedback()
+        {
+            var result = await _sender.Send(new GetVendorFeedbackQuery());
+            return Ok(result);
+        }
 
-    [HttpGet]
-    [Route("GetByVendorFeedbackId/{id:Guid}")]
-    [ProducesResponseType(typeof(VendorFeedbackDetailDto), 200)]
-    public async Task<VendorFeedbackDetailDto> GetByVendorFeedbackId(Guid id)
-    {
-        return await _sender.Send(new GetVendorFeedbackDetailQuery(id));
-    }
+        // GET: api/vendorFeedback/GetByVendorFeedbackId/{id}
+        // Retrieves vendor feedback details by feedback ID.
+        [HttpGet]
+        [Route("GetByVendorFeedbackId/{id:Guid}")]
+        [ProducesResponseType(typeof(VendorFeedbackDetailDto), 200)]
+        public async Task<VendorFeedbackDetailDto> GetByVendorFeedbackId(Guid id)
+        {
+            return await _sender.Send(new GetVendorFeedbackDetailQuery(id));
+        }
 
-    [HttpPost]
-    [Route("CreateVendorFeedback")]
-    [ProducesResponseType(typeof(Guid), 200)]
-    public async Task<IActionResult> CreateVendorFeedback(CreateVendorFeedbackDto vendorFeedbackDto)
-    {
-        var result = await _sender.Send(new CreateVendorFeedbackCommand(vendorFeedbackDto));
+        // POST: api/vendorFeedback/CreateVendorFeedback
+        // Creates a new vendor feedback entry.
+        [HttpPost]
+        [Route("CreateVendorFeedback")]
+        [ProducesResponseType(typeof(Guid), 200)]
+        public async Task<IActionResult> CreateVendorFeedback(CreateVendorFeedbackDto vendorFeedbackDto)
+        {
+            var result = await _sender.Send(new CreateVendorFeedbackCommand(vendorFeedbackDto));
+            return Ok(result);
+        }
 
-        return Ok(result);
-    }
+        // PUT: api/vendorFeedback/UpdateVendorFeedback
+        // Updates an existing vendor feedback entry.
+        [HttpPut]
+        [Route("UpdateVendorFeedback")]
+        [ProducesResponseType(typeof(Guid), 200)]
+        public async Task<IActionResult> UpdateVendorFeedback(VendorFeedbackDto vendorFeedbackDto)
+        {
+            var result = await _sender.Send(new UpdateVendorFeedbackCommand(vendorFeedbackDto));
+            return Ok(result);
+        }
 
-    [HttpPut]
-    [Route("UpdateVendorFeedback")]
-    [ProducesResponseType(typeof(Guid), 200)]
-    public async Task<IActionResult> UpdateVendorFeedback(VendorFeedbackDto vendorFeedbackDto)
-    {
-        var result = await _sender.Send(new UpdateVendorFeedbackCommand(vendorFeedbackDto));
-
-        return Ok(result);
-    }
-
-    [HttpDelete]
-    [Route("DeleteVendorFeedback/{id:Guid}")]
-    [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteVendorFeedback(Guid id)
-    {
-        return await _sender.Send(new DeleteVendorFeedbackCommand(id));
+        // DELETE: api/vendorFeedback/DeleteVendorFeedback/{id}
+        // Deletes vendor feedback by feedback ID.
+        [HttpDelete]
+        [Route("DeleteVendorFeedback/{id:Guid}")]
+        [ProducesResponseType(typeof(Unit), 200)]
+        public async Task<Unit> DeleteVendorFeedback(Guid id)
+        {
+            return await _sender.Send(new DeleteVendorFeedbackCommand(id));
+        }
     }
 }
-

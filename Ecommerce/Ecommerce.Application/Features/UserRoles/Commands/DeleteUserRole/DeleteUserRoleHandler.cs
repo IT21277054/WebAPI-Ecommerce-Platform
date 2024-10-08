@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: DeleteUserRoleHandler.cs
+// Description: Handler for the DeleteUserRoleCommand. Deletes a user role by its ID.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -13,21 +20,20 @@ public class DeleteUserRoleHandler : IRequestHandler<DeleteUserRoleCommand, Unit
     {
         this._mapper = mapper;
         this._userRoleRepository = userRoleRepository;
-
     }
 
     public async Task<Unit> Handle(DeleteUserRoleCommand request, CancellationToken cancellationToken)
     {
-        //retieve domain entity object
-        var UserRoleToDelete = await _userRoleRepository.GetByIdAsync(request.Id);
+        // Fetch the user role to delete by ID
+        var userRoleToDelete = await _userRoleRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+        // If the user role is not found, consider throwing a specific exception to indicate this error.
 
-        //add to database
-        await _userRoleRepository.DeleteAsync(UserRoleToDelete);
+        // Delete the user role from the database
+        await _userRoleRepository.DeleteAsync(userRoleToDelete);
 
-        //return record id
+        // Since the return type is `Unit`, no specific value is returned to indicate success.
+
         return Unit.Value;
     }
 }
-

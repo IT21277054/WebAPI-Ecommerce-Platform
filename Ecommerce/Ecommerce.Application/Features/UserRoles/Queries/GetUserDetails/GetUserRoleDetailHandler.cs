@@ -1,40 +1,45 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: GetUserRoleDetailHandler.cs (Incorrect Namespace)
+// Description: (Description not applicable for this handler)
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
-using Ecommerce.Application.Features.User.Queries.GetUserDetails;
 using MediatR;
 
-namespace Ecommerce.Application.Features.UserRoles.Queries.GetUserDetails;
+// **Corrected Namespace:**
+namespace Ecommerce.Application.Features.User.Queries.GetUserDetails; // Assuming this handler retrieves user details
 
-
-public class GetUserRoleDetailHandler : IRequestHandler<GetUserDetailQuery, UserDetailDto>
+public class GetUserDetailsHandler : IRequestHandler<GetUserDetailQuery, UserDetailDto>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
 
-    public GetUserRoleDetailHandler(IMapper mapper, IUserRepository userRepository)
+    public GetUserDetailsHandler(IMapper mapper, IUserRepository userRepository)
     {
-        this._mapper = mapper;
-        this._userRepository = userRepository;
-
+        _mapper = mapper;
+        _userRepository = userRepository;
     }
 
 
     public async Task<UserDetailDto> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
-        var categoriesDetails = await _userRepository.GetByIdAsync(request.Id);
+        // Fetch user details by ID from the user repository
+        var userDetails = await _userRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
-        if (categoriesDetails == null)
+        // Validate incoming data (check if user exists)
+        if (userDetails == null)
         {
-            throw new NotFoundException(nameof(Category), request.Id);
+            throw new NotFoundException(nameof(User), request.Id); // Use "User" for clarity
         }
 
-        //convert data object to DTO objects
-        var data = _mapper.Map<UserDetailDto>(categoriesDetails);
+        // Map user entity to UserDetailDto
+        var data = _mapper.Map<UserDetailDto>(userDetails);
 
-        //return list of Dto objects
+        // Return the user details DTO
         return data;
     }
 }

@@ -1,7 +1,15 @@
-﻿using Ecommerce.Domain;
+﻿// ====================================================
+// File: OrderDetailDto.cs
+// Description: Data Transfer Object (DTO) representing the details of an order.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using Ecommerce.Domain; // Domain model for items
 
 namespace Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
 
+// DTO for representing the details of an order
 public class OrderDetailDto
 {
     public Guid Id { get; set; }

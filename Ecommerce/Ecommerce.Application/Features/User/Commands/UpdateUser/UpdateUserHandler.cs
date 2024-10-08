@@ -1,10 +1,17 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: UpdateUserHandler.cs
+// Description: Handler for the UpdateUserCommand. Updates a user in the database.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
 namespace Ecommerce.Application.Features.User.Commands.UpdateUser;
 
-public class UpdateUserHandler : IRequestHandler<UpdateUserCommmand, Guid>
+public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Guid>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
@@ -13,19 +20,19 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommmand, Guid>
     {
         this._mapper = mapper;
         this._userRepository = userRepository;
-
     }
-    public async Task<Guid> Handle(UpdateUserCommmand request, CancellationToken cancellationToken)
+
+    public async Task<Guid> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
-        //Validate incoming data
+        // Validate incoming data (add validation logic here)
 
-        //convert domain entity object
-        var UserToUpdate = _mapper.Map<Domain.User>(request.dto);
+        // Convert DTO to domain entity object
+        var userToUpdate = _mapper.Map<Domain.User>(request.dto);
 
-        //add to database
-        await _userRepository.UpdateAsync(UserToUpdate);
+        // Update user in the database
+        await _userRepository.UpdateAsync(userToUpdate);
 
-        //return record id
-        return UserToUpdate.Id;
+        // Return the updated user's ID
+        return userToUpdate.Id;
     }
 }

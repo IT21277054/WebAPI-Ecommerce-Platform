@@ -1,32 +1,39 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: DeleteInventoryHandler.cs
+// Description: Handler for deleting an inventory item by its ID.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
-namespace Ecommerce.Application.Features.Inventory.Commands.DeleteInventory;
-public class DeleteInventoryHandler : IRequestHandler<DeleteInventoryCommand, Unit>
+namespace Ecommerce.Application.Features.Inventory.Commands.DeleteInventory
 {
-    private readonly IMapper _mapper;
-    private readonly IInventoryRepository _inventoryRepository;
-
-    public DeleteInventoryHandler(IMapper mapper, IInventoryRepository inventoryRepository)
+    public class DeleteInventoryHandler : IRequestHandler<DeleteInventoryCommand, Unit>
     {
-        this._mapper = mapper;
-        this._inventoryRepository = inventoryRepository;
+        private readonly IMapper _mapper; // AutoMapper for mapping between DTO and domain entities
+        private readonly IInventoryRepository _inventoryRepository; // Repository for inventory operations
 
-    }
+        public DeleteInventoryHandler(IMapper mapper, IInventoryRepository inventoryRepository)
+        {
+            this._mapper = mapper;
+            this._inventoryRepository = inventoryRepository;
+        }
 
-    public async Task<Unit> Handle(DeleteInventoryCommand request, CancellationToken cancellationToken)
-    {
-        //retieve domain entity object
-        var InventoryToDelete = await _inventoryRepository.GetByIdAsync(request.Id);
+        public async Task<Unit> Handle(DeleteInventoryCommand request, CancellationToken cancellationToken)
+        {
+            // Retrieve the inventory entity to delete
+            var inventoryToDelete = await _inventoryRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+            // Validate if the inventory exists (optional)
 
-        //add to database
-        await _inventoryRepository.DeleteAsync(InventoryToDelete);
+            // Delete the inventory from the database
+            await _inventoryRepository.DeleteAsync(inventoryToDelete);
 
-        //return record id
-        return Unit.Value;
+            // Return a success response
+            return Unit.Value;
+        }
     }
 }
-

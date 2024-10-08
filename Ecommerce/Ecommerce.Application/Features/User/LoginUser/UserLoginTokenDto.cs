@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.User.LoginUser;
+﻿// ====================================================
+// File: UserLoginTokenDto.cs
+// Description: Represents the data transfer object (DTO) for user login token.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+namespace Ecommerce.Application.Features.User.LoginUser;
 
 public class UserLoginTokenDto
 {

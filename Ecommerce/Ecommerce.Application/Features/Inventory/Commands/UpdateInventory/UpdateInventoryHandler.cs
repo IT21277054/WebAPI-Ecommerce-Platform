@@ -1,31 +1,39 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: UpdateInventoryHandler.cs
+// Description: Handler for updating an inventory item.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
-namespace Ecommerce.Application.Features.Inventory.Commands.UpdateInventory;
-
-public class UpdateInventoryHandler : IRequestHandler<UpdateInventoryCommand, Guid>
+namespace Ecommerce.Application.Features.Inventory.Commands.UpdateInventory
 {
-    private readonly IMapper _mapper;
-    private readonly IInventoryRepository _InventoryRepository;
-
-    public UpdateInventoryHandler(IMapper mapper, IInventoryRepository InventoryRepository)
+    public class UpdateInventoryHandler : IRequestHandler<UpdateInventoryCommand, Guid>
     {
-        this._mapper = mapper;
-        this._InventoryRepository = InventoryRepository;
+        private readonly IMapper _mapper; // AutoMapper for object mapping
+        private readonly IInventoryRepository _InventoryRepository; // Repository for inventory operations
 
-    }
-    public async Task<Guid> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
-    {
-        //Validate incoming data
+        public UpdateInventoryHandler(IMapper mapper, IInventoryRepository InventoryRepository)
+        {
+            this._mapper = mapper;
+            this._InventoryRepository = InventoryRepository;
+        }
 
-        //convert domain entity object
-        var InventoryToUpdate = _mapper.Map<Domain.Inventory>(request.dto);
+        public async Task<Guid> Handle(UpdateInventoryCommand request, CancellationToken cancellationToken)
+        {
+            // Validate incoming data (optional validation can be added here)
 
-        //add to database
-        await _InventoryRepository.UpdateAsync(InventoryToUpdate);
+            // Convert DTO to domain entity
+            var InventoryToUpdate = _mapper.Map<Domain.Inventory>(request.dto);
 
-        //return record id
-        return InventoryToUpdate.Id;
+            // Update the inventory item in the database
+            await _InventoryRepository.UpdateAsync(InventoryToUpdate);
+
+            // Return the updated record's ID
+            return InventoryToUpdate.Id;
+        }
     }
 }

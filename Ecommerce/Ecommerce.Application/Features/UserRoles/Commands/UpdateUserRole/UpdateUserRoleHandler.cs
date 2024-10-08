@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: UpdateUserRoleHandler.cs
+// Description: Handler for the UpdateUserRoleCommand. Updates a user role and returns its ID.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -11,21 +18,19 @@ public class UpdateUserRoleHandler : IRequestHandler<UpdateUserRoleCommand, Guid
 
     public UpdateUserRoleHandler(IMapper mapper, IUserRolesRepository userRoleRepository)
     {
-        this._mapper = mapper;
-        this._userRoleRepository = userRoleRepository;
-
+        _mapper = mapper;
+        _userRoleRepository = userRoleRepository;
     }
+
     public async Task<Guid> Handle(UpdateUserRoleCommand request, CancellationToken cancellationToken)
     {
-        //Validate incoming data
+        // Map UpdateUserRoleDto to Domain.UserRoles entity
+        var userRoleToUpdate = _mapper.Map<Domain.UserRoles>(request.dto);
 
-        //convert domain entity object
-        var UserRoleToUpdate = _mapper.Map<Domain.UserRoles>(request.dto);
+        // Update the user role in the database
+        await _userRoleRepository.UpdateAsync(userRoleToUpdate);
 
-        //add to database
-        await _userRoleRepository.UpdateAsync(UserRoleToUpdate);
-
-        //return record id
-        return UserRoleToUpdate.Id;
+        // Return the updated user role ID
+        return userRoleToUpdate.Id;
     }
 }

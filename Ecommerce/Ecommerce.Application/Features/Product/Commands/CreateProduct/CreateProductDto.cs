@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.Product.Commands.CreateProduct;
+﻿// ====================================================
+// File: CreateProductDto.cs
+// Description: Data Transfer Object (DTO) for creating a new product.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+namespace Ecommerce.Application.Features.Product.Commands.CreateProduct;
 
 public class CreateProductDto
 {
@@ -9,5 +16,4 @@ public class CreateProductDto
     public string ImageUrl { get; set; } = string.Empty;
     public Guid? VendorId { get; set; }
     public bool IsActivated { get; set; } = false;
-
 }

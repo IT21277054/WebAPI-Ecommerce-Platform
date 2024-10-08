@@ -1,8 +1,17 @@
-﻿using Ecommerce.Domain;
+﻿// ====================================================
+// File: IJwtProvider.cs
+// Description: Interface for JWT token generation.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
 
-namespace Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Domain;
 
-public interface IJwtProvider
+namespace Ecommerce.Application.Contracts.Persistence
 {
-    string Generate(User user);
+    // Interface for generating JWT tokens for users.
+    public interface IJwtProvider
+    {
+        string Generate(User user);
+    }
 }

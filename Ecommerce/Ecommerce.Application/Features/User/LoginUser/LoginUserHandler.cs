@@ -1,4 +1,11 @@
-﻿using Ecommerce.Application.Contracts.Persistence;
+﻿// ====================================================
+// File: LoginUserHandler.cs
+// Description: Handler for the LoginUserCommand. Authenticates a user and returns a JWT token if successful.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -19,23 +26,23 @@ public class LoginUserHandler : IRequestHandler<LoginUserCommand, string>
 
     public async Task<string> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
-        // Retrieve the user from the database by email or username
+        // Find user by email
         var user = await _userRepository.GetByEmailAsync(request.request.Email);
         if (user == null)
         {
-            return "error";
+            return "error";  // User not found
         }
 
-        // Verify the password
+        // Verify password
         var result = _passwordHasher.VerifyHashedPassword(user, user.Password, request.request.Password);
         if (result == PasswordVerificationResult.Success)
         {
-            string token = _jwtProvider.Generate(user);
-            return token;
-        } else
+            // Generate JWT on successful login
+            return _jwtProvider.Generate(user);
+        }
+        else
         {
-            return "error";
+            return "error";  // Invalid password
         }
     }
-
 }

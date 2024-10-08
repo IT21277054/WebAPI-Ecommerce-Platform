@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.User.Commands.CreateUser;
+﻿// ====================================================
+// File: CreateUserDto.cs
+// Description: Data Transfer Object (DTO) for creating a user.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+namespace Ecommerce.Application.Features.User.Commands.CreateUser;
 
 public class CreateUserDto
 {

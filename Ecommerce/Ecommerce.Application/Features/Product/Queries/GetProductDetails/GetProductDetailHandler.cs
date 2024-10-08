@@ -1,10 +1,16 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: GetProductDetailHandler.cs
+// Description: Handler for retrieving product details based on product ID using MediatR.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Product.Queries.GetProductDetails;
-
 
 public class GetProductDetailHandler : IRequestHandler<GetProductDetailQuery, ProductDetailDto>
 {
@@ -15,25 +21,23 @@ public class GetProductDetailHandler : IRequestHandler<GetProductDetailQuery, Pr
     {
         this._mapper = mapper;
         this._productRepository = productRepository;
-
     }
-
 
     public async Task<ProductDetailDto> Handle(GetProductDetailQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
+        // Query the database
         var categoriesDetails = await _productRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
+        // Validate incoming data
         if (categoriesDetails == null)
         {
             throw new NotFoundException(nameof(Category), request.Id);
         }
 
-        //convert data object to DTO objects
+        // Convert data object to DTO object
         var data = _mapper.Map<ProductDetailDto>(categoriesDetails);
 
-        //return list of Dto objects
+        // Return DTO object
         return data;
     }
 }

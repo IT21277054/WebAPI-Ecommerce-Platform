@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: CreateUserRoleHandler.cs
+// Description: Handler for the CreateUserRoleCommand. Creates a new user role and returns its ID.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -13,19 +20,20 @@ public class CreateUserRoleHandler : IRequestHandler<CreateUserRoleCommand, Guid
     {
         this._mapper = mapper;
         this._userRoleRepository = userRoleRepository;
-
     }
+
     public async Task<Guid> Handle(CreateUserRoleCommand request, CancellationToken cancellationToken)
     {
-        //convert domain entity object
-        var UserRoleToCreate = _mapper.Map<Domain.UserRoles>(request.dto);
+        // Map CreateUserRoleDto to Domain.UserRoles entity
+        var userRoleToCreate = _mapper.Map<Domain.UserRoles>(request.dto);
 
-        UserRoleToCreate.Id = Guid.NewGuid();
+        // Generate a new GUID for the user role
+        userRoleToCreate.Id = Guid.NewGuid();
 
-        //add to database
-        await _userRoleRepository.CreateAsync(UserRoleToCreate);
+        // Add the new user role to the database
+        await _userRoleRepository.CreateAsync(userRoleToCreate);
 
-        //return record id
-        return UserRoleToCreate.Id;
+        // Return the newly created user role ID
+        return userRoleToCreate.Id;
     }
 }

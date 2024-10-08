@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
+﻿// ====================================================
+// File: VendorDto.cs
+// Description: Represents the data transfer object (DTO) for a vendor.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+namespace Ecommerce.Application.Features.Vendor.Queries.GetAllVendor;
 
 public class VendorDto
 {

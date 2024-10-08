@@ -1,9 +1,18 @@
-﻿using Ecommerce.Domain;
+﻿// ====================================================
+// File: CreateCartDto.cs
+// Description: Data Transfer Object for creating a cart entity.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
 
-namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
+using Ecommerce.Domain;
 
-public class CreateCartDto
+namespace Ecommerce.Application.Features.Cart.Commands.CreateCart
 {
-    public ICollection<CartItem> Items { get; set; }
-    public Guid UserId { get; set; }
+    // Data Transfer Object for creating a new Cart
+    public class CreateCartDto
+    {
+        public ICollection<CartItem> Items { get; set; }
+        public Guid UserId { get; set; }
+    }
 }

@@ -1,33 +1,41 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: CreateCategoryHandler.cs
+// Description: Handler for creating a new category.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Category.Commands.CreateCategory;
 
-public class CreateCatogeryHandler : IRequestHandler<CreateCategoryCommand, int>
+// Handler for processing CreateCategoryCommand
+public class CreateCategoryHandler : IRequestHandler<CreateCategoryCommand, int>
 {
-    private readonly IMapper _mapper;
-    private readonly ICategoryRepository _categoryRepository;
+    private readonly IMapper _mapper; // Mapper for object-to-object mapping
+    private readonly ICategoryRepository _categoryRepository; // Repository for category operations
 
-    public CreateCatogeryHandler(IMapper mapper, ICategoryRepository categoryRepository)
+    public CreateCategoryHandler(IMapper mapper, ICategoryRepository categoryRepository)
     {
         this._mapper = mapper;
         this._categoryRepository = categoryRepository;
-
     }
+
     public async Task<int> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        // Convert domain entity object
+        // Convert the incoming DTO to the domain entity
         var categoryToCreate = _mapper.Map<Domain.Category>(request.dto);
 
-        // Get the last ID from the database
+        // Get the last category ID from the database
         var lastCategory = await _categoryRepository.GetLastCategoryAsync();
-        categoryToCreate.Id = (lastCategory != null) ? lastCategory.Id + 1 : 1;
+        categoryToCreate.Id = (lastCategory != null) ? lastCategory.Id + 1 : 1; // Set new ID
 
-        // Add to database
+        // Add the new category to the database
         await _categoryRepository.CreateAsync(categoryToCreate);
 
-        // Return record id
+        // Return the ID of the newly created category
         return categoryToCreate.Id;
     }
 }

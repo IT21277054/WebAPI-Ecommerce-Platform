@@ -1,12 +1,30 @@
-﻿using Ecommerce.Domain.Common;
+﻿// ====================================================
+// File: IGenericRepository.cs
+// Description: Generic repository interface for CRUD operations.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
 
-namespace Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Domain.Common;
 
-public interface IGenericRepository<T,Y> where T : BaseEntity<Y>
+namespace Ecommerce.Application.Contracts.Persistence
 {
-    Task<IReadOnlyList<T>> GetAsync();
-    Task<T> GetByIdAsync(Y Id);
-    Task CreateAsync(T entity);
-    Task UpdateAsync(T entity);
-    Task DeleteAsync(T entity);
+    // Generic repository interface for CRUD operations on entities derived from BaseEntity.
+    public interface IGenericRepository<T, Y> where T : BaseEntity<Y>
+    {
+        // Retrieve all entities asynchronously.
+        Task<IReadOnlyList<T>> GetAsync();
+
+        // Retrieve an entity by its ID asynchronously.
+        Task<T> GetByIdAsync(Y Id);
+
+        // Create a new entity asynchronously.
+        Task CreateAsync(T entity);
+
+        // Update an existing entity asynchronously.
+        Task UpdateAsync(T entity);
+
+        // Delete an existing entity asynchronously.
+        Task DeleteAsync(T entity);
+    }
 }

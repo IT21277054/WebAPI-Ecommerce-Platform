@@ -1,31 +1,40 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: CreateCartHandler.cs
+// Description: Handler for creating a cart entity.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
-namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
-
-public class CreateCartHandler : IRequestHandler<CreateCartCommand, Guid>
+namespace Ecommerce.Application.Features.Cart.Commands.CreateCart
 {
-    private readonly IMapper _mapper;
-    private readonly ICartRepository _cartRepository;
-
-    public CreateCartHandler(IMapper mapper, ICartRepository cartRepository)
+    // Handler for the CreateCartCommand
+    public class CreateCartHandler : IRequestHandler<CreateCartCommand, Guid>
     {
-        this._mapper = mapper;
-        this._cartRepository = cartRepository;
+        private readonly IMapper _mapper;
+        private readonly ICartRepository _cartRepository;
 
-    }
-    public async Task<Guid> Handle(CreateCartCommand request, CancellationToken cancellationToken)
-    {
-        //convert domain entity object
-        var cartToCreate = _mapper.Map<Domain.Cart>(request.dto);
+        public CreateCartHandler(IMapper mapper, ICartRepository cartRepository)
+        {
+            this._mapper = mapper;
+            this._cartRepository = cartRepository;
+        }
 
-        cartToCreate.Id = Guid.NewGuid();
+        public async Task<Guid> Handle(CreateCartCommand request, CancellationToken cancellationToken)
+        {
+            // Convert DTO to domain entity object
+            var cartToCreate = _mapper.Map<Domain.Cart>(request.dto);
 
-        //add to database
-        await _cartRepository.CreateAsync(cartToCreate);
+            cartToCreate.Id = Guid.NewGuid();
 
-        //return record id
-        return cartToCreate.Id;
+            // Add to the database
+            await _cartRepository.CreateAsync(cartToCreate);
+
+            // Return record ID
+            return cartToCreate.Id;
+        }
     }
 }

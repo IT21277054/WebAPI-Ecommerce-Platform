@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: GetUserHandler.cs
+// Description: Handler for the GetUserQuery. Retrieves all users from the database and returns them as DTOs.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -10,22 +17,21 @@ public class GetUserHandler : IRequestHandler<GetUserQuery, List<UserDto>>
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
 
-    public GetUserHandler(IMapper mapper, IUserRepository useryRepository)
+    public GetUserHandler(IMapper mapper, IUserRepository userRepository)
     {
         this._mapper = mapper;
-        this._userRepository = useryRepository;
-
+        this._userRepository = userRepository;
     }
 
     public async Task<List<UserDto>> Handle(GetUserQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
+        // Fetch all users from the database
         var users = await _userRepository.GetAsync();
 
-        //convert data object to DTO objects
+        // Map user entities to DTOs
         var data = _mapper.Map<List<UserDto>>(users);
 
-        //return list of Dto objects
+        // Return the list of user DTOs
         return data;
     }
 }

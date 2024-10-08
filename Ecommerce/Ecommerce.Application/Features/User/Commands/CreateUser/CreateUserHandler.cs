@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: CreateUserHandler.cs
+// Description: Command handler for creating a user.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -11,26 +18,26 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher<Domain.User> _passwordHasher;
 
+    // Constructor to inject dependencies
     public CreateUserHandler(IMapper mapper, IUserRepository userRepository, IPasswordHasher<Domain.User> passwordHasher)
     {
         this._mapper = mapper;
         this._userRepository = userRepository;
         this._passwordHasher = passwordHasher;
-
     }
+
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        //convert domain entity object
+        // Convert DTO to domain entity
         var userToCreate = _mapper.Map<Domain.User>(request.dto);
 
         userToCreate.Id = Guid.NewGuid();
-
         userToCreate.Password = _passwordHasher.HashPassword(userToCreate, request.dto.Password);
 
-        //add to database
+        // Add to database
         await _userRepository.CreateAsync(userToCreate);
 
-        //return record id
+        // Return record ID
         return userToCreate.Id;
     }
 }

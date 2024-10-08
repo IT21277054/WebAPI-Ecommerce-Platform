@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
+﻿// ====================================================
+// File: CreateVendorFeedbackDto.cs
+// Description: Represents the data transfer object (DTO) for creating a new vendor feedback.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+namespace Ecommerce.Application.Features.VendorFeedback.Commands.AddVendorFeedback;
 
 public class CreateVendorFeedbackDto
 {

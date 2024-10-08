@@ -1,7 +1,16 @@
-﻿using Ecommerce.Domain;
+﻿// ====================================================
+// File: IInventoryRepository.cs
+// Description: Repository interface for inventory management.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
 
-namespace Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Domain;
 
-public interface IInventoryRepository : IGenericRepository<Inventory, Guid>
+namespace Ecommerce.Application.Contracts.Persistence
 {
+    // Repository interface for inventory management extending the generic repository.
+    public interface IInventoryRepository : IGenericRepository<Inventory, Guid>
+    {
+    }
 }

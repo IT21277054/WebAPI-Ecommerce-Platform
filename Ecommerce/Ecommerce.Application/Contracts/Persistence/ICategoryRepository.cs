@@ -1,8 +1,18 @@
-﻿using Ecommerce.Domain;
+﻿// ====================================================
+// File: ICategoryRepository.cs
+// Description: Interface for Category repository operations.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
 
-namespace Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Domain;
 
-public interface ICategoryRepository : IGenericRepository<Category, int>
+namespace Ecommerce.Application.Contracts.Persistence
 {
-    public Task<Category> GetLastCategoryAsync();
+    // ICategoryRepository extends the generic repository interface for Category entities.
+    public interface ICategoryRepository : IGenericRepository<Category, int>
+    {
+        // Retrieves the last added category asynchronously.
+        Task<Category> GetLastCategoryAsync();
+    }
 }

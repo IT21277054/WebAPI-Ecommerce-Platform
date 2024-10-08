@@ -1,4 +1,11 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: GetUserDetailHandler.cs
+// Description: Handler for the GetUserDetailQuery. Retrieves a specific user by ID and returns its details as a DTO.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
@@ -14,22 +21,18 @@ public class GetUserDetailHandler : IRequestHandler<GetUserDetailQuery, UserDeta
     {
         this._mapper = mapper;
         this._userRepository = userRepository;
-
     }
 
 
     public async Task<UserDetailDto> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
     {
-        //Query the database
+        // Fetch user details by ID
         var userDetail = await _userRepository.GetByIdAsync(request.Id);
 
-        //Validate incoming data
-
-
-        //convert data object to DTO objects
+        // Map user entity to DTO
         var data = _mapper.Map<UserDetailDto>(userDetail);
 
-        //return list of Dto objects
+        // Return the user detail DTO
         return data;
     }
 }

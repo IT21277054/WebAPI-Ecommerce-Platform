@@ -1,4 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// ====================================================
+// File: BaseEntity.cs
+// Description: Base entity class for common properties across entities.
+// Author: Shamry Shiraz | IT21227704
+// Date: 2024-10-08
+// ====================================================
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.Domain.Common;
 

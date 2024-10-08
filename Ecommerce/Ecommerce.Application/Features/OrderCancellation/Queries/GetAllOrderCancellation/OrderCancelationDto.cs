@@ -1,4 +1,11 @@
-﻿namespace Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
+﻿// ====================================================
+// File: OrderCancelationDto.cs
+// Description: Data Transfer Object (DTO) representing the details of an order cancellation.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+namespace Ecommerce.Application.Features.OrderCancellation.Queries.GetAllOrderCancellation;
 
 public class OrderCancelationDto
 {

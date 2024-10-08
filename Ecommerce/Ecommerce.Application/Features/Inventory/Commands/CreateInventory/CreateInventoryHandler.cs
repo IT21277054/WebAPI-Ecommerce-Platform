@@ -1,31 +1,39 @@
-﻿using AutoMapper;
+﻿// ====================================================
+// File: CreateInventoryHandler.cs
+// Description: Handler for creating a new inventory item.
+// Author: Shamry Shiraz | IT21277054
+// Date: 2024-10-07
+// ====================================================
+
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 
+// Handler for creating a new inventory item
 public class CreateInventoryHandler : IRequestHandler<CreateInventoryCommand, Guid>
 {
-    private readonly IMapper _mapper;
-    private readonly IInventoryRepository _inventoryRepository;
+    private readonly IMapper _mapper; // AutoMapper for mapping DTO to domain entity
+    private readonly IInventoryRepository _inventoryRepository; // Repository for inventory operations
 
     public CreateInventoryHandler(IMapper mapper, IInventoryRepository inventoryRepository)
     {
         this._mapper = mapper;
         this._inventoryRepository = inventoryRepository;
-
     }
+
     public async Task<Guid> Handle(CreateInventoryCommand request, CancellationToken cancellationToken)
     {
-        //convert domain entity object
-        var InventoryToCreate = _mapper.Map<Domain.Inventory>(request.dto);
+        // Convert the incoming DTO to the domain entity
+        var inventoryToCreate = _mapper.Map<Domain.Inventory>(request.dto);
 
-        InventoryToCreate.Id = Guid.NewGuid();
+        inventoryToCreate.Id = Guid.NewGuid(); // Assign a new unique ID
 
-        //add to database
-        await _inventoryRepository.CreateAsync(InventoryToCreate);
+        // Add the new inventory item to the database
+        await _inventoryRepository.CreateAsync(inventoryToCreate);
 
-        //return record id
-        return InventoryToCreate.Id;
+        // Return the ID of the created inventory item
+        return inventoryToCreate.Id;
     }
 }
