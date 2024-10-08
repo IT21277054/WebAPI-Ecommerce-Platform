@@ -6,7 +6,8 @@
 // ====================================================
 
 using Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
+using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 using MediatR;
 
 // Command to update an existing cart
-public record UpdateCartCommand(CartDto dto) : IRequest<Guid>;
+public record UpdateCartCommand(string email, ProductDto dto) : IRequest<CartDto>;

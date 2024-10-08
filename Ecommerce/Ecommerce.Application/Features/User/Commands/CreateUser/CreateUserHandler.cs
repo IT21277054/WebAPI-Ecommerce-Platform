@@ -28,6 +28,12 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, Guid>
 
     public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+        // Check if email is null or empty
+        if (string.IsNullOrEmpty(request.dto.Email))
+        {
+            throw new ArgumentException("Email cannot be null or empty.");
+        }
+
         // Convert DTO to domain entity
         var userToCreate = _mapper.Map<Domain.User>(request.dto);
 

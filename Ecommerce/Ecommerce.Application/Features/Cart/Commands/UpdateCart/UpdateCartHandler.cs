@@ -7,11 +7,12 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Commands.UpdateCart;
 
-public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, Guid>
+public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, CartDto>
 {
     private readonly IMapper _mapper; // AutoMapper for mapping DTO to domain entity
     private readonly ICartRepository _cartRepository; // Repository for cart operations
@@ -22,17 +23,18 @@ public class UpdateCartHandler : IRequestHandler<UpdateCartCommand, Guid>
         this._cartRepository = cartRepository;
     }
 
-    public async Task<Guid> Handle(UpdateCartCommand request, CancellationToken cancellationToken)
+    public async Task<CartDto> Handle(UpdateCartCommand request, CancellationToken cancellationToken)
     {
-        // Validate incoming data (optional)
 
         // Convert the incoming DTO to the domain entity
-        var cartToUpdate = _mapper.Map<Domain.Cart>(request.dto);
+        var productToUpdate = _mapper.Map<Domain.Product>(request.dto);
 
         // Update the cart in the database
-        await _cartRepository.UpdateAsync(cartToUpdate);
+        var cartToUpdate = await _cartRepository.UpdateCart(request.email, productToUpdate);
+
+        var updatedCart = _mapper.Map<CartDto>(cartToUpdate);
 
         // Return the ID of the updated cart
-        return cartToUpdate.Id;
+        return updatedCart;
     }
 }

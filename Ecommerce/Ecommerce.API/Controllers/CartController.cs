@@ -9,6 +9,7 @@
 using Ecommerce.Application.Features.Cart.Commands.CreateCart;
 using Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
 using Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
+using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,11 +43,11 @@ public class CartController : ControllerBase
     // GET: api/Cart/GetByCartId/{id}
     // Retrieves cart details by ID.
     [HttpGet]
-    [Route("GetByCartId/{id:Guid}")]
+    [Route("GetByCartEmail")]
     [ProducesResponseType(typeof(CartDetailDto), 200)]
-    public async Task<IActionResult> GetByCartId(Guid id)
+    public async Task<IActionResult> GetByCartEmail(string email)
     {
-        var result = await _sender.Send(new GetCartDetailsQuery(id));
+        var result = await _sender.Send(new GetCartDetailsQuery(email));
         return Ok(new { data = result });
     }
 
@@ -66,9 +67,9 @@ public class CartController : ControllerBase
     [HttpPut]
     [Route("UpdateCart")]
     [ProducesResponseType(typeof(Guid), 200)]
-    public async Task<IActionResult> UpdateCart(CartDto cartDto)
+    public async Task<IActionResult> UpdateCart(string email, ProductDto cartDto)
     {
-        var result = await _sender.Send(new UpdateCartCommand(cartDto));
+        var result = await _sender.Send(new UpdateCartCommand(email, cartDto));
         return Ok(new { id = result });
     }
 

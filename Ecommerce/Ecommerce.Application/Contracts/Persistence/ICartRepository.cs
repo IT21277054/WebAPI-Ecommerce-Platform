@@ -5,6 +5,7 @@
 // Date: 2024-10-07
 // ====================================================
 
+using Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
 using Ecommerce.Domain;
 
 namespace Ecommerce.Application.Contracts.Persistence;
@@ -12,5 +13,6 @@ namespace Ecommerce.Application.Contracts.Persistence;
 // ICartRepository extends the generic repository interface for Cart entities.
 public interface ICartRepository : IGenericRepository<Cart, Guid>
 {
-    // Additional methods specific to Cart repository can be added here if needed.
+    Task<Cart> UpdateCart(string email, Product updatedItemData);
+    Task<CartDetailDto> GetCartByEmail(string email);
 }

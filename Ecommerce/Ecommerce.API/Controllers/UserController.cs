@@ -6,6 +6,7 @@
 // Date: 2024-10-07
 // ====================================================
 
+using Amazon.Runtime.Internal;
 using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 using Ecommerce.Application.Features.User.Commands.CreateUser;
 using Ecommerce.Application.Features.User.Commands.DeleteUser;
@@ -70,11 +71,42 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route("LoginUser")]
     [ProducesResponseType(typeof(string), 200)]
+    [ProducesResponseType(typeof(ErrorResponse), 400)]
+    [ProducesResponseType(typeof(ErrorResponse), 401)]
     public async Task<IActionResult> LoginUser(LoginUserDto userDto)
     {
-        var result = await _sender.Send(new LoginUserCommand(userDto));
-        return Ok(new { token = result });
+        try
+        {
+            var result = await _sender.Send(new LoginUserCommand(userDto));
+            return Ok(new { token = result });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new ErrorResponse
+            {
+                Message = ex.Message,
+                Code = "401"
+            });
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            return Unauthorized(new ErrorResponse
+            {
+                Message = ex.Message,
+                Code = "401"
+            });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception if necessary
+            return StatusCode(500, new ErrorResponse
+            {
+                Message = "An unexpected error occurred.",
+                Code = "401"
+            });
+        }
     }
+
 
     // PUT: api/UserProfile/UpdateUser
     // Updates an existing user profile.

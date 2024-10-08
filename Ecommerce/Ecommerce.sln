@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Persistence", "Ec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Infrastructure", "Ecommerce.Infrastructure\Ecommerce.Infrastructure.csproj", "{7E17EB4A-AC55-4A05-9125-28A57E56EFAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.API", "Ecommerce.API\Ecommerce.API.csproj", "{9C90A8EB-ABFF-4BA4-AB4F-48C7EA54644A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.API", "Ecommerce.API\Ecommerce.API.csproj", "{9C90A8EB-ABFF-4BA4-AB4F-48C7EA54644A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

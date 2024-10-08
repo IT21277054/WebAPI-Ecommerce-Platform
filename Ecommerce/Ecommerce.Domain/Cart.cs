@@ -11,6 +11,10 @@ namespace Ecommerce.Domain;
 
 public class Cart : BaseEntity<Guid>
 {
-    public ICollection<CartItem> Items { get; set; }
-    public string UserId { get; set; }
+    // Change the Product property to a Guid array
+    public Guid[] Product { get; set; } = Array.Empty<Guid>();
+
+    public Guid? UserId { get; set; }
+    public string Email { get; set; }
 }
+

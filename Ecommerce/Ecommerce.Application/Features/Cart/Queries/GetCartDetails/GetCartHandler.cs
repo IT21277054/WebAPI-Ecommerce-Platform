@@ -8,6 +8,7 @@
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
+using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
@@ -16,27 +17,27 @@ namespace Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
 public class GetCartHandler : IRequestHandler<GetCartDetailsQuery, CartDetailDto>
 {
     private readonly IMapper _mapper; // AutoMapper for mapping objects
-    private readonly ICategoryRepository _categoryRepository; // Repository for category operations
+    private readonly ICartRepository _cartRepository; // Repository for category operations
 
-    public GetCartHandler(IMapper mapper, ICategoryRepository categoryRepository)
+    public GetCartHandler(IMapper mapper, ICartRepository categoryRepository)
     {
         this._mapper = mapper;
-        this._categoryRepository = categoryRepository;
+        this._cartRepository = categoryRepository;
     }
 
     public async Task<CartDetailDto> Handle(GetCartDetailsQuery request, CancellationToken cancellationToken)
     {
-        // Fetch the cart details using the provided ID
-        throw new NotFoundException(nameof(Cart), request.Id);
+        // Query the database
+        var categoriesDetails = await _cartRepository.GetCartByEmail(request.Email);
 
         // Validate incoming data
-        // Uncomment and implement validation logic as needed
-        // if (categoriesDetails == null)
-        // {
-        //     throw new NotFoundException(nameof(Cart), request.Id);
-        // }
+        if (categoriesDetails == null)
+        {
+            throw new NotFoundException(nameof(Category), request.Email);
+        }
 
-        // Convert data object to DTO objects
-        // return _mapper.Map<CartDetailDto>(cartDetails);
+        // Return DTO object
+        return categoriesDetails;
+
     }
 }

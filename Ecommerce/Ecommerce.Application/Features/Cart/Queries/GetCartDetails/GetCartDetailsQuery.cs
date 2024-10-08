@@ -10,4 +10,4 @@ using MediatR;
 namespace Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
 
 // Query to fetch details of a specific cart by its ID
-public record GetCartDetailsQuery(Guid Id) : IRequest<CartDetailDto>;
+public record GetCartDetailsQuery(string Email) : IRequest<CartDetailDto>;

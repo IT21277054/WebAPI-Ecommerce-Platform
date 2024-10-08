@@ -5,13 +5,15 @@
 // Date: 2024-10-07
 // ====================================================
 
+using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 using Ecommerce.Domain;
 
 namespace Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
 
 public class CartDto
 {
-    public Guid Id { get; set; } // Unique identifier for the cart
-    public ICollection<CartItem> Items { get; set; } // Collection of items in the cart
-    public string UserId { get; set; } // Identifier for the user owning the cart
+    public Guid Id { get; set; }
+    public Guid[] Product { get; set; } = Array.Empty<Guid>();
+    public Guid? UserId { get; set; }
+    public string Email { get; set; }
 }
