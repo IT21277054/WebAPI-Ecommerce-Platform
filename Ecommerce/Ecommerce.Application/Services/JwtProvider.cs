@@ -26,7 +26,7 @@ public sealed class JwtProvider : IJwtProvider
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim("mobileNumber", user.MobileNumber),
             new Claim("role", user.UserRole),
-            new Claim("role", user.UserRole)
+            new Claim("address", user.Address)
         };
 
         // Define the signing credentials using a symmetric security key
