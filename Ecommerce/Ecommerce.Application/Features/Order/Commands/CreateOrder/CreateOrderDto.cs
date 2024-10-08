@@ -20,6 +20,7 @@ public class CreateOrderDto
 
 public class ItemsDto
 {
+    public Guid? ProductId { get; set; }
     public Guid? VendorId { get; set; }
     public string Status { get; set; } = string.Empty;
     public double Amount { get; set; }
