@@ -12,7 +12,7 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var mongoClient = new MongoClient("mongodb+srv://ShamryShiraz:123@nasa.zisfxs2.mongodb.net/?retryWrites=true&w=majority&appName=Nasa");
+        var mongoClient = new MongoClient();
 
         services.AddDbContext<EcommerceDBContext>(options =>
         {
