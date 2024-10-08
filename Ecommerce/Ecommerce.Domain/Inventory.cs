@@ -11,7 +11,6 @@ namespace Ecommerce.Domain;
 
 public class Inventory : BaseEntity<Guid>
 {
-    public Guid VendorId { get; set; }
     public int CategoryId { get; set; }
     public Guid ProductId { get; set; }
     public string Description { get; set; } = string.Empty;

@@ -32,16 +32,21 @@ public class InventoryRepository : GenericRepository<Inventory, Guid>, IInventor
         var categories = await _context.Set<Category>().AsNoTracking().ToListAsync();
         var products = await _context.Set<Product>().AsNoTracking().ToListAsync();
 
-        // Create a list of InventoryDto to hold the result
+        // Create dictionaries for faster lookups
+        var vendorDictionary = vendors.ToDictionary(v => v.Id, v => v.Name);
+        var categoryDictionary = categories.ToDictionary(c => c.Id, c => c.Name);
+        var productDictionary = products.ToDictionary(p => p.Id, p => new { p.Name, p.VendorId }); // Store Name and VendorId
+
+        // Create a list of InventoryDetailDto to hold the result
         var inventoryDtos = inventories.Select(inv => new InventoryDetailDto
         {
             Id = inv.Id,
-            VendorId = inv.VendorId,
-            VendorName = vendors.FirstOrDefault(v => v.Id == inv.VendorId)?.Name ?? string.Empty,
+            VendorId = productDictionary.TryGetValue(inv.ProductId, out var productDetails) ? productDetails.VendorId : Guid.Empty,
+            VendorName = productDictionary.TryGetValue(inv.ProductId, out productDetails) ? vendorDictionary.GetValueOrDefault(productDetails.VendorId, string.Empty) : string.Empty,
             CategoryId = inv.CategoryId,
-            CategoryName = categories.FirstOrDefault(c => c.Id == inv.CategoryId)?.Name ?? string.Empty,
+            CategoryName = categoryDictionary.TryGetValue(inv.CategoryId, out var categoryName) ? categoryName : string.Empty,
             ProductId = inv.ProductId,
-            ProductName = products.FirstOrDefault(p => p.Id == inv.ProductId)?.Name ?? string.Empty,
+            ProductName = productDictionary.TryGetValue(inv.ProductId, out productDetails) ? productDetails.Name : string.Empty,
             Description = inv.Description,
             UnitPrice = inv.UnitPrice,
             Quantity = inv.Quantity
@@ -50,7 +55,8 @@ public class InventoryRepository : GenericRepository<Inventory, Guid>, IInventor
         return inventoryDtos;
     }
 
+
 }
 
 
-    
+
