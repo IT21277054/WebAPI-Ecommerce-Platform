@@ -21,6 +21,13 @@ public class ProductRepository : GenericRepository<Product, Guid>, IProductRepos
         _context = context; // Initialize the database context
     }
 
+    public async Task<List<Product>> GetByCategoryId(string Catogery)
+    {
+        return await _context.Product
+            .Where(product => product.Category == Catogery) // Filter products by vendor ID
+            .ToListAsync(); // Return the filtered list of products
+    }
+
     // Retrieve a list of products by the specified vendor ID
     public async Task<List<Product>> GetByVendorId(Guid vendorId)
     {

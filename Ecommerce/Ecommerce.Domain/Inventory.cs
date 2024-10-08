@@ -11,7 +11,7 @@ namespace Ecommerce.Domain;
 
 public class Inventory : BaseEntity<Guid>
 {
-    public int CategoryId { get; set; }
+    public string CategoryName { get; set; }
     public Guid ProductId { get; set; }
     public string Description { get; set; } = string.Empty;
     public decimal? UnitPrice { get; set; }

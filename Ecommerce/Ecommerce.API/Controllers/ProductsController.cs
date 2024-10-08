@@ -6,12 +6,14 @@
 // Date: 2024-10-07
 // ====================================================
 
+using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
 using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 using Ecommerce.Application.Features.Product.Commands.CreateProduct;
 using Ecommerce.Application.Features.Product.Commands.DeleteProduct;
 using Ecommerce.Application.Features.Product.Commands.UpdateProduct;
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 using Ecommerce.Application.Features.Product.Queries.GetByVendorId;
+using Ecommerce.Application.Features.Product.Queries.GetProductByCategory;
 using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +42,17 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> GetAllProducts()
     {
         var result = await _sender.Send(new GetProductQuery());
+        return Ok(new { data = result });
+    }
+
+    // GET: api/Product/GetByProductId/{id}
+    // Retrieves product details by product ID.
+    [HttpGet]
+    [Route("GetByCatogery")]
+    [ProducesResponseType(typeof(ProductDto), 200)]
+    public async Task<IActionResult> GetByCatogery(string catogery)
+    {
+        var result = await _sender.Send(new GetProductByCategoryQuery(catogery));
         return Ok(new { data = result });
     }
 

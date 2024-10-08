@@ -10,7 +10,7 @@ namespace Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 // DTO for creating a new inventory item
 public class CreateInventoryDto
 {
-    public int CategoryId { get; set; }
+    public string CategoryName { get; set; }
     public Guid ProductId { get; set; }
     public string Description { get; set; } = string.Empty;
     public decimal? UnitPrice { get; set; }

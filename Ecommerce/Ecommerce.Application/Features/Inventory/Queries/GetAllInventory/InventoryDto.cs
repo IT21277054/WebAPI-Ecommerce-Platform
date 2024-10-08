@@ -12,7 +12,7 @@ public class InventoryDto
 {
     public Guid Id { get; set; }
     public Guid VendorId { get; set; }
-    public Guid CategoryId { get; set; }
+    public string CategoryName { get; set; }
     public Guid ProductId { get; set; }
     public string Description { get; set; } = string.Empty;
     public decimal? UnitPrice { get; set; }
