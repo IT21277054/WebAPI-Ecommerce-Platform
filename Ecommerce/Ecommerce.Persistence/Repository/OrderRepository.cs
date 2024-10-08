@@ -94,7 +94,8 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
                     Status = item.Status,
                     Price = item.Price,
                     Quantity = item.Quantity,
-                    CustomerEmail = order.CustomerEmail // Assuming order has a CustomerEmail field
+                    CustomerEmail = order.CustomerEmail,
+                    ProductId = item.ProductId
                 }))
             .ToList();
 
