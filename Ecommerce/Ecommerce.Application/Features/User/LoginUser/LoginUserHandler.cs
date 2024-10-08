@@ -28,13 +28,22 @@ public class LoginUserHandler : IRequestHandler<LoginUserCommand, string>
     {
         // Find user by email
         var user = await _userRepository.GetByEmailAsync(request.request.Email);
+
+        // Check if user exists
         if (user == null)
         {
-            return "error";  // User not found
+            throw new UnauthorizedAccessException("Email not found.");
+        }
+
+        // Check if the user's account is activated
+        if (!user.isActivated)
+        {
+            throw new UnauthorizedAccessException("User account is not activated.");
         }
 
         // Verify password
         var result = _passwordHasher.VerifyHashedPassword(user, user.Password, request.request.Password);
+
         if (result == PasswordVerificationResult.Success)
         {
             // Generate JWT on successful login
@@ -42,7 +51,8 @@ public class LoginUserHandler : IRequestHandler<LoginUserCommand, string>
         }
         else
         {
-            return "error";  // Invalid password
+            throw new UnauthorizedAccessException("Invalid Password.");
         }
     }
+
 }
