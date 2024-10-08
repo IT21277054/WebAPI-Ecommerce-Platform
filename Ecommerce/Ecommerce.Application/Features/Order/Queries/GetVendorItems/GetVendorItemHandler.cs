@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Queries.GetVendorItems;

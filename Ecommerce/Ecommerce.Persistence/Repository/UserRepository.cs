@@ -5,7 +5,9 @@
 // Date: 2024-10-08
 // ====================================================
 
+using Ecommerce.Application.Contracts.Email;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Models.Email;
 using Ecommerce.Persistence.DatabaseContext;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +19,14 @@ public class UserRepository : GenericRepository<User, Guid>, IUserRepository
 {
     private readonly EcommerceDBContext _context;
     private readonly IPasswordHasher<Domain.User> _passwordHasher;
+    private readonly IEmailSender _emailSender;
 
-    public UserRepository(EcommerceDBContext context, IPasswordHasher<User> passwordHasher) : base(context)
+    public UserRepository(IEmailSender emailSender, EcommerceDBContext context, IPasswordHasher<User> passwordHasher) : base(context)
     {
         _context = context; // Initialize the database context
         _passwordHasher = passwordHasher;
+        _emailSender = emailSender;
+
     }
 
     // Retrieve a user by their email address (case-insensitive)
@@ -103,6 +108,20 @@ public class UserRepository : GenericRepository<User, Guid>, IUserRepository
         if (existingUser.isActivated != entity.isActivated)
         {
             existingUser.isActivated = entity.isActivated;
+
+            if (entity.isActivated)
+            {
+                var emailMessage = new EmailMessage
+                {
+                    To = existingUser.Email,
+                    Subject = "Account Activation - Kamikos.Co",
+                    Body = "Your account has been successfully activated."
+                };
+
+                // Send the email
+                await _emailSender.SendEmail(emailMessage);
+            }
+
         }
 
         // Save the updated entity

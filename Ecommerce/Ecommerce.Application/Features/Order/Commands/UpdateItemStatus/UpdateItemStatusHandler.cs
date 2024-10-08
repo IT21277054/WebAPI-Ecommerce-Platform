@@ -1,13 +1,7 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Features.Order.Commands.CancelItem;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ecommerce.Application.Features.Order.Commands.UpdateItemStatus;
 

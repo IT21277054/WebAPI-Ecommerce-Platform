@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
-using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Commands.CancelItem;
