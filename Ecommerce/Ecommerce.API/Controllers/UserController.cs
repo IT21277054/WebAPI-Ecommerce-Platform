@@ -71,7 +71,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> LoginUser(LoginUserDto userDto)
     {
         var result = await _sender.Send(new LoginUserCommand(userDto));
-        return Ok(result);
+        return Ok(new { token = result });
     }
 
     // PUT: api/UserProfile/UpdateUser
