@@ -15,6 +15,7 @@ public class OrderDetailDto
     public Guid Id { get; set; }
     public string CustomerEmail { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
+    public string CreatedOn { get; set; } = string.Empty;
     public ICollection<Items> Items { get; set; }
     public double Amount { get; set; }
     public string? cancellationNotice { get; set; } = string.Empty;
