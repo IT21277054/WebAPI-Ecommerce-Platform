@@ -41,7 +41,7 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
             ProductId = item.Id,
             VendorId = item.VendorId,
             Status = "Pending",
-            Amount = item.Price,
+            Price = item.Price,
             Quantity = 1,
             Id = Guid.NewGuid(),
             CreatedOn = DateTime.UtcNow,
@@ -55,7 +55,7 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
             CustomerEmail = cart.Email,
             Status = "Pending",
             Items = orderItems,
-            Amount = orderItems.Sum(x => x.Amount * x.Quantity),
+            Amount = orderItems.Sum(x => x.Price * x.Quantity),
             CreatedOn = DateTime.UtcNow,
             ModifiedOn = DateTime.UtcNow
         };
@@ -106,7 +106,7 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
             if (item != null)
             {
                 // Update the item's properties with the values from updatedItemData
-                item.Amount = updatedItemData.Amount;
+                item.Price = updatedItemData.Price;
                 item.Quantity = updatedItemData.Quantity;
                 item.Status = updatedItemData.Status;
                 item.VendorId = updatedItemData.VendorId;
