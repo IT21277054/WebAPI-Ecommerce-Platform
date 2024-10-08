@@ -11,7 +11,6 @@ namespace Ecommerce.Domain;
 
 public class Order : BaseEntity<Guid>
 {
-    public Guid? CustomerId { get; set; }
     public string CustomerEmail { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public ICollection<Items> Items { get; set; }

@@ -13,7 +13,6 @@ namespace Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
 public class OrderDetailDto
 {
     public Guid Id { get; set; }
-    public Guid? CustomerId { get; set; }
     public string CustomerEmail { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public ICollection<Items> Items { get; set; }
