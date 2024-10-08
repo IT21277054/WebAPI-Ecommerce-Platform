@@ -1,8 +1,10 @@
-﻿namespace Ecommerce.Application.Features.Order.Commands.CreateOrder;
+﻿using Ecommerce.Domain;
+
+namespace Ecommerce.Application.Features.Order.Commands.CreateOrder;
 
 public class CreateOrderDto
 {
-    public int Status { get; set; }
-    public int[]? Items { get; set; }
-    public int Amount { get; set; }
+    public string Status { get; set; } = string.Empty;
+    public Items[]? Items { get; set; }
+    public double Amount { get; set; }
 }
