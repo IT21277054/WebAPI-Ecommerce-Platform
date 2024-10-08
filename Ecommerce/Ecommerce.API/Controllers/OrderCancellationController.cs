@@ -58,7 +58,7 @@ public class OrderCancellationController : ControllerBase
     public async Task<IActionResult> CreateOrderCancellation(CreateOrderCancellationDto orderCancellationDto)
     {
         var result = await _sender.Send(new CreateOrderCancellationCommand(orderCancellationDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/OrderCancellation/UpdateOrderCancellation
@@ -69,7 +69,7 @@ public class OrderCancellationController : ControllerBase
     public async Task<IActionResult> UpdateOrderCancellation(OrderCancelationDto orderCancellationDto)
     {
         var result = await _sender.Send(new UpdateOrderCancellationCommand(orderCancellationDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/OrderCancellation/DeleteOrderCancellation/{id}

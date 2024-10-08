@@ -56,7 +56,7 @@ public class CartController : ControllerBase
     public async Task<IActionResult> CreateCart(CreateCartDto CartDto)
     {
         var result = await _sender.Send(new CreateCartCommand(CartDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/Cart/UpdateCart
@@ -67,7 +67,7 @@ public class CartController : ControllerBase
     public async Task<IActionResult> UpdateCart(CartDto cartDto)
     {
         var result = await _sender.Send(new UpdateCartCommand(cartDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/Cart/DeleteCart/{id}

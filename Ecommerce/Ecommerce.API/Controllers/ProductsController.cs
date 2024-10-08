@@ -37,10 +37,12 @@ public class ProductsController : ControllerBase
     [HttpGet]
     [Route("GetAllProducts")]
     [ProducesResponseType(typeof(List<ProductDto>), 200)]
-    public async Task<List<ProductDto>> GetAllProducts()
+    public async Task<IActionResult> GetAllProducts()
     {
-        return await _sender.Send(new GetProductQuery());
+        var result = await _sender.Send(new GetProductQuery());
+        return Ok(new { data = result });
     }
+
 
     // GET: api/Product/GetByProductId/{id}
     // Retrieves product details by product ID.
@@ -70,7 +72,7 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> CreateProducts(CreateProductDto productsDto)
     {
         var result = await _sender.Send(new CreateProductCommand(productsDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/Product/UpdateProducts
@@ -81,7 +83,7 @@ public class ProductsController : ControllerBase
     public async Task<IActionResult> UpdateProducts(ProductDto productsDto)
     {
         var result = await _sender.Send(new UpdateProductCommand(productsDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/Product/DeleteProducts/{id}

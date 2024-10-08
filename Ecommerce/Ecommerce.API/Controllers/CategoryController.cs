@@ -57,7 +57,7 @@ public class CategoryController : ControllerBase
     public async Task<IActionResult> CreateCategory(CreateCategoryDto categoryDto)
     {
         var result = await _sender.Send(new CreateCategoryCommand(categoryDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/category/UpdateCategory
@@ -68,7 +68,7 @@ public class CategoryController : ControllerBase
     public async Task<IActionResult> UpdateCategory(CategoryDto categoryDto)
     {
         var result = await _sender.Send(new UpdateCategoryCommand(categoryDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/category/DeleteCategory/{id}

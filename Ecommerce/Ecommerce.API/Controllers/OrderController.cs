@@ -70,7 +70,7 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> CreateOrder(CreateOrderDto orderDto)
     {
         var result = await _sender.Send(new CreateOrderCommand(orderDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/Order/UpdateOrder
@@ -81,7 +81,7 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> UpdateOrder(OrderDto orderDto)
     {
         var result = await _sender.Send(new UpdateOrderCommand(orderDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/Order/UpdateItem

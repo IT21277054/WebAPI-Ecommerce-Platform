@@ -59,7 +59,7 @@ public class VendorFeedbackController : ControllerBase
     public async Task<IActionResult> CreateVendorFeedback(CreateVendorFeedbackDto vendorFeedbackDto)
     {
         var result = await _sender.Send(new CreateVendorFeedbackCommand(vendorFeedbackDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/vendorFeedback/UpdateVendorFeedback

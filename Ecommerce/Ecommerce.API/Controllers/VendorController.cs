@@ -58,7 +58,7 @@ public class VendorController : ControllerBase
     public async Task<IActionResult> CreateVendor(CreateVendorDto vendorDto)
     {
         var result = await _sender.Send(new CreateVendorCommand(vendorDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/vendor/UpdateVendor
@@ -69,7 +69,7 @@ public class VendorController : ControllerBase
     public async Task<IActionResult> UpdateVendor(VendorDto vendorDto)
     {
         var result = await _sender.Send(new UpdateVendorCommand(vendorDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/vendor/DeleteVendor/{id}

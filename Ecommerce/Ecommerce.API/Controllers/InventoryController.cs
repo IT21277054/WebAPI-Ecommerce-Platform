@@ -57,7 +57,7 @@ public class InventoryController : ControllerBase
     public async Task<IActionResult> CreateInventory(CreateInventoryDto inventoryDto)
     {
         var result = await _sender.Send(new CreateInventoryCommand(inventoryDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/Inventory/UpdateInventory
@@ -68,7 +68,7 @@ public class InventoryController : ControllerBase
     public async Task<IActionResult> UpdateInventory(InventoryDto inventoryDto)
     {
         var result = await _sender.Send(new UpdateInventoryCommand(inventoryDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/Inventory/DeleteInventory/{id}

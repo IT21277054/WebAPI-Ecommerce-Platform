@@ -58,7 +58,7 @@ public class UserRolesController : ControllerBase
     public async Task<IActionResult> CreateUserRoles(CreateUserRoleDto userRolesDto)
     {
         var result = await _sender.Send(new CreateUserRoleCommand(userRolesDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // PUT: api/UserRoles/UpdateUserRoles
@@ -69,7 +69,7 @@ public class UserRolesController : ControllerBase
     public async Task<IActionResult> UpdateUserRoles(UserRoleDto userRolesDto)
     {
         var result = await _sender.Send(new UpdateUserRoleCommand(userRolesDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/UserRoles/DeleteUserRoles/{id}
