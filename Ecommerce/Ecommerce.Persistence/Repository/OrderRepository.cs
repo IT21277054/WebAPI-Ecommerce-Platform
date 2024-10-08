@@ -5,6 +5,7 @@
 // Date: 2024-10-08
 // ====================================================
 
+using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Domain;
 using Ecommerce.Persistence.DatabaseContext;
@@ -15,10 +16,66 @@ namespace Ecommerce.Persistence.Repository;
 public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
 {
     private readonly EcommerceDBContext _context;
-    public OrderRepository(EcommerceDBContext context) : base(context)
+    private readonly ICartRepository _cartRepository;
+    private readonly IMapper _mapper;
+    public OrderRepository(EcommerceDBContext context, ICartRepository cartRepository, IMapper mapper) : base(context)
     {
         _context = context; // Initialize the database context
+        _cartRepository = cartRepository;
+        _mapper = mapper;
     }
+
+    public async Task<Order> GenerateOrder(string email)
+    {
+        // Fetch the cart based on the email
+        var cart = await _cartRepository.GetCartByEmail(email);
+
+        if (cart == null)
+        {
+            throw new Exception("Cart not found.");
+        }
+
+        // Map cart items to order items
+        var orderItems = cart.Product.Select(item => new Items
+        {
+            ProductId = item.Id,
+            VendorId = item.VendorId,
+            Status = "Pending",
+            Amount = item.Price,
+            Quantity = 1,
+            Id = Guid.NewGuid(),
+            CreatedOn = DateTime.UtcNow,
+            ModifiedOn = DateTime.UtcNow
+        }).ToList();
+
+        // Create new order
+        var order = new Order
+        {
+            Id = Guid.NewGuid(),
+            CustomerEmail = cart.Email,
+            Status = "Pending",
+            Items = orderItems,
+            Amount = orderItems.Sum(x => x.Amount * x.Quantity),
+            CreatedOn = DateTime.UtcNow,
+            ModifiedOn = DateTime.UtcNow
+        };
+
+        // the new order using context
+        _context.Order.Add(order); // Add the order to the Orders table
+
+        // Convert data  DTO objects to object
+        var data = _mapper.Map<Cart>(cart);
+
+        // Delete the cart using context
+        _context.Cart.Remove(data);
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        return order;
+    }
+
+
 
     public async Task<List<Items>> GetItemsByVendorId(Guid vendorId)
     {

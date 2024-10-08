@@ -75,7 +75,6 @@ public class CartRepository : GenericRepository<Cart, Guid>, ICartRepository
             // Check if the product exists in the Product collection
             var existingProduct = await _context.Product.AsNoTracking().FirstOrDefaultAsync(p => p.Id == updatedProductData.Id);
 
-
             // If the cart doesn't exist, create it and assign a new Guid
             if (cart == null)
             {

@@ -6,7 +6,6 @@
 // ====================================================
 
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
-using Ecommerce.Domain;
 
 namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
 

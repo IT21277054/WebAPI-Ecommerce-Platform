@@ -20,8 +20,8 @@ public class Order : BaseEntity<Guid>
 
 public class Items : BaseEntity<Guid>
 {
-    public Guid? ProductId { get; set; }
-    public Guid? VendorId { get; set; }
+    public Guid ProductId { get; set; }
+    public Guid VendorId { get; set; }
     public string Status { get; set; } = string.Empty;
     public double Amount { get; set; }
     public int Quantity { get; set; }

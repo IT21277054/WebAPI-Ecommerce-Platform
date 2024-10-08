@@ -6,7 +6,6 @@
 // Date: 2024-10-07
 // ====================================================
 
-using Ecommerce.Application.Features.Category.Queries.GetAllCategories;
 using Ecommerce.Application.Features.OrderCancellation.Commands.CreateOrderCancellation;
 using Ecommerce.Application.Features.Product.Commands.CreateProduct;
 using Ecommerce.Application.Features.Product.Commands.DeleteProduct;

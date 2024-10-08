@@ -8,7 +8,6 @@
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Exceptions;
-using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Cart.Queries.GetCartDetails;

@@ -5,7 +5,6 @@
 // Date: 2024-10-07
 // ====================================================
 
-using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
 using Ecommerce.Domain;
 

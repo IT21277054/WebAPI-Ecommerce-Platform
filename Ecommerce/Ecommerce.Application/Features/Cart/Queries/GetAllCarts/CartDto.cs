@@ -5,9 +5,6 @@
 // Date: 2024-10-07
 // ====================================================
 
-using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
-using Ecommerce.Domain;
-
 namespace Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
 
 public class CartDto

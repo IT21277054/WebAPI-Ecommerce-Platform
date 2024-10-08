@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using Ecommerce.Domain;
 using MediatR;

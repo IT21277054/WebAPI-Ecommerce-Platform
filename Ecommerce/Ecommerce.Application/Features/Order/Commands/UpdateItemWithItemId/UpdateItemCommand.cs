@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Features.Order.Commands.CreateOrder;
-using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
+﻿using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Commands.UpdateItemWithItemId;
