@@ -12,11 +12,9 @@ public class InventoryDto
 {
     public Guid Id { get; set; }
     public Guid VendorId { get; set; }
-    public string Category { get; set; } = string.Empty;
+    public Guid CategoryId { get; set; }
     public Guid ProductId { get; set; }
-    public string ProductName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal? UnitPrice { get; set; }
     public int? Quantity { get; set; }
-    public bool IsAvailable { get; set; } = true;
 }

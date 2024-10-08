@@ -10,7 +10,6 @@ namespace Ecommerce.Application.Features.Order.Commands.CreateOrder;
 // DTO for creating a new order
 public class CreateOrderDto
 {
-    public Guid? CustomerId { get; set; }
     public string CustomerEmail { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public ItemsDto[]? Items { get; set; }

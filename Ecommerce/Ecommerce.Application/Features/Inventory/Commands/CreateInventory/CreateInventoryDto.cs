@@ -11,11 +11,9 @@ namespace Ecommerce.Application.Features.Inventory.Commands.CreateInventory;
 public class CreateInventoryDto
 {
     public Guid VendorId { get; set; }
-    public string Category { get; set; } = string.Empty;
+    public int CategoryId { get; set; }
     public Guid ProductId { get; set; }
-    public string ProductName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public decimal? UnitPrice { get; set; }
     public int? Quantity { get; set; }
-    public bool IsAvailable { get; set; } = true;
 }

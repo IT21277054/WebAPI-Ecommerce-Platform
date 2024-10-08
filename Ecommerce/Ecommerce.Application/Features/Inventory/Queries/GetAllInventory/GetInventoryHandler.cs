@@ -7,11 +7,12 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Features.Inventory.Queries.GetInventoryDetails;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Inventory.Queries.GetAllInventory;
 
-public class GetInventoryHandler : IRequestHandler<GetInventoryQuery, List<InventoryDto>>
+public class GetInventoryHandler : IRequestHandler<GetInventoryQuery, List<InventoryDetailDto>>
 {
     private readonly IMapper _mapper; // AutoMapper for object mapping
     private readonly IInventoryRepository _inventoryRepository; // Repository for inventory operations
@@ -22,15 +23,12 @@ public class GetInventoryHandler : IRequestHandler<GetInventoryQuery, List<Inven
         this._inventoryRepository = inventoryRepository;
     }
 
-    public async Task<List<InventoryDto>> Handle(GetInventoryQuery request, CancellationToken cancellationToken)
+    public async Task<List<InventoryDetailDto>> Handle(GetInventoryQuery request, CancellationToken cancellationToken)
     {
         // Query the database for all inventory items
-        var inventoryItems = await _inventoryRepository.GetAsync();
-
-        // Convert the inventory items to DTO objects
-        var data = _mapper.Map<List<InventoryDto>>(inventoryItems);
+        var inventoryItems = await _inventoryRepository.GetAllInventory();
 
         // Return the list of DTO objects
-        return data;
+        return inventoryItems;
     }
 }
