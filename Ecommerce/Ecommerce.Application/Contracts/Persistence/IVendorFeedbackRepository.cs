@@ -12,4 +12,5 @@ namespace Ecommerce.Application.Contracts.Persistence;
 // Repository interface for Vendor Feedback entities
 public interface IVendorFeedbackRepository : IGenericRepository<VendorFeedback, Guid>
 {
+    Task<List<VendorFeedback>> GetVendorFeedbackByVendorId(Guid vendorId);
 }

@@ -9,8 +9,10 @@ namespace Ecommerce.Application.Features.VendorFeedback.Queries.GetVendorFeedbac
 
 public class VendorFeedbackDetailDto
 {
-    public string Email { get; set; } = string.Empty;
-    public Guid ProductId { get; set; }
+    public Guid Id { get; set; }
+    public string Title { get; set; } = string.Empty;
     public string Comment { get; set; } = string.Empty;
+    public Guid ProductId { get; set; }
     public int Rating { get; set; }
+    public Guid VendorId { get; set; }
 }

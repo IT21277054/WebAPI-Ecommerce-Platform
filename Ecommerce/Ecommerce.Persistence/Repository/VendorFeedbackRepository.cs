@@ -8,6 +8,7 @@
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Domain;
 using Ecommerce.Persistence.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Persistence.Repository;
 
@@ -15,5 +16,12 @@ public class VendorFeedbackRepository : GenericRepository<VendorFeedback, Guid>,
 {
     public VendorFeedbackRepository(EcommerceDBContext context) : base(context)
     {
+    }
+
+    public async Task<List<VendorFeedback>> GetVendorFeedbackByVendorId(Guid vendorId)
+    {
+        return await _context.VendorFeedback
+            .Where(vendorFeedback => vendorFeedback.VendorId == vendorId) // Filter products by vendor ID
+            .ToListAsync(); // Return the filtered list of products
     }
 }

@@ -4,9 +4,11 @@ namespace Ecommerce.Domain;
 
 public class VendorFeedback : BaseEntity<Guid>
 {
-    public string Email { get; set; } = string.Empty;
-    public Guid ProductId { get; set; }
+
+    public string Title { get; set; } = string.Empty;
     public string Comment { get; set; } = string.Empty;
-    public int rating { get; set; }
+    public Guid ProductId { get; set; }
+    public int Rating { get; set; }
+    public Guid VendorId { get; set; }
 
 }

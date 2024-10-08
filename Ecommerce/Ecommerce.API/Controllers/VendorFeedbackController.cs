@@ -44,8 +44,8 @@ public class VendorFeedbackController : ControllerBase
     // GET: api/vendorFeedback/GetByVendorFeedbackId/{id}
     // Retrieves vendor feedback details by feedback ID.
     [HttpGet]
-    [Route("GetByVendorFeedbackId/{id:Guid}")]
-    [ProducesResponseType(typeof(VendorFeedbackDetailDto), 200)]
+    [Route("GetByVendorFeedbackId")]
+    [ProducesResponseType(typeof(List<VendorFeedbackDetailDto>), 200)]
     public async Task<IActionResult> GetByVendorFeedbackId(Guid id)
     {
         var result = await _sender.Send(new GetVendorFeedbackDetailQuery(id));

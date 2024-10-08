@@ -12,7 +12,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.VendorFeedback.Queries.GetVendorFeedbackDetail;
 
-public class GetVendorFeedbackDetailHandler : IRequestHandler<GetVendorFeedbackDetailQuery, VendorFeedbackDetailDto>
+public class GetVendorFeedbackDetailHandler : IRequestHandler<GetVendorFeedbackDetailQuery, List<VendorFeedbackDetailDto>>
 {
     private readonly IMapper _mapper;
     private readonly IVendorFeedbackRepository _vendorFeedbackRepository;
@@ -23,19 +23,19 @@ public class GetVendorFeedbackDetailHandler : IRequestHandler<GetVendorFeedbackD
         this._vendorFeedbackRepository = vendorFeedbackRepository;
     }
 
-    public async Task<VendorFeedbackDetailDto> Handle(GetVendorFeedbackDetailQuery request, CancellationToken cancellationToken)
+    public async Task<List<VendorFeedbackDetailDto>> Handle(GetVendorFeedbackDetailQuery request, CancellationToken cancellationToken)
     {
         // Query the database to retrieve the vendor feedback with the specified ID
-        var vendorFeedbackDetails = await _vendorFeedbackRepository.GetByIdAsync(request.Id);
+        var vendorFeedbackDetails = await _vendorFeedbackRepository.GetVendorFeedbackByVendorId(request.id);
 
         // Validate if the vendor feedback exists
         if (vendorFeedbackDetails == null)
         {
-            throw new NotFoundException(nameof(VendorFeedbackDetailDto), request.Id);
+            throw new NotFoundException(nameof(VendorFeedbackDetailDto), request.id);
         }
 
         // Convert the retrieved vendor feedback entity to a DTO object
-        var data = _mapper.Map<VendorFeedbackDetailDto>(vendorFeedbackDetails);
+        var data = _mapper.Map<List<VendorFeedbackDetailDto>>(vendorFeedbackDetails);
 
         // Return the DTO object representing the detailed vendor feedback
         return data;
