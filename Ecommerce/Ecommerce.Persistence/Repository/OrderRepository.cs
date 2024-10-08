@@ -74,8 +74,6 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
         return order;
     }
 
-
-
     public async Task<List<Items>> GetItemsByVendorId(Guid vendorId)
     {
         // Retrieve all orders from the repository asynchronously
@@ -125,7 +123,12 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
         throw new Exception("Item not found.");
     }
 
-
+    public async Task<Order?> GetOrderByEmail(string email)
+    {
+        return await _context.Set<Order>()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(o => o.CustomerEmail == email);
+    }
 
 
 

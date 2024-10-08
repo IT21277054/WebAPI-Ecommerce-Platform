@@ -12,6 +12,7 @@ using Ecommerce.Application.Features.Order.Commands.GenerateOrder;
 using Ecommerce.Application.Features.Order.Commands.UpdateItemWithItemId;
 using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
+using Ecommerce.Application.Features.Order.Queries.GetOrderByEmail;
 using Ecommerce.Application.Features.Order.Queries.GetOrdersDetails;
 using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using MediatR;
@@ -74,6 +75,17 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> GetByItemsById(Guid vendorId)
     {
         var result = await _sender.Send(new GetVendorItemQuery(vendorId));
+        return Ok(new { data = result });
+    }
+
+    // GET: api/Order/GetByItemsById/{VendorId}
+    // Retrieves items related to a vendor Id.
+    [HttpGet]
+    [Route("GetOrderByEmail")]
+    [ProducesResponseType(typeof(OrderDetailDto), 200)]
+    public async Task<IActionResult> GetOrderByEmail(string email)
+    {
+        var result = await _sender.Send(new GetOrderByEmailQuery(email));
         return Ok(new { data = result });
     }
 
