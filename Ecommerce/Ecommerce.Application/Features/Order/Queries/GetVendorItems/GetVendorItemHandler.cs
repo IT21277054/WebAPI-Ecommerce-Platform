@@ -21,13 +21,7 @@ public class GetVendorItemHandler : IRequestHandler<GetVendorItemQuery, List<Get
         // Query the database
         var items = await _orderRepository.GetItemsByVendorId(request.VendorId);
 
-        // Validate incoming data
-
-
-        // Convert data object to DTO objects
-        var data = _mapper.Map<List<GetVendorItemDto>>(items);
-
         // Return list of DTO objects
-        return data;
+        return items;
     }
 }

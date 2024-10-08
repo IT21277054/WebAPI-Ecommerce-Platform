@@ -7,6 +7,7 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using Ecommerce.Domain;
 using Ecommerce.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
@@ -74,15 +75,27 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
         return order;
     }
 
-    public async Task<List<Items>> GetItemsByVendorId(Guid vendorId)
+    public async Task<List<GetVendorItemDto>> GetItemsByVendorId(Guid vendorId)
     {
         // Retrieve all orders from the repository asynchronously
-        var allOrders = await _context.Set<Order>().AsNoTracking().ToListAsync();
+        var allOrders = await _context.Set<Order>()
+            .Include(o => o.Items) // Ensure that items are included in the query
+            .AsNoTracking()
+            .ToListAsync();
 
-        // Filter items based on the provided vendorId
+        // Filter items based on the provided vendorId and map them to GetVendorItemDto
         var vendorItems = allOrders
-            .SelectMany(order => order.Items)
-            .Where(item => item.VendorId == vendorId)
+            .SelectMany(order => order.Items
+                .Where(item => item.VendorId == vendorId)
+                .Select(item => new GetVendorItemDto
+                {
+                    Id = item.Id,
+                    VendorId = item.VendorId,
+                    Status = item.Status,
+                    Price = item.Price,
+                    Quantity = item.Quantity,
+                    CustomerEmail = order.CustomerEmail // Assuming order has a CustomerEmail field
+                }))
             .ToList();
 
         return vendorItems;

@@ -5,6 +5,7 @@
 // Date: 2024-10-07
 // ====================================================
 
+using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using Ecommerce.Domain;
 
 namespace Ecommerce.Application.Contracts.Persistence;
@@ -12,7 +13,7 @@ namespace Ecommerce.Application.Contracts.Persistence;
 // Repository interface for Order entities
 public interface IOrderRepository : IGenericRepository<Order, Guid>
 {
-    Task<List<Items>> GetItemsByVendorId(Guid vendorId);
+    Task<List<GetVendorItemDto>> GetItemsByVendorId(Guid vendorId);
     Task<Items> UpdateItemsByItemId(Items updatedItemData);
     Task<Order> GenerateOrder(string email);
     Task<Order> GetOrderByEmail(string email);
