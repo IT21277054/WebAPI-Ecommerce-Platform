@@ -37,6 +37,9 @@ public class CartRepository : GenericRepository<Cart, Guid>, ICartRepository
                 .Where(p => productIds.Contains(p.Id))
                 .ToListAsync();
 
+            // Calculate the total price
+            var totalPrice = products.Sum(p => p.Price);
+
             // Create the CartDetailDto object to return
             return new CartDetailDto
             {
@@ -52,6 +55,7 @@ public class CartRepository : GenericRepository<Cart, Guid>, ICartRepository
                     IsActivated = p.IsActivated
                 }).ToList(),
                 Email = cart.Email,
+                TotalPrice = totalPrice
             };
         }
 
@@ -71,22 +75,6 @@ public class CartRepository : GenericRepository<Cart, Guid>, ICartRepository
             // Check if the product exists in the Product collection
             var existingProduct = await _context.Product.AsNoTracking().FirstOrDefaultAsync(p => p.Id == updatedProductData.Id);
 
-            if (existingProduct == null)
-            {
-                // If the product does not exist in the Product collection, insert it
-                await _context.Product.AddAsync(updatedProductData);
-                await _context.SaveChangesAsync();
-
-                existingProduct = updatedProductData;
-            }
-            else
-            {
-                // If the product exists, update its properties
-                existingProduct.Name = updatedProductData.Name;
-                existingProduct.Price = updatedProductData.Price;
-                _context.Product.Update(existingProduct);
-                await _context.SaveChangesAsync();
-            }
 
             // If the cart doesn't exist, create it and assign a new Guid
             if (cart == null)

@@ -17,4 +17,6 @@ public class CartDetailDto : BaseEntity<Guid>
     public List<ProductDto> Product { get; set; } = new List<ProductDto>();
     public string UserId { get; set; } // User associated with the cart
     public string Email { get; set; }
+    public double TotalPrice { get; set; }
+
 }
