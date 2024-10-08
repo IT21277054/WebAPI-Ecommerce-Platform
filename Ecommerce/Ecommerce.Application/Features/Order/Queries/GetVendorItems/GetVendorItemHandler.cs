@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 
-public class GetVendorItemHandler : IRequestHandler<GetVendorItemQuery, List<ItemsDto>>
+public class GetVendorItemHandler : IRequestHandler<GetVendorItemQuery, List<GetVendorItemDto>>
 {
     private readonly IMapper _mapper; // AutoMapper for object mapping
     private readonly IOrderRepository _orderRepository; // Repository for order operations
@@ -16,7 +16,7 @@ public class GetVendorItemHandler : IRequestHandler<GetVendorItemQuery, List<Ite
         this._orderRepository = orderRepository;
     }
 
-    public async Task<List<ItemsDto>> Handle(GetVendorItemQuery request, CancellationToken cancellationToken)
+    public async Task<List<GetVendorItemDto>> Handle(GetVendorItemQuery request, CancellationToken cancellationToken)
     {
         // Query the database
         var items = await _orderRepository.GetItemsByVendorId(request.VendorId);
@@ -25,7 +25,7 @@ public class GetVendorItemHandler : IRequestHandler<GetVendorItemQuery, List<Ite
 
 
         // Convert data object to DTO objects
-        var data = _mapper.Map<List<ItemsDto>>(items);
+        var data = _mapper.Map<List<GetVendorItemDto>>(items);
 
         // Return list of DTO objects
         return data;
