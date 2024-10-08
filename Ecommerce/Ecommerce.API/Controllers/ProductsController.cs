@@ -49,9 +49,10 @@ public class ProductsController : ControllerBase
     [HttpGet]
     [Route("GetByProductId/{id:Guid}")]
     [ProducesResponseType(typeof(ProductDetailDto), 200)]
-    public async Task<ProductDetailDto> GetByProductId(Guid id)
+    public async Task<IActionResult> GetByProductId(Guid id)
     {
-        return await _sender.Send(new GetProductDetailQuery(id));
+        var result = await _sender.Send(new GetProductDetailQuery(id));
+        return Ok(new { data = result });
     }
 
     // GET: api/Product/GetByVendorId/{id}
@@ -59,9 +60,10 @@ public class ProductsController : ControllerBase
     [HttpGet]
     [Route("GetByVendorId/{id:Guid}")]
     [ProducesResponseType(typeof(List<ProductDetailDto>), 200)]
-    public async Task<List<ProductDetailDto>> GetByVendorId(Guid id)
+    public async Task<IActionResult> GetByVendorId(Guid id)
     {
-        return await _sender.Send(new GetByVendorIdQuery(id));
+        var result = await _sender.Send(new GetByVendorIdQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/Product/CreateProducts
@@ -90,9 +92,11 @@ public class ProductsController : ControllerBase
     // Deletes a product by product ID.
     [HttpDelete]
     [Route("DeleteProducts/{id:Guid}")]
-    [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteProducts(Guid id)
+    [ProducesResponseType(typeof(string), 200)]
+    public async Task<IActionResult> DeleteProducts(Guid id)
     {
-        return await _sender.Send(new DeleteProductCommand(id));
+        await _sender.Send(new DeleteProductCommand(id));
+        return Ok(new { message = "Product deleted successfully." });
     }
+
 }

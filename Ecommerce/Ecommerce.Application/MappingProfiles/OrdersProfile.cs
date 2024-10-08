@@ -23,5 +23,6 @@ public class OrdersProfile : Profile
         CreateMap<CreateOrderDto, Order>();
         CreateMap<ItemsDto, Items>().ReverseMap();
         CreateMap<GetVendorItemDto, Items>().ReverseMap();
+        CreateMap<Items, GetVendorItemDto>().ReverseMap();
     }
 }

@@ -34,9 +34,10 @@ public class CategoryController : ControllerBase
     [HttpGet]
     [Route("GetAllCategories")]
     [ProducesResponseType(typeof(List<CategoryDto>), 200)]
-    public async Task<List<CategoryDto>> GetAllCategories()
+    public async Task<IActionResult> GetAllCategories()
     {
-        return await _sender.Send(new GetCategoriesQuery());
+        var result = await _sender.Send(new GetCategoriesQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/category/GetByCategoryId/{id}
@@ -44,9 +45,10 @@ public class CategoryController : ControllerBase
     [HttpGet]
     [Route("GetByCategoryId/{id:int}")]
     [ProducesResponseType(typeof(CatgoryDetailsDto), 200)]
-    public async Task<CatgoryDetailsDto> GetByCategoryId(int id)
+    public async Task<IActionResult> GetByCategoryId(int id)
     {
-        return await _sender.Send(new GetCategoryDetailsQuery(id));
+        var result = await _sender.Send(new GetCategoryDetailsQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/category/CreateCategory
@@ -76,8 +78,9 @@ public class CategoryController : ControllerBase
     [HttpDelete]
     [Route("DeleteCategory/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteCategory(int id)
+    public async Task<IActionResult> DeleteCategory(int id)
     {
-        return await _sender.Send(new DeleteCategoryCommand(id));
+        await _sender.Send(new DeleteCategoryCommand(id));
+        return Ok(new { message = "Product deleted successfully." });
     }
 }

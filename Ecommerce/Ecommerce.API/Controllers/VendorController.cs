@@ -35,9 +35,10 @@ public class VendorController : ControllerBase
     [HttpGet]
     [Route("GetAllVendor")]
     [ProducesResponseType(typeof(List<VendorDto>), 200)]
-    public async Task<List<VendorDto>> GetAllVendor()
+    public async Task<IActionResult> GetAllVendor()
     {
-        return await _sender.Send(new GetVendorQuery());
+        var result = await _sender.Send(new GetVendorQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/vendor/GetByVendorId/{id}
@@ -45,9 +46,10 @@ public class VendorController : ControllerBase
     [HttpGet]
     [Route("GetByVendorId/{id:Guid}")]
     [ProducesResponseType(typeof(VendorDetailDto), 200)]
-    public async Task<VendorDetailDto> GetByVendorId(Guid id)
+    public async Task<IActionResult> GetByVendorId(Guid id)
     {
-        return await _sender.Send(new GetVendorDetailQuery(id));
+        var result = await _sender.Send(new GetVendorDetailQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/vendor/CreateVendor
@@ -77,8 +79,9 @@ public class VendorController : ControllerBase
     [HttpDelete]
     [Route("DeleteVendor/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteVendor(Guid id)
+    public async Task<IActionResult> DeleteVendor(Guid id)
     {
-        return await _sender.Send(new DeleteVendorCommand(id));
+        await _sender.Send(new DeleteVendorCommand(id));
+        return Ok(new { message = "Vendor deleted successfully." });
     }
 }

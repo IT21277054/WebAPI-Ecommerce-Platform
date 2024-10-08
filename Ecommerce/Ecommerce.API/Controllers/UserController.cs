@@ -37,9 +37,10 @@ public class UserController : ControllerBase
     [HttpGet]
     [Route("GetAllUserProfile")]
     [ProducesResponseType(typeof(List<UserDto>), 200)]
-    public async Task<List<UserDto>> GetAllUserProfile()
+    public async Task<IActionResult> GetAllUserProfile()
     {
-        return await _sender.Send(new GetUserQuery());
+        var result = await _sender.Send(new GetUserQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/UserProfile/GetByUserId/{id}
@@ -47,9 +48,10 @@ public class UserController : ControllerBase
     [HttpGet]
     [Route("GetByUserbyEmail")]
     [ProducesResponseType(typeof(UserDetailDto), 200)]
-    public async Task<UserDetailDto> GetByUserbyEmail(string email)
+    public async Task<IActionResult> GetByUserbyEmail(string email)
     {
-        return await _sender.Send(new GetUserDetailQuery(email));
+        var result = await _sender.Send(new GetUserDetailQuery(email));
+        return Ok(new { data = result });
     }
 
     // POST: api/UserProfile/CreateUser
@@ -82,7 +84,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> UpdateUser(UserDto userDto)
     {
         var result = await _sender.Send(new UpdateUserCommand(userDto));
-        return Ok(result);
+        return Ok(new { data = result });
     }
 
     // DELETE: api/UserProfile/DeleteUser/{id}
@@ -90,8 +92,9 @@ public class UserController : ControllerBase
     [HttpDelete]
     [Route("DeleteUser")]
     [ProducesResponseType(typeof(UserDto), 200)]
-    public async Task<UserDto> DeleteUser(string email)
+    public async Task<IActionResult> DeleteUser(string email)
     {
-        return await _sender.Send(new DeleteUserCommand(email));
+        await _sender.Send(new DeleteUserCommand(email));
+        return Ok(new { message = "User deleted successfully." });
     }
 }

@@ -34,9 +34,10 @@ public class InventoryController : ControllerBase
     [HttpGet]
     [Route("GetAllInventories")]
     [ProducesResponseType(typeof(List<InventoryDto>), 200)]
-    public async Task<List<InventoryDto>> GetAllInventories()
+    public async Task<IActionResult> GetAllInventories()
     {
-        return await _sender.Send(new GetInventoryQuery());
+        var result = await _sender.Send(new GetInventoryQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/Inventory/GetByInventorId/{id}
@@ -44,9 +45,10 @@ public class InventoryController : ControllerBase
     [HttpGet]
     [Route("GetByInventorId/{id:Guid}")]
     [ProducesResponseType(typeof(InventoryDetailDto), 200)]
-    public async Task<InventoryDetailDto> GetByInventorId(Guid id)
+    public async Task<IActionResult> GetByInventorId(Guid id)
     {
-        return await _sender.Send(new GetInventoryDetailQuery(id));
+        var result = await _sender.Send(new GetInventoryDetailQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/Inventory/CreateInventory
@@ -76,8 +78,9 @@ public class InventoryController : ControllerBase
     [HttpDelete]
     [Route("DeleteInventory/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteInventory(Guid id)
+    public async Task<IActionResult> DeleteInventory(Guid id)
     {
-        return await _sender.Send(new DeleteInventoryCommand(id));
+        var result = await _sender.Send(new DeleteInventoryCommand(id));
+        return Ok(new { message = "Inventory deleted successfully." });
     }
 }

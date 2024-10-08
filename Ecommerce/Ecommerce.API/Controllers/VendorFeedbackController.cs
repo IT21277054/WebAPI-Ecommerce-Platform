@@ -38,7 +38,7 @@ public class VendorFeedbackController : ControllerBase
     public async Task<IActionResult> GetAllVendorFeedback()
     {
         var result = await _sender.Send(new GetVendorFeedbackQuery());
-        return Ok(result);
+        return Ok(new { data = result });
     }
 
     // GET: api/vendorFeedback/GetByVendorFeedbackId/{id}
@@ -46,9 +46,10 @@ public class VendorFeedbackController : ControllerBase
     [HttpGet]
     [Route("GetByVendorFeedbackId/{id:Guid}")]
     [ProducesResponseType(typeof(VendorFeedbackDetailDto), 200)]
-    public async Task<VendorFeedbackDetailDto> GetByVendorFeedbackId(Guid id)
+    public async Task<IActionResult> GetByVendorFeedbackId(Guid id)
     {
-        return await _sender.Send(new GetVendorFeedbackDetailQuery(id));
+        var result = await _sender.Send(new GetVendorFeedbackDetailQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/vendorFeedback/CreateVendorFeedback
@@ -70,7 +71,7 @@ public class VendorFeedbackController : ControllerBase
     public async Task<IActionResult> UpdateVendorFeedback(VendorFeedbackDto vendorFeedbackDto)
     {
         var result = await _sender.Send(new UpdateVendorFeedbackCommand(vendorFeedbackDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/vendorFeedback/DeleteVendorFeedback/{id}
@@ -78,8 +79,9 @@ public class VendorFeedbackController : ControllerBase
     [HttpDelete]
     [Route("DeleteVendorFeedback/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteVendorFeedback(Guid id)
+    public async Task<IActionResult> DeleteVendorFeedback(Guid id)
     {
-        return await _sender.Send(new DeleteVendorFeedbackCommand(id));
+        await _sender.Send(new DeleteVendorFeedbackCommand(id));
+        return Ok(new { message = "Vendor Feedback deleted successfully." });
     }
 }

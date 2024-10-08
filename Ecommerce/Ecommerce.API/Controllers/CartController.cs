@@ -33,9 +33,10 @@ public class CartController : ControllerBase
     [HttpGet]
     [Route("GetAllCart")]
     [ProducesResponseType(typeof(List<CartDto>), 200)]
-    public async Task<List<CartDto>> GetAllCart()
+    public async Task<IActionResult> GetAllCart()
     {
-        return await _sender.Send(new GetCartAllQuery());
+        var result = await _sender.Send(new GetCartAllQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/Cart/GetByCartId/{id}
@@ -43,9 +44,10 @@ public class CartController : ControllerBase
     [HttpGet]
     [Route("GetByCartId/{id:Guid}")]
     [ProducesResponseType(typeof(CartDetailDto), 200)]
-    public async Task<CartDetailDto> GetByCartId(Guid id)
+    public async Task<IActionResult> GetByCartId(Guid id)
     {
-        return await _sender.Send(new GetCartDetailsQuery(id));
+        var result = await _sender.Send(new GetCartDetailsQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/Cart/CreateCart
@@ -74,8 +76,9 @@ public class CartController : ControllerBase
     // Deletes a cart by ID.
     [HttpDelete]
     [Route("DeleteCart/{id:Guid}")]
-    public async Task<Unit> DeleteCart(Guid id)
+    public async Task<IActionResult> DeleteCart(Guid id)
     {
-        return await _sender.Send(new DeleteCartCommand(id));
+        await _sender.Send(new DeleteCartCommand(id));
+        return Ok(new { message = "Cart deleted successfully." });
     }
 }

@@ -35,9 +35,10 @@ public class OrderCancellationController : ControllerBase
     [HttpGet]
     [Route("GetAllOrderCancellations")]
     [ProducesResponseType(typeof(List<OrderCancelationDto>), 200)]
-    public async Task<List<OrderCancelationDto>> GetAllOrderCancellations()
+    public async Task<IActionResult> GetAllOrderCancellations()
     {
-        return await _sender.Send(new GetOrderCancelationQuery());
+        var result = await _sender.Send(new GetOrderCancelationQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/OrderCancellation/GetByOrderCancellationId/{id}
@@ -45,9 +46,10 @@ public class OrderCancellationController : ControllerBase
     [HttpGet]
     [Route("GetByOrderCancellationId/{id:Guid}")]
     [ProducesResponseType(typeof(OrderCancelationDetailDto), 200)]
-    public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(Guid id)
+    public async Task<IActionResult> GetByOrderCancellationId(Guid id)
     {
-        return await _sender.Send(new GetOrderCancelationDetailsQuery(id));
+        var result = await _sender.Send(new GetOrderCancelationDetailsQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/OrderCancellation/CreateOrderCancellation
@@ -77,8 +79,9 @@ public class OrderCancellationController : ControllerBase
     [HttpDelete]
     [Route("DeleteOrderCancellation/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteOrderCancellation(Guid id)
+    public async Task<IActionResult> DeleteOrderCancellation(Guid id)
     {
-        return await _sender.Send(new DeleteOrderCancellationCommand(id));
+        var result = await _sender.Send(new DeleteOrderCancellationCommand(id));
+        return Ok(new { message = "Order Cancellation deleted successfully." });
     }
 }

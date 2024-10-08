@@ -37,9 +37,10 @@ public class OrderController : ControllerBase
     [HttpGet]
     [Route("GetAllOrders")]
     [ProducesResponseType(typeof(List<OrderDto>), 200)]
-    public async Task<List<OrderDto>> GetAllOrders()
+    public async Task<IActionResult> GetAllOrders()
     {
-        return await _sender.Send(new GetOrderQuery());
+        var result = await _sender.Send(new GetOrderQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/Order/GetByOrderId/{id}
@@ -47,9 +48,10 @@ public class OrderController : ControllerBase
     [HttpGet]
     [Route("GetByOrderId/{id:Guid}")]
     [ProducesResponseType(typeof(OrderDetailDto), 200)]
-    public async Task<OrderDetailDto> GetByOrderId(Guid id)
+    public async Task<IActionResult> GetByOrderId(Guid id)
     {
-        return await _sender.Send(new GetOrderDetailQuery(id));
+        var result = await _sender.Send(new GetOrderDetailQuery(id));
+        return Ok(new { data = result });
     }
 
     // GET: api/Order/GetByItemsById/{VendorId}
@@ -57,9 +59,10 @@ public class OrderController : ControllerBase
     [HttpGet]
     [Route("GetByItemsVendorById/{vendorId:Guid}")]
     [ProducesResponseType(typeof(ItemsDto), 200)]
-    public async Task<ItemsDto> GetByItemsById(Guid vendorId)
+    public async Task<IActionResult> GetByItemsById(Guid vendorId)
     {
-        return await _sender.Send(new GetVendorItemQuery(vendorId));
+        var result = await _sender.Send(new GetVendorItemQuery(vendorId));
+        return Ok(new { data = result });
     }
 
     // POST: api/Order/CreateOrder
@@ -92,7 +95,7 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> UpdateItem(GetVendorItemDto itemDto)
     {
         var result = await _sender.Send(new UpdateItemCommand(itemDto));
-        return Ok(result);
+        return Ok(new { id = result });
     }
 
     // DELETE: api/Order/DeleteOrder/{id}
@@ -100,8 +103,9 @@ public class OrderController : ControllerBase
     [HttpDelete]
     [Route("DeleteOrder/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteOrder(Guid id)
+    public async Task<IActionResult> DeleteOrder(Guid id)
     {
-        return await _sender.Send(new DeleteOrderCommand(id));
+        await _sender.Send(new DeleteOrderCommand(id));
+        return Ok(new { message = "Product deleted successfully." });
     }
 }

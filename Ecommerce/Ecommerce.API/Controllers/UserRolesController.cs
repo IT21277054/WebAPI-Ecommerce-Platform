@@ -35,9 +35,10 @@ public class UserRolesController : ControllerBase
     [HttpGet]
     [Route("GetAllUserRoles")]
     [ProducesResponseType(typeof(List<UserRoleDto>), 200)]
-    public async Task<List<UserRoleDto>> GetAllUserRoles()
+    public async Task<IActionResult> GetAllUserRoles()
     {
-        return await _sender.Send(new GetUserRolesQuery());
+        var result = await _sender.Send(new GetUserRolesQuery());
+        return Ok(new { data = result });
     }
 
     // GET: api/UserRoles/GetByUserRolesId/{id}
@@ -45,9 +46,10 @@ public class UserRolesController : ControllerBase
     [HttpGet]
     [Route("GetByUserRolesId/{id:Guid}")]
     [ProducesResponseType(typeof(UserRoleDetailDto), 200)]
-    public async Task<UserRoleDetailDto> GetByUserRolesId(Guid id)
+    public async Task<IActionResult> GetByUserRolesId(Guid id)
     {
-        return await _sender.Send(new GetUserRoleDetailQuery(id));
+        var result = await _sender.Send(new GetUserRoleDetailQuery(id));
+        return Ok(new { data = result });
     }
 
     // POST: api/UserRoles/CreateUserRoles
@@ -77,8 +79,9 @@ public class UserRolesController : ControllerBase
     [HttpDelete]
     [Route("DeleteUserRoles/{id:Guid}")]
     [ProducesResponseType(typeof(Unit), 200)]
-    public async Task<Unit> DeleteUserRoles(Guid id)
+    public async Task<IActionResult> DeleteUserRoles(Guid id)
     {
-        return await _sender.Send(new DeleteUserRoleCommand(id));
+        var result = await _sender.Send(new DeleteUserRoleCommand(id));
+        return Ok(new { message = "User Role deleted successfully." });
     }
 }
