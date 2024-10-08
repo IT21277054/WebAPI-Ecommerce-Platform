@@ -8,6 +8,7 @@
 
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.Order.Commands.DeleteOrder;
+using Ecommerce.Application.Features.Order.Commands.GenerateOrder;
 using Ecommerce.Application.Features.Order.Commands.UpdateItemWithItemId;
 using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
@@ -51,6 +52,17 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> GetByOrderId(Guid id)
     {
         var result = await _sender.Send(new GetOrderDetailQuery(id));
+        return Ok(new { data = result });
+    }
+
+    // GET: api/Order/GetByOrderId/{id}
+    // Retrieves order details by ID.
+    [HttpGet]
+    [Route("GenerateOrder")]
+    [ProducesResponseType(typeof(OrderDetailDto), 200)]
+    public async Task<IActionResult> GenerateOrder(string email)
+    {
+        var result = await _sender.Send(new GenerateOrderHandler(email));
         return Ok(new { data = result });
     }
 

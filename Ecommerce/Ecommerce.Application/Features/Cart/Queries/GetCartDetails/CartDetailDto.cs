@@ -14,7 +14,7 @@ namespace Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
 public class CartDetailDto : BaseEntity<Guid>
 {
     public List<ProductDto> Product { get; set; } = new List<ProductDto>();
-    public string UserId { get; set; } // User associated with the cart
+    public Guid UserId { get; set; }
     public string Email { get; set; }
     public double TotalPrice { get; set; }
 

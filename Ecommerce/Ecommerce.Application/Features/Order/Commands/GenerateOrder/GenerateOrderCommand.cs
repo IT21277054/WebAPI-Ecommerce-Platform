@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
+using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
+using Ecommerce.Application.Features.Order.Queries.GetVendorItems;
 using MediatR;
 
 namespace Ecommerce.Application.Features.Order.Commands.GenerateOrder;
 
-public class GenerateOrderCommand : IRequestHandler<CreateOrderCommand, Guid>
+public class GenerateOrderCommand : IRequestHandler<GenerateOrderHandler, OrderDto>
 {
     private readonly IMapper _mapper; // AutoMapper for object mapping
     private readonly IOrderRepository _orderRepository; // Repository for order operations
@@ -16,23 +18,16 @@ public class GenerateOrderCommand : IRequestHandler<CreateOrderCommand, Guid>
         this._orderRepository = orderRepository;
     }
 
-    public async Task<Guid> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+    public async Task<OrderDto> Handle(GenerateOrderHandler request, CancellationToken cancellationToken)
     {
-        // Convert domain entity object
-        var OrderToCreate = _mapper.Map<Domain.Order>(request.dto);
-
-        OrderToCreate.Id = Guid.NewGuid();
-
-        // Loop through items and assign new GUIDs
-        foreach (var item in OrderToCreate.Items)
-        {
-            item.Id = Guid.NewGuid();
-        }
 
         // Add to database
-        await _orderRepository.CreateAsync(OrderToCreate);
+        var generatedOrder = await _orderRepository.GenerateOrder(request.email);
+
+        // Convert domain entity object
+        var mappedItems = _mapper.Map<OrderDto>(generatedOrder);
 
         // Return record id
-        return OrderToCreate.Id;
+        return mappedItems;
     }
 }

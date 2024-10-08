@@ -63,11 +63,10 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
         // the new order using context
         _context.Order.Add(order); // Add the order to the Orders table
 
-        // Convert data  DTO objects to object
-        var data = _mapper.Map<Cart>(cart);
+        var deleteCart = await _context.Cart.FirstOrDefaultAsync(c => c.Email == email);
 
         // Delete the cart using context
-        _context.Cart.Remove(data);
+        _context.Cart.Remove(deleteCart);
 
         // Save changes to the database
         await _context.SaveChangesAsync();

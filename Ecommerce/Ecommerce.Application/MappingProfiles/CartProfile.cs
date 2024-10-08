@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Application.Features.Cart.Queries.GetAllCarts;
+using Ecommerce.Application.Features.Cart.Queries.GetCartDetails;
 using Ecommerce.Application.Features.Product.Queries.GetAllProducts;
 using Ecommerce.Domain;
 
@@ -18,6 +19,10 @@ public class CartProfile : Profile
 
         // Map ProductDto to Product and vice versa
         CreateMap<ProductDto, Product>().ReverseMap();
+
+        CreateMap<CartDetailDto, Cart>()
+            .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product)).ReverseMap();
+
     }
 
 

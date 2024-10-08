@@ -30,6 +30,6 @@ public static class ApplicationServiceReistration
         // Register MediatR for handling requests and notifications
         services.AddMediatR(Assembly.GetExecutingAssembly());
 
-        return services; // Return the updated services collection
+        return services;
     }
 }
