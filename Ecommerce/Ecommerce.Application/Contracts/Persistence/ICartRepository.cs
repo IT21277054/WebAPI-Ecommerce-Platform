@@ -7,11 +7,10 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// ICartRepository extends the generic repository interface for Cart entities.
+public interface ICartRepository : IGenericRepository<Cart, Guid>
 {
-    // ICartRepository extends the generic repository interface for Cart entities.
-    public interface ICartRepository : IGenericRepository<Cart, Guid>
-    {
-        // Additional methods specific to Cart repository can be added here if needed.
-    }
+    // Additional methods specific to Cart repository can be added here if needed.
 }

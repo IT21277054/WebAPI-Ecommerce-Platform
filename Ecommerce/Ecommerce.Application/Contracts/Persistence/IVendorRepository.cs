@@ -7,10 +7,9 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for Vendor entities
+public interface IVendorRepository : IGenericRepository<Vendor, Guid>
 {
-    // Repository interface for Vendor entities
-    public interface IVendorRepository : IGenericRepository<Vendor, Guid>
-    {
-    }
 }

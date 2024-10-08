@@ -7,7 +7,6 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Exceptions;
 using MediatR;
 
 // **Corrected Namespace:**
@@ -28,13 +27,10 @@ public class GetUserDetailsHandler : IRequestHandler<GetUserDetailQuery, UserDet
     public async Task<UserDetailDto> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
     {
         // Fetch user details by ID from the user repository
-        var userDetails = await _userRepository.GetByIdAsync(request.Id);
+        var userDetails = await _userRepository.GetByEmailAsync(request.email);
 
         // Validate incoming data (check if user exists)
-        if (userDetails == null)
-        {
-            throw new NotFoundException(nameof(User), request.Id); // Use "User" for clarity
-        }
+
 
         // Map user entity to UserDetailDto
         var data = _mapper.Map<UserDetailDto>(userDetails);

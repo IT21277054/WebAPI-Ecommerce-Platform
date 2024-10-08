@@ -7,11 +7,10 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for Product entities
+public interface IProductRepository : IGenericRepository<Product, Guid>
 {
-    // Repository interface for Product entities
-    public interface IProductRepository : IGenericRepository<Product, Guid>
-    {
-        Task<List<Product>> GetByVendorId(Guid vendorId);
-    }
+    Task<List<Product>> GetByVendorId(Guid vendorId);
 }

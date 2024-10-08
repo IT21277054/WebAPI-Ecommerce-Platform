@@ -7,11 +7,12 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Features.User.Queries.GetAllUsers;
 using MediatR;
 
 namespace Ecommerce.Application.Features.User.Commands.DeleteUser;
 
-public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, Unit>
+public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, UserDto>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
@@ -22,17 +23,14 @@ public class DeleteUserHandler : IRequestHandler<DeleteUserCommand, Unit>
         this._userRepository = userRepository;
     }
 
-    public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         // Retrieve the user entity to delete
-        var userToDelete = await _userRepository.GetByIdAsync(request.Id);
+        var userToDelete = await _userRepository.DeleteByEmail(request.email);
 
-        // Validate incoming data (optional validation logic can be added here)
-
-        // Delete the user from the database
-        await _userRepository.DeleteAsync(userToDelete);
+        var deletedUser = _mapper.Map<UserDto>(userToDelete);
 
         // Return an empty response indicating the operation was successful
-        return Unit.Value;
+        return deletedUser;
     }
 }

@@ -7,10 +7,10 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for Order entities
+public interface IOrderRepository : IGenericRepository<Order, Guid>
 {
-    // Repository interface for Order entities
-    public interface IOrderRepository : IGenericRepository<Order, Guid>
-    {
-    }
+    Task<List<Items>> GetItemsByVendorId(Guid vendorId);
 }

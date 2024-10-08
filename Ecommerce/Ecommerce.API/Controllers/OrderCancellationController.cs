@@ -14,72 +14,71 @@ using Ecommerce.Application.Features.OrderCancellation.Queries.GetOrderCancellat
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ecommerce.API.Controllers
+namespace Ecommerce.API.Controllers;
+
+[ApiController]
+[Route("api/OrderCancellation")]
+public class OrderCancellationController : ControllerBase
 {
-    [ApiController]
-    [Route("api/OrderCancellation")]
-    public class OrderCancellationController : ControllerBase
+    private readonly ILogger<OrderCancellationController> _logger;
+    private readonly ISender _sender;
+
+    // Constructor - Initializes the logger and sender
+    public OrderCancellationController(ILogger<OrderCancellationController> logger, ISender sender)
     {
-        private readonly ILogger<OrderCancellationController> _logger;
-        private readonly ISender _sender;
+        _logger = logger;
+        _sender = sender;
+    }
 
-        // Constructor - Initializes the logger and sender
-        public OrderCancellationController(ILogger<OrderCancellationController> logger, ISender sender)
-        {
-            _logger = logger;
-            _sender = sender;
-        }
+    // GET: api/OrderCancellation/GetAllOrderCancellations
+    // Retrieves all order cancellations.
+    [HttpGet]
+    [Route("GetAllOrderCancellations")]
+    [ProducesResponseType(typeof(List<OrderCancelationDto>), 200)]
+    public async Task<List<OrderCancelationDto>> GetAllOrderCancellations()
+    {
+        return await _sender.Send(new GetOrderCancelationQuery());
+    }
 
-        // GET: api/OrderCancellation/GetAllOrderCancellations
-        // Retrieves all order cancellations.
-        [HttpGet]
-        [Route("GetAllOrderCancellations")]
-        [ProducesResponseType(typeof(List<OrderCancelationDto>), 200)]
-        public async Task<List<OrderCancelationDto>> GetAllOrderCancellations()
-        {
-            return await _sender.Send(new GetOrderCancelationQuery());
-        }
+    // GET: api/OrderCancellation/GetByOrderCancellationId/{id}
+    // Retrieves order cancellation details by ID.
+    [HttpGet]
+    [Route("GetByOrderCancellationId/{id:Guid}")]
+    [ProducesResponseType(typeof(OrderCancelationDetailDto), 200)]
+    public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(Guid id)
+    {
+        return await _sender.Send(new GetOrderCancelationDetailsQuery(id));
+    }
 
-        // GET: api/OrderCancellation/GetByOrderCancellationId/{id}
-        // Retrieves order cancellation details by ID.
-        [HttpGet]
-        [Route("GetByOrderCancellationId/{id:Guid}")]
-        [ProducesResponseType(typeof(OrderCancelationDetailDto), 200)]
-        public async Task<OrderCancelationDetailDto> GetByOrderCancellationId(Guid id)
-        {
-            return await _sender.Send(new GetOrderCancelationDetailsQuery(id));
-        }
+    // POST: api/OrderCancellation/CreateOrderCancellation
+    // Creates a new order cancellation.
+    [HttpPost]
+    [Route("CreateOrderCancellation")]
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> CreateOrderCancellation(CreateOrderCancellationDto orderCancellationDto)
+    {
+        var result = await _sender.Send(new CreateOrderCancellationCommand(orderCancellationDto));
+        return Ok(result);
+    }
 
-        // POST: api/OrderCancellation/CreateOrderCancellation
-        // Creates a new order cancellation.
-        [HttpPost]
-        [Route("CreateOrderCancellation")]
-        [ProducesResponseType(typeof(Guid), 200)]
-        public async Task<IActionResult> CreateOrderCancellation(CreateOrderCancellationDto orderCancellationDto)
-        {
-            var result = await _sender.Send(new CreateOrderCancellationCommand(orderCancellationDto));
-            return Ok(result);
-        }
+    // PUT: api/OrderCancellation/UpdateOrderCancellation
+    // Updates an existing order cancellation.
+    [HttpPut]
+    [Route("UpdateOrderCancellation")]
+    [ProducesResponseType(typeof(Guid), 200)]
+    public async Task<IActionResult> UpdateOrderCancellation(OrderCancelationDto orderCancellationDto)
+    {
+        var result = await _sender.Send(new UpdateOrderCancellationCommand(orderCancellationDto));
+        return Ok(result);
+    }
 
-        // PUT: api/OrderCancellation/UpdateOrderCancellation
-        // Updates an existing order cancellation.
-        [HttpPut]
-        [Route("UpdateOrderCancellation")]
-        [ProducesResponseType(typeof(Guid), 200)]
-        public async Task<IActionResult> UpdateOrderCancellation(OrderCancelationDto orderCancellationDto)
-        {
-            var result = await _sender.Send(new UpdateOrderCancellationCommand(orderCancellationDto));
-            return Ok(result);
-        }
-
-        // DELETE: api/OrderCancellation/DeleteOrderCancellation/{id}
-        // Deletes an order cancellation by ID.
-        [HttpDelete]
-        [Route("DeleteOrderCancellation/{id:Guid}")]
-        [ProducesResponseType(typeof(Unit), 200)]
-        public async Task<Unit> DeleteOrderCancellation(Guid id)
-        {
-            return await _sender.Send(new DeleteOrderCancellationCommand(id));
-        }
+    // DELETE: api/OrderCancellation/DeleteOrderCancellation/{id}
+    // Deletes an order cancellation by ID.
+    [HttpDelete]
+    [Route("DeleteOrderCancellation/{id:Guid}")]
+    [ProducesResponseType(typeof(Unit), 200)]
+    public async Task<Unit> DeleteOrderCancellation(Guid id)
+    {
+        return await _sender.Send(new DeleteOrderCancellationCommand(id));
     }
 }

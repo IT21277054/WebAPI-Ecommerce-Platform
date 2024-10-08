@@ -7,11 +7,12 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
+using Ecommerce.Application.Features.User.Queries.GetAllUsers;
 using MediatR;
 
 namespace Ecommerce.Application.Features.User.Commands.UpdateUser;
 
-public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Guid>
+public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, UserDto>
 {
     private readonly IMapper _mapper;
     private readonly IUserRepository _userRepository;
@@ -22,7 +23,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Guid>
         this._userRepository = userRepository;
     }
 
-    public async Task<Guid> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         // Validate incoming data (add validation logic here)
 
@@ -30,9 +31,10 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Guid>
         var userToUpdate = _mapper.Map<Domain.User>(request.dto);
 
         // Update user in the database
-        await _userRepository.UpdateAsync(userToUpdate);
+        var updatedUser = await _userRepository.UpdateByEmail(userToUpdate);
 
+        var user = _mapper.Map<UserDto>(updatedUser);
         // Return the updated user's ID
-        return userToUpdate.Id;
+        return user;
     }
 }

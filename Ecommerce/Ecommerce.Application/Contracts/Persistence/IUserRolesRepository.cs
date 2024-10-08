@@ -7,10 +7,9 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for UserRoles entities
+public interface IUserRolesRepository : IGenericRepository<UserRoles, Guid>
 {
-    // Repository interface for UserRoles entities
-    public interface IUserRolesRepository : IGenericRepository<UserRoles, Guid>
-    {
-    }
 }

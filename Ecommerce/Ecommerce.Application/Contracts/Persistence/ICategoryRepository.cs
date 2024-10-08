@@ -7,12 +7,11 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// ICategoryRepository extends the generic repository interface for Category entities.
+public interface ICategoryRepository : IGenericRepository<Category, int>
 {
-    // ICategoryRepository extends the generic repository interface for Category entities.
-    public interface ICategoryRepository : IGenericRepository<Category, int>
-    {
-        // Retrieves the last added category asynchronously.
-        Task<Category> GetLastCategoryAsync();
-    }
+    // Retrieves the last added category asynchronously.
+    Task<Category> GetLastCategoryAsync();
 }

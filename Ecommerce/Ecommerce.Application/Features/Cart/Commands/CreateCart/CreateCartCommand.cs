@@ -7,8 +7,7 @@
 
 using MediatR;
 
-namespace Ecommerce.Application.Features.Cart.Commands.CreateCart
-{
-    // Command for creating a new Cart
-    public record CreateCartCommand(CreateCartDto dto) : IRequest<Guid>;
-}
+namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
+
+// Command for creating a new Cart
+public record CreateCartCommand(CreateCartDto dto) : IRequest<Guid>;

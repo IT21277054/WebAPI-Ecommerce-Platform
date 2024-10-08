@@ -10,4 +10,4 @@ using MediatR;
 
 namespace Ecommerce.Application.Features.User.Commands.UpdateUser;
 
-public record UpdateUserCommand(UserDto dto) : IRequest<Guid>;
+public record UpdateUserCommand(UserDto dto) : IRequest<UserDto>;

@@ -15,10 +15,12 @@ public class Order : BaseEntity<Guid>
     public string Status { get; set; } = string.Empty;
     public ICollection<Items> Items { get; set; }
     public double Amount { get; set; }
+    public bool? IsCancellationApproved { get; set; }
 }
 
 public class Items : BaseEntity<Guid>
 {
+    public Guid? VendorId { get; set; }
     public string Status { get; set; } = string.Empty;
     public double Amount { get; set; }
     public int Quantity { get; set; }

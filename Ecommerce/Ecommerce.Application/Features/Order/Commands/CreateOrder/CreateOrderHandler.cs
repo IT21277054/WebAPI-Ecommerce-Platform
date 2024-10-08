@@ -29,6 +29,12 @@ public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, Guid>
 
         OrderToCreate.Id = Guid.NewGuid();
 
+        // Loop through items and assign new GUIDs
+        foreach (var item in OrderToCreate.Items)
+        {
+            item.Id = Guid.NewGuid();
+        }
+
         // Add to database
         await _orderRepository.CreateAsync(OrderToCreate);
 

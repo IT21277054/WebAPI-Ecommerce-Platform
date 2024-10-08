@@ -7,11 +7,12 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for User entities
+public interface IUserRepository : IGenericRepository<User, Guid>
 {
-    // Repository interface for User entities
-    public interface IUserRepository : IGenericRepository<User, Guid>
-    {
-        Task<Domain.User> GetByEmailAsync(string email);
-    }
+    Task<User> GetByEmailAsync(string email);
+    Task<User> UpdateByEmail(User entity);
+    Task<User> DeleteByEmail(string email);
 }

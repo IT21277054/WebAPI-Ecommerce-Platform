@@ -7,10 +7,9 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for inventory management extending the generic repository.
+public interface IInventoryRepository : IGenericRepository<Inventory, Guid>
 {
-    // Repository interface for inventory management extending the generic repository.
-    public interface IInventoryRepository : IGenericRepository<Inventory, Guid>
-    {
-    }
 }

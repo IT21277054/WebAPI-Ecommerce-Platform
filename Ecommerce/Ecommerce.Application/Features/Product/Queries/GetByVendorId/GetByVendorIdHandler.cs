@@ -7,10 +7,8 @@
 
 using AutoMapper;
 using Ecommerce.Application.Contracts.Persistence;
-using Ecommerce.Application.Exceptions;
 using Ecommerce.Application.Features.Product.Queries.GetProductDetails;
 using MediatR;
-using System.Collections.Generic;
 
 namespace Ecommerce.Application.Features.Product.Queries.GetByVendorId;
 

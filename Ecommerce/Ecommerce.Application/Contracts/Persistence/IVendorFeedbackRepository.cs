@@ -7,10 +7,9 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Repository interface for Vendor Feedback entities
+public interface IVendorFeedbackRepository : IGenericRepository<VendorFeedback, Guid>
 {
-    // Repository interface for Vendor Feedback entities
-    public interface IVendorFeedbackRepository : IGenericRepository<VendorFeedback, Guid>
-    {
-    }
 }

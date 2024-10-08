@@ -9,7 +9,7 @@ namespace Ecommerce.Application.Features.User.Queries.GetAllUsers;
 
 public class UserDto
 {
-    public Guid Id { get; set; }
+    public Guid? Id { get; set; } = Guid.Empty;
     public string Name { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string MobileNumber { get; set; } = string.Empty;
@@ -18,5 +18,5 @@ public class UserDto
     public string Region { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public string UserRole { get; set; } = string.Empty;
-    public bool isActivated { get; set; } = false;
+    public bool? isActivated { get; set; } = false;
 }

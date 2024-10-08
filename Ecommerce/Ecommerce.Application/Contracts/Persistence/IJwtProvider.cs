@@ -7,11 +7,10 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Contracts.Persistence
+namespace Ecommerce.Application.Contracts.Persistence;
+
+// Interface for generating JWT tokens for users.
+public interface IJwtProvider
 {
-    // Interface for generating JWT tokens for users.
-    public interface IJwtProvider
-    {
-        string Generate(User user);
-    }
+    string Generate(User user);
 }

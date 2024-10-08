@@ -20,5 +20,6 @@ public class OrderCancelationProfile : Profile
         CreateMap<OrderCancelationDto, OrderCancelation>().ReverseMap();
         CreateMap<OrderCancelationDetailDto, OrderCancelation>().ReverseMap();
         CreateMap<CreateOrderDto, OrderCancelation>();
+        CreateMap<ItemsDto, Items>().ReverseMap();
     }
 }

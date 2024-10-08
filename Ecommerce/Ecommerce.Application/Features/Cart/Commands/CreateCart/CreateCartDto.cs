@@ -7,12 +7,11 @@
 
 using Ecommerce.Domain;
 
-namespace Ecommerce.Application.Features.Cart.Commands.CreateCart
+namespace Ecommerce.Application.Features.Cart.Commands.CreateCart;
+
+// Data Transfer Object for creating a new Cart
+public class CreateCartDto
 {
-    // Data Transfer Object for creating a new Cart
-    public class CreateCartDto
-    {
-        public ICollection<CartItem> Items { get; set; }
-        public Guid UserId { get; set; }
-    }
+    public ICollection<CartItem> Items { get; set; }
+    public Guid UserId { get; set; }
 }

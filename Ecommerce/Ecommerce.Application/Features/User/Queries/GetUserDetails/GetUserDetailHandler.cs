@@ -27,7 +27,7 @@ public class GetUserDetailHandler : IRequestHandler<GetUserDetailQuery, UserDeta
     public async Task<UserDetailDto> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
     {
         // Fetch user details by ID
-        var userDetail = await _userRepository.GetByIdAsync(request.Id);
+        var userDetail = await _userRepository.GetByEmailAsync(request.email);
 
         // Map user entity to DTO
         var data = _mapper.Map<UserDetailDto>(userDetail);

@@ -17,4 +17,5 @@ public class OrderDetailDto
     public string Status { get; set; } = string.Empty;
     public ICollection<Items> Items { get; set; }
     public double Amount { get; set; }
+    public bool? IsCancellationApproved { get; set; }
 }
