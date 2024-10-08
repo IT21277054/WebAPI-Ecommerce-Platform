@@ -17,4 +17,5 @@ public interface IOrderRepository : IGenericRepository<Order, Guid>
     Task<Order> GenerateOrder(string email);
     Task<Order> GetOrderByEmail(string email);
     Task<Items> CancelItem(Guid itemId);
+    Task<Items> UpdateItemStatus(Guid itemId);
 }

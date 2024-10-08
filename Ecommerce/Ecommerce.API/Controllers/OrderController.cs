@@ -10,6 +10,7 @@ using Ecommerce.Application.Features.Order.Commands.CancelItem;
 using Ecommerce.Application.Features.Order.Commands.CreateOrder;
 using Ecommerce.Application.Features.Order.Commands.DeleteOrder;
 using Ecommerce.Application.Features.Order.Commands.GenerateOrder;
+using Ecommerce.Application.Features.Order.Commands.UpdateItemStatus;
 using Ecommerce.Application.Features.Order.Commands.UpdateItemWithItemId;
 using Ecommerce.Application.Features.Order.Commands.UpdateOrder;
 using Ecommerce.Application.Features.Order.Queries.GetAllOrders;
@@ -98,6 +99,17 @@ public class OrderController : ControllerBase
     public async Task<IActionResult> CancelItem(Guid itemId)
     {
         var result = await _sender.Send(new CancelItemCommand(itemId));
+        return Ok(new { data = result });
+    }
+
+    // PUT: api/Order/CancelItem/{VendorId}
+    // Request to cancel item.
+    [HttpPut]
+    [Route("UpdateItemStatusByItemId/{itemId:Guid}")]
+    [ProducesResponseType(typeof(ItemsDto), 200)]
+    public async Task<IActionResult> UpdateItemStatusByItemId(Guid itemId)
+    {
+        var result = await _sender.Send(new UpdateItemStatusCommand(itemId));
         return Ok(new { data = result });
     }
 

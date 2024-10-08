@@ -163,4 +163,46 @@ public class OrderRepository : GenericRepository<Order, Guid>, IOrderRepository
         return itemToCancel;
     }
 
+    public async Task<Items> UpdateItemStatus(Guid itemId)
+    {
+        // Retrieve all orders from the database
+        var allOrders = await _context.Set<Order>()
+            .Include(o => o.Items)
+            .AsNoTracking()
+            .ToListAsync();
+
+        // Find the specific item in all orders
+        var orderWithItem = allOrders.FirstOrDefault(order =>
+            order.Items.Any(item => item.Id == itemId));
+
+        if (orderWithItem == null)
+        {
+            throw new Exception("Item not found in any order");
+        }
+
+        // Get the item to update
+        var itemToUpdate = orderWithItem.Items.First(item => item.Id == itemId);
+
+        // Update the status of the item to "delivered"
+        itemToUpdate.Status = "delivered";
+
+        // Check if all items in the order are delivered
+        if (orderWithItem.Items.All(item => item.Status == "delivered"))
+        {
+            orderWithItem.Status = "delivered";
+        }
+        else if (orderWithItem.Items.Any(item => item.Status == "delivered"))
+        {
+            orderWithItem.Status = "partially delivered";
+        }
+
+        // Update the order and save the changes
+        _context.Set<Order>().Update(orderWithItem);
+
+        await _context.SaveChangesAsync();
+
+        // Return the updated item
+        return itemToUpdate;
+    }
+
 }
