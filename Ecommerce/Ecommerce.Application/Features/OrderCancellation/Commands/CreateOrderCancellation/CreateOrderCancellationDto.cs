@@ -14,4 +14,5 @@ public class CreateOrderCancellationDto
     public string Description { get; set; } = string.Empty;
     public string Date { get; set; } = string.Empty;
     public Guid OrderId { get; set; }
+    public bool? isApproved { get; set; }
 }
