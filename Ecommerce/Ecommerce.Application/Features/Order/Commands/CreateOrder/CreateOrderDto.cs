@@ -14,7 +14,7 @@ public class CreateOrderDto
     public string Status { get; set; } = string.Empty;
     public ItemsDto[]? Items { get; set; }
     public double Amount { get; set; }
-    public bool? IsCancellationApproved { get; set; }
+    public string? cancellationNotice { get; set; } = string.Empty;
 }
 
 public class ItemsDto
